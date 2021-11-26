@@ -41,7 +41,7 @@ public class MainController {
 	@GetMapping("/signup")
 	public String signup(Model model) {
 		model.addAttribute("user", new Users());
-		return "signup";
+		return "signup2";
 	}
 	
 	@PostMapping("/registered")
@@ -66,7 +66,7 @@ public class MainController {
 				catch (Exception e) {
 					System.out.println(e);
 				}
-				return "signup";
+				return "signup2";
 			}
 			Users users2 = userRepository.findByEmail(email).get(0);
 			System.out.println(otp + " " + users2.getOneTimePassword());
@@ -75,14 +75,13 @@ public class MainController {
 			else {
 				model.addAttribute("user", users);
 				model.addAttribute("otpbool", true);
-				return "signup";
+				return "signup2";
 			}
-	}	
+	}
 
-
-	@GetMapping("/login")	
+	@GetMapping("/login")
 	public String login() {
-		return "login";
+		return "login2";
 	}
 	
 	@GetMapping("/do-login")

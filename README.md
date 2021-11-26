@@ -2,7 +2,7 @@
 
 ## To Push (In the end)
 git status
-git add .(/filename)
+git add *(/filename)
 git commit -m "Changes"
 git push
 
