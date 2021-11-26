@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Registration Success</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.1.1/css/bootstrap.min.css" />
+    <script type="text/javascript" src="/webjars/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/5.1.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Cinema E-Booking</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <div sec:authorize="isAuthenticated() || isAnonymous()">
+                    <a class="btn btn-secondary" th:href="@{/}">Home</a>
+                </div>
+
+                <div sec:authorize="isAuthenticated() || isAnonymous()">
+                    <a class="btn btn-secondary" th:href="@{/categories}">Categories</a>
+                </div>
+
+                <div sec:authorize="isAnonymous()">
+                    <a class="btn btn-secondary" th:href="@{/login}">Login</a>
+                </div>
+
+                <div sec:authorize="isAnonymous()">
+                    <a class="btn btn-secondary" th:href="@{/register}">Register</a>
+                </div>
+
+                <div sec:authorize="isAuthenticated() || isAnonymous()">
+                    <a class="btn btn-secondary" th:href="@{/cart}">Cart</a>
+                </div>
+
+                <div sec:authorize="isAuthenticated()">
+                    <a class="btn btn-secondary" th:href="@{/profile}">[[${#request.userPrincipal.principal.fullName}]]</a>
+                </div>
+
+                <div sec:authorize="hasAuthority('ADMIN')">
+                    <a class="btn btn-secondary" th:href="@{/admin-portal}">Admin Portal</a>
+                </div>
+
+                <div sec:authorize="isAuthenticated()">
+                    <a class="btn btn-secondary" href="javascript: logoutForm.submit();">Logout</a>
+                </div>
+
+                <form name="logoutForm" th:hidden="true" method="post" th:action="@{/doLogout}">
+                    <input type="submit" value="Logout" />
+                </form>
+            </ul>
+        </div>
+    </nav>
+</header>
+<div class="container text-center">
+    <br>
+    <h3>You have signed up successfully!</h3>
+    <br>
+    <p>Please check your email to verify your account.</p>
+    <br>
+    <a class="btn btn-primary"
+       th:href="@{/login}">Login</a>
+</div>
+
+</body>
+</html>

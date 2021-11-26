@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Sign Up - Cinema E-Booking</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.1.1/css/bootstrap.min.css"/>
+    <script type="text/javascript" src="/webjars/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/5.1.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Cinema E-Booking</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <div sec:authorize="isAuthenticated() || isAnonymous()">
+                    <a class="btn btn-secondary" th:href="@{/}">Home</a>
+                </div>
+
+                <div sec:authorize="isAuthenticated() || isAnonymous()">
+                    <a class="btn btn-secondary" th:href="@{/categories}">Categories</a>
+                </div>
+
+                <div sec:authorize="isAnonymous()">
+                    <a class="btn btn-secondary" th:href="@{/login}">Login</a>
+                </div>
+
+                <div sec:authorize="isAnonymous()">
+                    <a class="btn btn-success" th:href="@{/register}">Register</a>
+                </div>
+
+                <div sec:authorize="isAuthenticated() || isAnonymous()">
+                    <a class="btn btn-secondary" th:href="@{/cart}">Cart</a>
+                </div>
+
+                <div sec:authorize="isAuthenticated()">
+                    <a class="btn btn-secondary" th:href="@{/profile}">[[${#request.userPrincipal.principal.fullName}]]</a>
+                </div>
+
+                <div sec:authorize="hasAuthority('ADMIN')">
+                    <a class="btn btn-secondary" th:href="@{/admin-portal}">Admin Portal</a>
+                </div>
+
+                <div sec:authorize="isAuthenticated()">
+                    <a class="btn btn-secondary" href="javascript: logoutForm.submit();">Logout</a>
+                </div>
+
+                <form name="logoutForm" th:hidden="true" method="post" th:action="@{/doLogout}">
+                    <input type="submit" value="Logout" />
+                </form>
+            </ul>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+            <form th:action="@{/process_search}" method="post" class="form-inline my-2 my-lg-0">
+                <div style="float:left;">
+                    <input type="text" th:value="${search}" th:name="search" th:id="search" class="form-control  mr-sm-2" minlength="1"
+                           id="inputSearch" placeholder="Search">
+                </div>
+                <div style="float:left;">
+                    <button type="submit" class="btn btn-outline-success my-2 my-sm-0">Search</button>
+                </div>
+            </form>
+        </div>
+    </nav>
+</header>
+<div class="container text-center">
+    <div>
+        <br>
+        <h1>User Registration - Sign Up</h1>
+        <p>* fields are required</p>
+        <br>
+        <h3>General Account Info</h3>
+    </div>
+    <form th:action="@{/process_register}"
+          method="post" style="max-width: 600px; margin: 0 auto;">
+        <form class="m-3">
+            <div class="form-group row">
+                <label class="col-4 col-form-label">E-mail* : </label>
+                <div class="col-8">
+                    <input type="email" th:value="${user.email}" th:name="email" th:id="email" class="form-control"
+                           required/>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-4 col-form-label">Password* : </label>
+                <div class="col-8">
+                    <input type="password" th:value="${user.password}" th:name="password" th:id="password"
+                           class="form-control"
+                           required minlength="6" maxlength="10"/>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-4 col-form-label">First Name* : </label>
+                <div class="col-8">
+                    <input type="text" th:value="${user.firstName}" th:name="firstName" th:id="firstName"
+                           class="form-control"
+                           required minlength="2" maxlength="20"/>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-4 col-form-label">Last Name* : </label>
+                <div class="col-8">
+                    <input type="text" th:value="${user.lastName}" th:name="lastName" th:id="lastName"
+                           class="form-control"
+                           required minlength="2" maxlength="20"/>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" th:checked="${user.promotions}" th:name="promotions"
+                           th:id="promotions" id="gridCheck">
+                    <label class="form-check-label" for="gridCheck">
+                        Send me Promotions
+                    </label>
+                </div>
+            </div>
+            <br>
+            <h3>Address Info</h3>
+
+            <div class="form-group row">
+                <label for="inputAddress" class="col-4 col-form-label">Address : </label>
+                <div class="col-8">
+                    <input type="text" th:value="${address.street}" th:name="street" th:id="street" class="form-control"
+                           id="inputAddress" placeholder="1234 Main St">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputAddress2" class="col-4 col-form-label">Address 2 : </label>
+                <div class="col-8">
+                    <input type="text" th:value="${address.appartmentNumber}" th:name="appartmentNumber"
+                           th:id="appartmentNumber" class="form-control" id="inputAddress2"
+                           placeholder="Apartment, studio, or floor">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="form-group col-6">
+                    <label for="inputCity" class="col-4 col-form-label">City: </label>
+                    <input type="text" th:value="${address.city}" th:name="city" th:id="city" class="form-control"
+                           id="inputCity">
+                </div>
+                <div class="form-group col-4">
+                    <label for="inputState" class="col-4 col-form-label">State: </label>
+                    <input type="text" th:value="${address.state}" th:name="state" th:id="state" class="form-control"
+                           id="inputState"
+                           minlength="2" maxlength="2"/>
+                </div>
+                <div class="form-group col-2">
+                    <label for="inputZip" class="col-4 col-form-label">Zip:</label>
+                    <input type="tel" th:value="${address.zipCode}" th:name="zipCode" th:id="zipCode"
+                           class="form-control" id="inputZip">
+                </div>
+            </div>
+
+
+            <form role="form">
+                <th:block th:if="${user.id == null}">
+                    <!-- Credit card form content -->
+                    <br>
+                    <h3>Payment Method 1</h3>
+
+                    <div class="form-group row">
+                        <label class="col-4 col-form-label">Card Type:</label>
+                        <div class="col-8">
+                            <select class="col-4 form-control" name="cardType">
+                                <option selected></option>
+                                <option>Visa</option>
+                                <option>MasterCard</option>
+                                <option>AmericanExpress</option>
+                                <option>Discover</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="tab-content">
+                        <!-- credit card info-->
+                        <div class="tab-pane fade show active pt-3">
+                            <div class="form-group">
+                                <label data-toggle="tooltip"
+                                       title="Input 16 digits with no spaces or -'s found on front of card">Card number
+                                    :</label>
+                                <div class="input-group">
+                                    <input type="tel" name="cardNumber"
+                                           placeholder="Valid card number (no spaces or -'s)" class="form-control"
+                                           minlength="16" maxlength="16">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <div class="form-group"><label><span class="hidden-xs">
+                                                    <h6>Expiration Date</h6>
+                                                </span></label>
+                                        <div class="input-group">
+                                            <input type="number" name="expMonth" placeholder="MM" class="form-control"
+                                                   minlength="1" maxlength="2" min="1" max="12">
+                                            <input type="tel" name="expYear" placeholder="YY" class="form-control"
+                                                   minlength="2" maxlength="2">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group mb-4"><label data-toggle="tooltip"
+                                                                        title="Three digit CV code on the back of your card">
+                                        <h6>CVV <i class="fa fa-question-circle d-inline"></i></h6>
+                                    </label> <input type="tel" name="cvv" placeholder="123" class="form-control"
+                                                    minlength="3" maxlength="3"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- End -->
+
+                    <!-- Credit card form content -->
+                    <br>
+                    <h3>Payment Method 2</h3>
+
+                    <div class="form-group row">
+                        <label class="col-4 col-form-label">Card Type:</label>
+                        <div class="col-8">
+                            <select class="col-4 form-control" name="cardType">
+                                <option selected></option>
+                                <option>Visa</option>
+                                <option>MasterCard</option>
+                                <option>AmericanExpress</option>
+                                <option>Discover</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="tab-content">
+                        <!-- credit card info-->
+                        <div class="tab-pane fade show active pt-3">
+                            <div class="form-group">
+                                <label data-toggle="tooltip"
+                                       title="Input 16 digits with no spaces or -'s found on front of card">Card number
+                                    :</label>
+                                <div class="input-group">
+                                    <input type="tel" name="cardNumber"
+                                           placeholder="Valid card number (no spaces or -'s)" class="form-control"
+                                           minlength="16" maxlength="16">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <div class="form-group"><label><span class="hidden-xs">
+                                                    <h6>Expiration Date</h6>
+                                                </span></label>
+                                        <div class="input-group">
+                                            <input type="number" name="expMonth" placeholder="MM" class="form-control"
+                                                   minlength="1" maxlength="2" min="1" max="12">
+                                            <input type="tel" name="expYear" placeholder="YY" class="form-control"
+                                                   minlength="2" maxlength="2">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group mb-4"><label data-toggle="tooltip"
+                                                                        title="Three digit CV code on the back of your card">
+                                        <h6>CVV <i class="fa fa-question-circle d-inline"></i></h6>
+                                    </label> <input type="tel" name="cvv" placeholder="123" class="form-control"
+                                                    minlength="3" maxlength="3"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- End -->
+
+                    <!-- Credit card form content -->
+                    <br>
+                    <h3>Payment Method 3</h3>
+
+                    <div class="form-group row">
+                        <label class="col-4 col-form-label">Card Type:</label>
+                        <div class="col-8">
+                            <select class="col-4 form-control" name="cardType">
+                                <option selected></option>
+                                <option>Visa</option>
+                                <option>MasterCard</option>
+                                <option>AmericanExpress</option>
+                                <option>Discover</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="tab-content">
+                        <!-- credit card info-->
+                        <div class="tab-pane fade show active pt-3">
+
+                            <div class="form-group">
+                                <label data-toggle="tooltip"
+                                       title="Input 16 digits with no spaces or -'s found on front of card">Card number
+                                    :</label>
+                                <div class="input-group">
+                                    <input type="tel" name="cardNumber"
+                                           placeholder="Valid card number (no spaces or -'s)" class="form-control"
+                                           minlength="16" maxlength="16">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <div class="form-group"><label><span class="hidden-xs">
+                                                    <h6>Expiration Date</h6>
+                                                </span></label>
+                                        <div class="input-group">
+                                            <input type="number" name="expMonth" placeholder="MM" class="form-control"
+                                                   minlength="1" maxlength="2" min="1" max="12">
+                                            <input type="tel" name="expYear" placeholder="YY" class="form-control"
+                                                   minlength="2" maxlength="2">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group mb-4"><label data-toggle="tooltip"
+                                                                        title="Three digit CV code on the back of your card">
+                                        <h6>CVV <i class="fa fa-question-circle d-inline"></i></h6>
+                                    </label> <input type="tel" name="cvv" placeholder="123" class="form-control"
+                                                    minlength="3" maxlength="3"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div> <!-- End -->
+                </th:block>
+
+
+                <th:block th:unless="${user.id == null}" th:each="creditcard, status : ${user.creditCards}">
+                    <input type="hidden" name="cardID" th:value="${creditcard.cardID}"/>
+                    <input type="hidden" name="userID" th:value="${user.id}"/>
+                    <!-- Credit card form content -->
+                    <h3>Payment Method #[[${status.count}]]</h3>
+
+                    <div class="form-group row">
+                        <label class="col-4 col-form-label">Card Type:</label>
+                        <div class="col-8">
+                            <select class="col-4 form-control" name="cardType" th:value="${creditcard.cardType}">
+                                <option selected></option>
+                                <option>Visa</option>
+                                <option>MasterCard</option>
+                                <option>AmericanExpress</option>
+                                <option>Discover</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="tab-content">
+                        <!-- credit card info-->
+                        <div class="tab-pane fade show active pt-3">
+                            <div class="form-group">
+                                <label data-toggle="tooltip"
+                                       title="Input 16 digits with no spaces or -'s found on front of card">Card number
+                                    :</label>
+                                <div class="input-group">
+                                    <input type="tel" name="cardNumber"
+                                           th:value="${creditcard.cardNumber}" class="form-control"
+                                           minlength="16" maxlength="16">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <div class="form-group"><label><span class="hidden-xs">
+                                                    <h6>Expiration Date</h6>
+                                                </span></label>
+                                        <div class="input-group">
+                                            <input type="number" name="expMonth" th:value="${creditcard.expMonth}"
+                                                   class="form-control"
+                                                   minlength="1" maxlength="2" min="1" max="12">
+                                            <input type="tel" name="expYear" th:value="${creditcard.expYear}"
+                                                   class="form-control"
+                                                   minlength="2" maxlength="2">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group mb-4"><label data-toggle="tooltip"
+                                                                        title="Three digit CV code on the back of your card">
+                                        <h6>CVV <i class="fa fa-question-circle d-inline"></i></h6>
+                                    </label> <input type="tel" name="cvv" th:value="${creditcard.cvv}"
+                                                    class="form-control"
+                                                    minlength="3" maxlength="3"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- End -->
+
+                </th:block>
+
+                <div>
+                    <button type="submit" class="btn btn-primary">Confirm</button>
+                </div>
+                <br>
+                <br>
+            </form>
+
+        </form>
+    </form>
+</div>
+</body>
+</html>

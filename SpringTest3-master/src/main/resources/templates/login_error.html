@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Login - Cinema E-Booking</title>
+
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="styleguide.css"/>
+    <link rel="icon" type="image/png" href="img/fav.png">
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.1.1/css/bootstrap.min.css" />
+    <script type="text/javascript" src="/webjars/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/5.1.1/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Cinema E-Booking</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <div sec:authorize="isAuthenticated() || isAnonymous()">
+                    <a class="btn btn-secondary" th:href="@{/}">Home</a>
+                </div>
+
+                <div sec:authorize="isAuthenticated() || isAnonymous()">
+                    <a class="btn btn-secondary" th:href="@{/categories}">Categories</a>
+                </div>
+
+                <div sec:authorize="isAnonymous()">
+                    <a class="btn btn-success" th:href="@{/login}">Login</a>
+                </div>
+
+                <div sec:authorize="isAnonymous()">
+                    <a class="btn btn-secondary" th:href="@{/register}">Register</a>
+                </div>
+
+                <div sec:authorize="isAuthenticated() || isAnonymous()">
+                    <a class="btn btn-secondary" th:href="@{/cart}">Cart</a>
+                </div>
+
+                <div sec:authorize="isAuthenticated()">
+                    <a class="btn btn-secondary" th:href="@{/profile}">[[${#request.userPrincipal.principal.fullName}]]</a>
+                </div>
+
+                <div sec:authorize="hasAuthority('ADMIN')">
+                    <a class="btn btn-secondary" th:href="@{/admin-portal}">Admin Portal</a>
+                </div>
+
+                <div sec:authorize="isAuthenticated()">
+                    <a class="btn btn-secondary" href="javascript: logoutForm.submit();">Logout</a>
+                </div>
+
+                <form name="logoutForm" th:hidden="true" method="post" th:action="@{/doLogout}">
+                    <input type="submit" value="Logout" />
+                </form>
+            </ul>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+            <form th:action="@{/process_search}" method="post" class="form-inline my-2 my-lg-0">
+                <div style="float:left;">
+                    <input type="text" th:value="${search}" th:name="search" th:id="search" class="form-control  mr-sm-2" minlength="1"
+                           id="inputSearch" placeholder="Search">
+                </div>
+                <div style="float:left;">
+                    <button type="submit" class="btn btn-outline-success my-2 my-sm-0">Search</button>
+                </div>
+            </form>
+        </div>
+    </nav>
+</header>
+<div class="container text-center">
+    <div>
+        <br>
+        <h1>Login to Cinema E-Booking</h1>
+        <br>
+        <form th:action="@{/login}" method="post" style="max-width: 400px; margin: 0 auto;"><input type="hidden" name="_csrf">
+            <p>
+                E-mail: <input type="email" name="username" required />
+            </p>
+            <p>
+                Password: <input type="password" name="password" required />
+            </p>
+            <p>
+                <input type="submit" value="Login" />
+            </p>
+        </form>
+        <h3>Error - Please Try Again</h3>
+    </div>
+    <div>
+        <br>
+        <h2>Forgot your password?</h2>
+        <br>
+        <a class="btn btn-primary"
+           th:href="@{/reset}">Reset Here</a>
+        <br>
+        <br>
+        <h2>Need an Account?</h2>
+        <br>
+        <a class="btn btn-primary"
+           th:href="@{/register}">Register Here</a>
+        <br>
+    </div>
+</div>
+</body>
+</html>

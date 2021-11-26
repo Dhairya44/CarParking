@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="../styleguide.css">
+        <link rel="icon" type="image/png" href="img/fav.png">
+    </head>
+    <body id="movie-info">
+        <header>
+            <div class="navbar">
+                <span id="theater"><h1>Your Theater</h1></span>
+                <div class="flex">
+                    <input type="text" name="search" id="search" placeholder="Movie Title, Genre, or Showtime...">
+                    <label for="search"><button type="button" id="search-input">Search</button></label>
+                    <h3 class="nav">Home</h3>
+                    <h3 class="nav">Categories</h3>
+                    <h3 class="nav">Login/Register</h3>
+                    <span class="cart-area">
+                        <h3 class="nav">Cart</h3>
+                        <img src="../img/cart-black.png" id="cart">
+                    </span>
+                </div>
+            </div>
+        </header>
+        <main>
+            <h1>Shang-Chi and the Legend of the Ten Rings</h1>
+            <div class="video">
+                <iframe
+                    style="border: 0; pointer-events: auto"
+                    id="ytplayer"
+                    type="text/html"
+                    width="100%"
+                    height="100%"
+                    src="https://www.youtube.com/embed/8YjFbMbfXaQ?rel=0"
+                    frameborder="0"
+                    allowfullscreen="allowfullscreen"
+                    mozallowfullscreen="mozallowfullscreen"
+                    msallowfullscreen="msallowfullscreen"
+                    oallowfullscreen="oallowfullscreen"
+                    webkitallowfullscreen="webkitallowfullscreen"
+                ></iframe>
+            </div>
+            <div class="infom">
+                <h2>Synopsis:</h2>
+                <p>Martial-arts master Shang-Chi confronts the past he thought he left behind when he's drawn into the web of the mysterious Ten Rings organization.</p>
+                <div class="qna">
+                    <span class="q">Rating:</span>
+                    <span class="a">  PG-13</span>
+                </div>
+                <br>
+                <div class="qna">
+                    <span class="q">Category:</span>
+                    <span class="a">  Action</span>
+                </div>
+                <h2>Cast:</h2>
+                <p>Simu Liu, Awkwafina, Fala Chen, Michelle Yeoh</p>
+                <div class="qna">
+                    <span class="q">Director:</span>
+                    <span class="a">  Destin Daniel Cretton</span>
+                </div>
+                <br>
+                <div class="qna">
+                    <span class="q">Producer:</span>
+                    <span class="a">  Kevin Feige, Jonathan Schwartz</span>
+                </div>
+                <h2>Reviews:</h2>
+                <div class="revs">
+                    <div class="review">
+                        <p>"It's a strong debut for a new hero, injecting diverse blood into the MCU in a way that does not feel forced or hollow. I just think the overall film is still less than the sum of its more outstanding parts."</p>
+                        <div class="author">
+                            <h3>Sara Michelle Fetters</h3>
+                            <h4>MovieFreak.com</h4>
+                        </div>
+                    </div>
+                    <div class="review">
+                        <p>"Shang-Chi and the Legend of the Ten Rings at least continues the studio's track record of enlisting the talents of truly great artists. Here, that would be the commanding and charismatic Leung."</p>
+                        <div class="author">
+                            <h3>Nick Schager</h3>
+                            <h4>The Daily Beast</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <aside>
+            <div class="select">
+                <h1 class="book">Book Your Tickets</h1>
+                <img src="../img/date.png">
+                <img src="../img/showtime.png">
+                <img src="../img/child.png">
+                <img src="../img/adult.png">
+                <img src="../img/senior.png">
+                <button type="button">Select Seats</button>
+            </div>
+        </aside>
+    </body>
+</html>

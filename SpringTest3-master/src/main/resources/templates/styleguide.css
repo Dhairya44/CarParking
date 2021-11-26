@@ -1,0 +1,696 @@
+{
+    padding: 0;
+    margin: 0;
+}
+
+#homepage, #movie-info, #admin-home, #login, #register, #seat-selection, #purchase-history, #promotions, #manage-movies, #manage-schedule{
+    background-color: #353d3f;
+}
+
+main {
+    width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h1, h2, h3, p, label, .titleSU, .reqEx, .a {
+    font-family: sans-serif;
+}
+
+h1 {
+    color: #d5d6d2;
+}
+
+.navbar {
+    background-color: #ff8d3f;
+    width: 100%;
+    height: 75px;
+    line-height: 75px;
+    border-bottom: 3px solid black;
+}
+
+.flex {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 80%;
+    gap: 15px;
+}
+
+.nav {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+#theater {
+    display: inline-block;
+    vertical-align: center;
+    line-height: normal;
+    color: white;
+    margin-left: 25px;
+    text-shadow: 0 0 2px black;
+}
+
+#search {
+    width: 30rem;
+    height: 30px;
+    border-radius: 4px;
+    background-color: #e0e0e0;
+    padding-left: 15px;
+    font-size: 24px;
+}
+
+#search:placeholder-shown {
+    font-style: italic;
+}
+
+#search-input {
+    background-color: #353d3f;
+    color: #e0e0e0;
+    border-radius: 10px;
+    padding: 5px 7px;
+    font-size: large; 
+}
+
+.cart-area {
+    display: flex;
+    align-items: center;
+}
+
+#cart {
+    height: 20px;
+    width: 20px;
+}
+
+.coming-soon {
+    margin-top: 15px;
+}
+
+.now-showing {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.header {
+    font-size: 6em;
+    margin-bottom: 30px;
+    text-decoration: underline;
+    text-underline-offset: 5px;
+}
+
+.scroll-area {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.card {
+    height: 425px;
+    width: 330px;
+    /*background-color: #d5d6d2;*/
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+    box-shadow: 0px 1px 5px black;
+}
+
+.movie-info {
+    margin-top: 15px;
+    font-size: large;
+    text-align: center;
+    color: #e0e0e0;
+}
+
+.info {
+    background-color: #ff781f;
+    font-size: 20px;
+    padding: 10px 15px;
+    border-radius: 7px;
+    position: relative;
+    top: 5%;
+    left: 30%;
+}
+
+.arrow {
+    width: 30px;
+    height: 50px;
+}
+
+#admin-home .admin-buttons {
+    display: flex;
+    align-items: center;
+    margin-top: 180px;
+    margin-left: auto;
+    margin-right: auto;
+    flex-wrap: wrap;
+    width: 650px;
+    gap: 120px;
+}
+
+#admin-home .admin-buttons button {
+    height: 100px;
+    width: 250px;
+    border-radius: 15px;
+    background-color: #ff781f;
+    font-size: 22px;
+    color: white;
+    text-shadow: 0 0 2px black;
+    box-shadow: 0 0 5px black;
+}
+
+#admin-home .cart-area {
+    visibility: hidden;
+}
+
+#login .login-register {
+    display: flex;
+    align-items: center;
+    margin-top: 100px;
+    margin-left: 325px;
+}
+
+#login .signin {
+    background-color: #d5d6d2;
+    width: 450px;
+    height: 450px;
+    border-bottom-left-radius: 7px;
+    border-top-left-radius: 7px;
+    border-right: 2px solid black;
+    box-shadow: -1px 1px 5px black;
+}
+
+#login .login-register h1 {
+    text-align: center;
+    margin-top: 25px;
+    text-decoration: underline;
+    text-underline-offset: 7px;
+    font-size: 2.2em;
+}
+
+#login #signin-form {
+    margin-top: 25px;
+    margin-left: 120px;
+}
+
+#login .signin h1 {
+    color: #ff8d3f;
+}
+
+#login .signin label {
+    color: #353d3f;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+#login .signin input {
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    width: 220px;
+    height: 30px;
+    padding-left: 10px;
+}
+
+#login .signin input:placeholder-shown {
+    font-style: italic;
+}
+
+#login .email input {
+    margin-bottom: 20px;
+}
+
+#login .password input {
+    margin-bottom: 5px;
+}
+
+#login .email label:after, #login .password label:after {
+    color: red;
+    content: " *";
+    display: inline;
+}
+
+#forgotpass {
+    font-size: .9em;
+    color: gray;
+    text-decoration: underline;
+    font-style: italic;
+    margin-left: 60px;
+    margin-bottom: 30px;
+}
+
+#login .signin button {
+    background-color: #ff8d3f;
+    border-radius: 15px;
+    height: 40px;
+    width: 100px;
+    font-size: 17px;
+    font-weight: bold;
+    color: white;
+    margin-left: 60px;
+}
+
+#login .make-account {
+    background-color: #ff8d3f;
+    width: 450px;
+    height: 450px;
+    border-bottom-right-radius: 7px;
+    border-top-right-radius: 7px;
+    box-shadow: 1px 1px 5px black;
+}
+
+#login .make-account button {
+    background-color: #d5d6d2;
+    border-radius: 20px;
+    height: 75px;
+    width: 175px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #ff781f;
+    margin-left: 135px;
+    margin-top: 110px;
+}
+
+#register .titleReg {
+    margin-top: 30px;
+    margin-left: 35%;
+}
+
+#register .titleSU {
+    font-size: 3em;
+    color: #d5d6d2;
+    font-weight: bold;
+    text-decoration: underline;
+    text-underline-offset: 10px;
+    margin-right: 20px;
+}
+
+#register .reqEx {
+    font-size: 20px;
+    color: white;
+    font-style: italic;
+}
+
+#register .signup-flex {
+    display: flex;
+    /*background-color: #d5d6d2;*/
+    margin-top: 20px;
+    gap: 140px;
+    margin-left: 95px;
+}
+
+#register #req {
+    align-self: center;
+    margin-top: 10px;
+}
+
+#register h2 {
+    color: #ff8d3f;
+    font-size: 2em;
+    font-weight: bold;
+    text-decoration: underline;
+    text-underline-offset: 5px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+#register input, #register select {
+    height: 35px;
+    background-color: gray;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+#register select {
+    width: 345px;
+    text-align: center;
+    color: white;
+    text-shadow: 0px 0px 2px black;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+#register .regsize {
+    width: 325px;
+    padding-left: 15px;
+}
+
+#register .smallsize {
+    width: 150px;
+    padding-left: 15px;
+}
+
+#register input:placeholder-shown {
+    font-style: italic;
+}
+
+#register input::placeholder {
+    color: white;
+    text-shadow: 0px 0px 2px black;
+}
+
+#register #pswd {
+    margin-bottom: 5px;
+}
+
+#register #passreqs {
+    color: gray;
+    font-size: 11px;
+    font-style: italic;
+    margin-left: 5px;
+    text-shadow: 0px 0px 0.5px white;
+    margin-bottom: 15px;
+}
+
+
+#register .checkpromo input, #register .checkpromo label {
+    display: inline-block;
+}
+
+#register label {
+    color: white;
+}
+
+#signup-form button {
+    height: 50px;
+    width: 100px;
+    border-radius: 7px;
+    background-color: #ff8d3f;
+    color: #e0e0e0;
+    font-weight: bold;
+    font-size: 20px;
+    margin-left: 37%;
+}
+
+#seat-selection h2 {
+    color: #d5d6d2;
+    margin-top: 20px;
+}
+
+#seat-selection main img {
+    width: 1200px;
+    height: 500px;
+    margin-left: 50px;
+}
+
+#seat-selection main button {
+    height: 50px;
+    width: 175px;
+    border-radius: 7px;
+    background-color: #ff8d3f;
+    color: #e0e0e0;
+    font-size: 20px;
+    margin-left: 1150px;
+}
+
+#movie-info aside {
+    float: right;
+    width: 30%;
+    margin-top: 50px;
+}
+
+#movie-info main {
+    float: left;
+    width: 60%;
+    margin-left: 50px;
+    margin-top: 20px;
+}
+
+#movie-info main h1 {
+    text-decoration: underline;
+    text-underline-offset: 7px;
+    font-size: 2.5em;
+    margin-bottom: 40px;
+}
+
+#movie-info .video{
+    height: 300px;
+    width: 500px;
+    margin-left: 200px;
+}
+
+#movie-info .infom {
+    background-color: #ff8d3f;
+    border-radius: 7px;
+    font-size: 20px;
+    padding: 10px 15px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#movie-info .infom p{
+    margin-left: 20px;
+}
+
+#movie-info .infom h2, .infom .q {
+    text-decoration: underline;
+    text-underline-offset: 5px;
+    color: #353d3f;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+#movie-info .infom .q {
+    font-size: 1.5em;
+    font-weight: bold;
+    font-family: sans-serif;
+}
+
+#movie-info .qna {
+    display: inline-block;
+    margin-top: 15px;
+}
+
+#movie-info .author {
+    margin-left: 600px;
+}
+
+#movie-info .author h3 {
+    color: #d5d6d2;
+    text-shadow: 0px 0px 0.2px black;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 25px;
+}
+
+#movie-info .author h4 {
+    color: gray;
+    font-style: italic;
+    text-shadow: 0px 0px 0.2px black;
+}
+
+#movie-info .select {
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    gap: 30px;
+    align-items: center;
+    margin-top: 400px;
+}
+
+#movie-info .book {
+    font-size: 1.7em;
+}
+
+#movie-info .select button {
+    width: 200px;
+    height: 50px;
+    border-radius: 5px;
+    background-color: #ff8d3f;
+    font-size: 20px;
+    color: #e0e0e0;
+}
+
+
+#accconf {
+    height: 95%;
+    width: 100%;
+}
+
+.cartBox{
+    background-color:#ff8d3f;
+    border:1px solid white;
+    width:80%;
+    height:auto;
+    min-height:60vh;
+    margin:auto;
+}
+.checkoutButton {
+    background-color: #FFFFFF;
+    color: #000000;
+    padding: 12px;
+    margin: 10px 0;
+    border: none;
+    width: 70%;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 17px;
+    margin:auto;
+    margin-top:5%;
+    text-align:center;
+    text-decoration:none;
+  }
+  
+  .checkoutButton:hover {
+    background-color: #ff8d3f;
+    text-decoration:underline;
+  }
+
+  .orderConfirmed{
+    background-color:#ff8d3f;
+    border:1px solid white;
+    color:#000000;
+    width:80%;
+    height:auto;
+    min-height:60vh;
+    margin:auto;
+    text-align:center;
+}
+
+.update-flex{
+    margin-left:35%;
+}
+
+.paymentInfo{
+    margin-left:10%;
+    float:left;
+}
+
+.promoButton{
+    width: 50px;
+    background-color:#ff8d3f;
+    height:40px;
+	margin-left:2%;
+	float:left;
+}
+
+.confirmCheckout{
+    width: 75px;
+    background-color:#ff8d3f;
+    height:40px;
+	float:right;
+}
+
+.priceDisplay{
+    background-color:#ff8d3f;
+    width:40%;
+    height:auto;
+    min-height:60vh;
+    float:right;
+    margin-right:10%;
+    margin-top:2%;
+    color:#000000;
+    font-size:medium;
+}
+
+.priceDisplay h2{
+    color:black;
+}
+
+.totalPrice{
+    color:white;
+}
+
+.purchases{
+    width:80%;
+    background-color:#ff8d3f;
+    height:auto;
+    margin:auto;
+    min-height:100vh;
+    text-align:center;
+}
+
+.promoBody{
+text-align:center;
+margin:auto;
+height:auto;
+
+}
+
+.promoCodes{
+    float:left;
+    margin:auto;
+    height:auto;
+    margin-top:15%;
+    color:#d5d6d2;
+    margin-left:10%;
+}
+
+.addCode{
+    float:right;
+    margin:auto;
+    height:auto;
+    margin-top:20%;
+}
+
+.submitPromo{
+    width: 50px;
+    background-color:#ff8d3f;
+    height:40px;
+    margin-top:2px;
+	float:right;
+}
+
+.mMovies{
+    height:auto;
+    margin:auto;
+    text-align:center;
+}
+.movieNames{
+    float:left;
+    margin-left:5%;
+    margin-top:10%;
+    color:#d5d6d2;
+    font-size:x-large;
+}
+
+.addMovie{
+    float:right;
+    margin-top:10%;
+    margin-right:10%;
+}
+
+.addMButton{
+    width: 50px;
+    background-color:#ff8d3f;
+    height:40px;
+    margin-top:2px;
+	float:right;
+}
+
+.showTimes{
+    float:left;
+    text-align:center;
+    margin-top:9%;
+    color:#d5d6d2;
+    font-size:x-large;
+    margin-left:5%;
+}
+
+.addShowtime{
+    float:right;
+    margin-top:10%;
+    margin-right:10%;
+}
+
+.addShowtimeButton{
+    width: 50px;
+    background-color:#ff8d3f;
+    height:40px;
+    margin-top:2px;
+	float:right;
+}
+
+@media only screen and (min-width: 768px) {
+    iframe{
+        height: 13em;
+    }
+    .card{
+        width: 50%;
+    }
+}
+
+.testimonial-group > .row {
+    overflow-x: auto;
+    white-space: nowrap;
+}
+.testimonial-group > .row > .col-xs-4 {
+    display: inline-block;
+    float: none;
+}

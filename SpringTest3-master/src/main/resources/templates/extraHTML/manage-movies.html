@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" th:href="@{/css/styleguide.css}">
+        <link rel="icon" type="image/png" href="css/img/fav.png">
+    </head>
+    <body id="manage-movies">
+        <header>
+            <div class="navbar">
+                <span id="theater"><h1>Your Theater</h1></span>
+                <div class="flex">
+                    <input type="text" name="search" id="search" placeholder="Movie Title, Genre, or Showtime...">
+                    <label for="search"><button type="button" id="search-input">Search</button></label>
+                    <h3 class="nav">Home</h3>
+                    <h3 class="nav">Categories</h3>
+                    <h3 class="nav">Login/Register</h3>
+                    <span class="cart-area">
+                        <h3 class="nav">Cart</h3>
+                      <!--  <img src="css/img/cart-black.png" id="cart"> -->
+                        <img th:src="@{/css/img/cart-black.png}" >
+
+                    </span>
+                </div>
+            </div>
+         </header>
+        <div class="mMovies">
+            <h1>Manage Schedule</h1>
+            <div class="movieNames">
+                <h2>Current Movies</h2>
+                <br>
+                <h2>Shang-Chi</h2>
+                <h2>Black Widow</h2>
+                <h2>Venom</h2>
+            </div>
+
+            <div class="addMovie">
+                <form id="add-movie">
+                <h1>Add Movie</h1>
+                <br>
+                <input style="height:40px; float:left;" type="text" class="regsize" placeholder="Movie Title">
+                <button  type="button" class="addMButton">Add Movie</button>
+                </form>
+            </div>
+        </div>
+    </body>
+
+
+</html>

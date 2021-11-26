@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+  <meta charset="ISO-8859-1">
+  <title>Edit Profile - Cinema E-Booking</title>
+  <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.1.1/css/bootstrap.min.css"/>
+  <script type="text/javascript" src="/webjars/jquery/3.6.0/jquery.min.js"></script>
+  <script type="text/javascript" src="/webjars/bootstrap/5.1.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<header>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Cinema E-Booking</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <div sec:authorize="isAuthenticated() || isAnonymous()">
+          <a class="btn btn-secondary" th:href="@{/}">Home</a>
+        </div>
+
+        <div sec:authorize="isAuthenticated() || isAnonymous()">
+          <a class="btn btn-secondary" th:href="@{/categories}">Categories</a>
+        </div>
+
+        <div sec:authorize="isAnonymous()">
+          <a class="btn btn-secondary" th:href="@{/login}">Login</a>
+        </div>
+
+        <div sec:authorize="isAnonymous()">
+          <a class="btn btn-success" th:href="@{/register}">Register</a>
+        </div>
+
+        <div sec:authorize="isAuthenticated() || isAnonymous()">
+          <a class="btn btn-secondary" th:href="@{/cart}">Cart</a>
+        </div>
+
+        <div sec:authorize="isAuthenticated()">
+          <a class="btn btn-secondary" th:href="@{/profile}">[[${#request.userPrincipal.principal.fullName}]]</a>
+        </div>
+
+        <div sec:authorize="hasAuthority('ADMIN')">
+          <a class="btn btn-secondary" th:href="@{/admin-portal}">Admin Portal</a>
+        </div>
+
+        <div sec:authorize="isAuthenticated()">
+          <a class="btn btn-secondary" href="javascript: logoutForm.submit();">Logout</a>
+        </div>
+
+        <form name="logoutForm" th:hidden="true" method="post" th:action="@{/doLogout}">
+          <input type="submit" value="Logout" />
+        </form>
+      </ul>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search">
+      </form>
+      <form class="form-inline my-2 my-lg-0">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+    </div>
+  </nav>
+</header>
+<div class="container text-center">
+  <div>
+    <h3>Edit promotions</h3>
+  </div>
+  <form th:action="@{/edit-promotion-process}"
+        method="post" style="max-width: 600px; margin: 0 auto;">
+    <form class="m-3">
+      <div class="form-group row">
+        <label class="col-4 col-form-label">promotion ID : </label>
+        <div class="col-8">
+          <input type="number" th:value="${promotion.promotionID}" th:name="promotionID" th:id="promotionID" class="form-control"
+                 required readonly />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label">Percentage : </label>
+        <div class="col-8">
+          <input type="number" th:value="${promotion.percentage}" th:name="percentage" th:id="percentage" class="form-control"
+                 required min="0" max="100"/>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label">code : </label>
+        <div class="col-8">
+          <input type="string" th:value="${promotion.code}" th:name="code" th:id="code" class="form-control"
+                 required />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label">description : </label>
+        <div class="col-8">
+          <input type="string" th:value="${promotion.description}" th:name="description" th:id="description" class="form-control"
+                 required />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label">Start Date : </label>
+        <div class="col-8">
+          <input type="date" th:value="${promotion.startStringDate}" th:name="startStringDate" th:id="startStringDate" class="form-control"
+                 required />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label">Start Time : </label>
+        <div class="col-8">
+          <input type="time" th:value="${promotion.startStringTime}" th:name="startStringTime" th:id="startStringTime" class="form-control"
+                 required />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label">End Date : </label>
+        <div class="col-8">
+          <input type="date" th:value="${promotion.endStringDate}" th:name="endStringDate" th:id="endStringDate" class="form-control"
+                 required />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label">End Time : </label>
+        <div class="col-8">
+          <input type="time" th:value="${promotion.endStringTime}" th:name="endStringTime" th:id="endStringTime" class="form-control"
+                 required />
+        </div>
+      </div>
+
+
+
+        <div>
+          <button type="submit" class="btn btn-primary">Confirm</button>
+        </div>
+      </form>
+
+    </form>
+  </form>
+</div>
+</body>
+</html>

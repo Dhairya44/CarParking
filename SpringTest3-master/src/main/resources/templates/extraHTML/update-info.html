@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="../styleguide.css">
+        <link rel="icon" type="image/png" href="img/fav.png">
+    </head>
+    <body id="register">
+        <header>
+            <div class="navbar">
+                <span id="theater"><h1>Your Theater</h1></span>
+                <div class="flex">
+                    <input type="text" name="search" id="search" placeholder="Movie Title, Genre, or Showtime...">
+                    <label for="search"><button type="button" id="search-input">Search</button></label>
+                    <h3 class="nav">Home</h3>
+                    <h3 class="nav">Categories</h3>
+                    <h3 class="nav">Admin</h3>
+                    <span class="cart-area">
+                        <h3 class="nav">Cart</h3>
+                        <img src="../img/cart-black.png" id="cart">
+                    </span>
+                </div>
+            </div>
+        </header>
+        <main>
+            <form id="signup-form">
+                <div class="update-flex">
+                    <div class="req">
+                        <h2>Personal Information</h2>
+                        <input type="text" class="smallsize" placeholder="First Name*">
+                        <input type="text" class="smallsize" placeholder="Last Name*">
+                        <br>
+                        <input type="text" class="regsize" placeholder="Email">
+                        <br>
+                        <input type="text" class="regsize" placeholder="Phone Number">
+                        <br>
+                    </div>
+                    <div class="optional">
+                        <h2>Payment Information</h2>
+                        <select id="payment-type">
+                            <option value="Payment Method 1">Payment Method 1</option>
+                            <option value="Payment Method 2">Payment Method 2</option>
+                            <option value="Payment Method 3">Payment Method 3</option>
+                        </select>
+                        <br>
+                        <input type="text" class="regsize" placeholder="Credit Card Number">
+                        <br>
+                        <input type="text" class="smallsize" placeholder="CVV">
+                        <input type="text"  class="smallsize" placeholder="Exp Date">
+                        <h2>Shipping Information</h2>
+                        <input type="text" class="regsize" placeholder="Address Line 1">
+                        <br>
+                        <input type="text" class="regsize" placeholder="Address Line 2">
+                        <br>
+                        <input type="text" class="smallsize" placeholder="City">
+                        <input type="text" class="smallsize" placeholder="State">
+                        <br>
+                        <input type="text" class="smallsize" placeholder="Zip Code">
+                    </div>
+                </div>
+                <button type="button" style="margin-left:45%;">Submit</button>
+            </form>
+        </main>
+
+    </body>
+</html>

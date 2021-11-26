@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="../styleguide.css">
+        <link rel="icon" type="image/png" href="img/fav.png">
+    </head>
+    <body id="promotions">
+        <header>
+            <div class="navbar">
+                <span id="theater"><h1>Your Theater</h1></span>
+                <div class="flex">
+                    <input type="text" name="search" id="search" placeholder="Movie Title, Genre, or Showtime...">
+                    <label for="search"><button type="button" id="search-input">Search</button></label>
+                    <h3 class="nav">Home</h3>
+                    <h3 class="nav">Categories</h3>
+                    <h3 class="nav">Login/Register</h3>
+                    <span class="cart-area">
+                        <h3 class="nav">Cart</h3>
+                        <img src="../img/cart-black.png" id="cart">
+                    </span>
+                </div>
+            </div>
+        </header>
+        <main class="promoBody">
+            <h1>Promotions</h1>
+            <div class="promoCodes">
+                <form>
+                    <h3>Code - Discount %</h3>
+                    <br>
+                    <h3>SAVE20 - 20%</h3>
+                    <br>
+                    <h3>FALLBACK - 35%</h3>
+                    <br>
+                    <h3>BDAY25 - 25%</h3>
+                </form>
+            </div>
+            <div class="addCode">
+                <form>
+                    <input style="height:40px; float:left;" type="text" class="regsize" placeholder="Add Promo Code">
+                    <input style="height:40px; float:left;" type="text" class="regsize" placeholder="% off">
+                    <button  type="button" class="submitPromo">Submit</button>
+                   
+                   
+                </form>
+            </div>
+        </main>
+    </body>
+
+</html>
