@@ -22,9 +22,9 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
         String role = authentication.getAuthorities().toString();
         System.out.println(role);
         if(role.contains("ADMIN")) {
-            redirectUrl = "/admin/index";
-        } else if(role.contains("USER")) {
             redirectUrl = "/user/index";
+        } else if(role.contains("USER")) {
+            redirectUrl = "/admin/index";
         }
         System.out.println("redirectUrl " + redirectUrl);
         if (redirectUrl == null) {

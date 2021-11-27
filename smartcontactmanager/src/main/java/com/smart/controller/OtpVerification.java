@@ -48,7 +48,7 @@ public class OtpVerification {
 		props.put("mail.smtp.socketFactory.fallback", "false");
 		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
 		       protected PasswordAuthentication getPasswordAuthentication() {  
-		           return new PasswordAuthentication("dhairya.agrawal44@gmail.com", "dhairya@44");  
+		           return new PasswordAuthentication("dhairya.agrawal44@gmail.com", "dondhairya");
 		       }  
 		       });
 		
@@ -71,12 +71,13 @@ public class OtpVerification {
 		helper.setSubject(subjectString);
 		helper.setText(content, true);
 		
-		transport.connect("smtp.gmail.com", 465, "Dhairya", "dhairya@44");  
+		transport.connect("smtp.gmail.com", 465, "Dhairya", "dondhairya");
 		transport.sendMessage(message, message.getAllRecipients());  
 		transport.close();
-			
+
 		System.out.println("Email was sent");
 		return;
 	}
+
 	@Autowired JavaMailSender javaMailSender;
 }

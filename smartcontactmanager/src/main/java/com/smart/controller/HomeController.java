@@ -98,10 +98,5 @@ public class HomeController {
 		return "login";
 	}
 
-	@RequestMapping("/admin/index")
-	public String dashboard(Model model, Principal principal) {
-		model.addAttribute("title", "User Dashboard");
-		return "admin/admin_dashboard";
-	}
 
 }

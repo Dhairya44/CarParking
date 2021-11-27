@@ -16,7 +16,6 @@ import com.carparking.entities.AuthenticationProvider;
 import com.carparking.entities.UserRepository;
 import com.carparking.entities.Users;
 
-
 @Component
 public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler{
 	
