@@ -3,6 +3,7 @@ package com.smart.controller;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,6 +20,9 @@ import com.smart.dao.UserRepository;
 import com.smart.entities.User;
 import com.smart.helper.Message;
 
+import java.security.Principal;
+import java.util.Date;
+
 @Controller
 public class HomeController {
 
@@ -30,19 +34,19 @@ public class HomeController {
 
 	@RequestMapping("/")
 	public String home(Model model) {
-		model.addAttribute("title", "Home - Smart Contact Manager");
+		model.addAttribute("title", "Home - Car Parking");
 		return "home";
 	}
 
 	@RequestMapping("/about")
 	public String about(Model model) {
-		model.addAttribute("title", "About - Smart Contact Manager");
+		model.addAttribute("title", "About - Car Parking");
 		return "about";
 	}
 
 	@RequestMapping("/signup")
 	public String signup(Model model) {
-		model.addAttribute("title", "Register - Smart Contact Manager");
+		model.addAttribute("title", "Register - Car Parking");
 		model.addAttribute("user", new User());
 		return "signup";
 	}
@@ -50,43 +54,39 @@ public class HomeController {
 	// handler for registering user
 	@RequestMapping(value = "/do_register", method = RequestMethod.POST)
 	public String registerUser(@Valid @ModelAttribute("user") User user, BindingResult result1,
-			@RequestParam(value = "agreement", defaultValue = "false") boolean agreement, Model model,
+							   @RequestParam(value = "otp", defaultValue = "") String otp,
+			@RequestParam(value = "agreement",  defaultValue = "false") boolean agreement, Model model,
 			HttpSession session) {
 
-		try {
-
-			if (!agreement) {
-				System.out.println("You have not agreed the terms and conditions");
-				throw new Exception("You have not agreed the terms and conditions");
-			}
-
-			if (result1.hasErrors()) {
-				System.out.println("ERROR " + result1.toString());
+			String OTP = RandomString.make(8);
+			String email = user.getEmail();
+			if(userRepository.findByEmail(user.getEmail()).isEmpty()) {
+				user.setRole("ROLE_USER");
+				user.setEnabled(true);
+				user.setImageUrl("default.png");
+				user.setPassword(this.passwordEncoder.encode(user.getPassword()));
+				user.setOneTimePassword(OTP);
+				user.setOtpRequestedTime(new Date());
+				this.userRepository.save(user);
+				try {
+					OtpVerification otpVerification = new OtpVerification();
+					otpVerification.generateOneTimePassword(user, OTP);
+				} catch (Exception e) {
+					System.out.println(e);
+				}
 				model.addAttribute("user", user);
+				model.addAttribute("otpbool", true);
 				return "signup";
 			}
-
-			user.setRole("ROLE_USER");
-			user.setEnabled(true);
-			user.setImageUrl("default.png");
-			user.setPassword(passwordEncoder.encode(user.getPassword()));
-
-			System.out.println("Agreement " + agreement);
-			System.out.println("USER " + user);
-
-			User result = this.userRepository.save(user);
-
-			model.addAttribute("user", new User());
-
-			session.setAttribute("message", new Message("Successfully Registered !!", "alert-success"));
-			return "signup";
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			model.addAttribute("user", user);
-			session.setAttribute("message", new Message("Something Went wrong !! " + e.getMessage(), "alert-danger"));
-			return "signup";
-		}
+			User users2 = userRepository.findByEmail(email).get(0);
+			System.out.println(otp + " " + users2.getOneTimePassword());
+			if(users2.getOneTimePassword().compareTo(otp)==0)
+				return "login";
+			else {
+				model.addAttribute("user", user);
+				model.addAttribute("otpbool", true);
+				return "signup";
+			}
 
 	}
 
@@ -97,4 +97,11 @@ public class HomeController {
 		model.addAttribute("title","Login Page");
 		return "login";
 	}
+
+	@RequestMapping("/admin/index")
+	public String dashboard(Model model, Principal principal) {
+		model.addAttribute("title", "User Dashboard");
+		return "admin/admin_dashboard";
+	}
+
 }

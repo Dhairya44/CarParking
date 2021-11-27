@@ -39,7 +39,6 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
 			users.setAuthProvider(AuthenticationProvider.valueOf(clienName));
 			userRepository.save(users);
 		}
-		
 		System.out.println(email);
 		super.setDefaultTargetUrl("/user/index");
 		super.onAuthenticationSuccess(request, response, authentication);

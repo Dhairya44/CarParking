@@ -1,6 +1,7 @@
 package com.smart.entities;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -34,6 +35,10 @@ public class User {
 	private String imageUrl;
 	@Column(length = 500)
 	private String about;
+	@Column(name="one_time_password")
+	private String oneTimePassword;
+	@Column(name="otp_requested_time")
+	private Date otpRequestedTime;
 	
 	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL,orphanRemoval = true)
 	private List<Contact> contacts=new ArrayList<>();
@@ -41,6 +46,22 @@ public class User {
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	public String getOneTimePassword() {
+		return oneTimePassword;
+	}
+
+	public void setOneTimePassword(String oneTimePassword) {
+		this.oneTimePassword = oneTimePassword;
+	}
+
+	public Date getOtpRequestedTime() {
+		return otpRequestedTime;
+	}
+
+	public void setOtpRequestedTime(Date otpRequestedTime) {
+		this.otpRequestedTime = otpRequestedTime;
 	}
 
 	public int getId() {
@@ -121,12 +142,5 @@ public class User {
 				+ ", enabled=" + enabled + ", imageUrl=" + imageUrl + ", about=" + about + ", contacts=" + contacts
 				+ "]";
 	}
-	
-	
-	
-	
-	
-	
-	
 	
 }

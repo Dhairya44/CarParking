@@ -12,7 +12,7 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
 	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
 	crossorigin="anonymous">
-	
+	<link rel="stylesheet" th:href="@{/css/login2.css}">
 	
 <link rel="stylesheet" th:href="@{/css/style.css}" />
 
@@ -25,9 +25,8 @@
 
 	<nav class="navbar navbar-expand-lg navbar-dark  bg-primary">
 	
-		<a class="navbar-brand" href="#">Smart Contact Manager</a>
-		
-		
+		<a class="navbar-brand" th:href="@{/}">Car Parking</a>
+
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarSupportedContent"
 			aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -36,31 +35,18 @@
 		</button>
 
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-			
-			
 			<ul class="navbar-nav ml-auto text-uppercase">
 				
-				<li class="nav-item active"><a th:href="@{/}" class="nav-link" href="#">Home
-						<span class="sr-only">(current)</span>
+				<li class="nav-item"><a th:href="@{/}" class="nav-link" href="#">Home
 				</a></li>
-				
-				
-				<li class="nav-item"><a class="nav-link" href="#">About</a></li>
-				
-				
-			
+				<li class="nav-item"><a class="nav-link" href="#" th:href="@{/about}">About</a></li>
 				<li class="nav-item"><a class="nav-link " href="#"
 				
 					th:href="@{/signin}"
 					tabindex="-1" aria-disabled="true">Login</a></li>
-					
-					
-					
+
 				<li class="nav-item"><a class="nav-link " th:href="@{/signup/}" href="#"
 					tabindex="-1" aria-disabled="true">Signup</a></li>
-					
-					
-					
 			</ul>
 			
 			
@@ -71,7 +57,7 @@
 	END navbar -->
 
 
-	  
+
 	<div th:replace="${content}"></div>
 
 
