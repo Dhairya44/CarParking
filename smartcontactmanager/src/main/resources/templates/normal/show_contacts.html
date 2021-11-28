@@ -12,7 +12,7 @@
 		
 		<div class="card-body">
 		
-		<h1 class="text-center">Your Contacts</h1>
+		<h1 class="text-center">Your Workers</h1>
 		
 		
 		<!-- search -->
@@ -20,7 +20,7 @@
 		<div class="search-container my-3">
 		
 		
-		<input onkeyup="search()" id="search-input" type="text" class="form-control" placeholder="Search your contacts" />
+		<input onkeyup="search()" id="search-input" type="text" class="form-control" placeholder="Search your workers" />
 			
 			<div class="search-result">
 			
@@ -54,11 +54,11 @@
 			      <th scope="row" th:text="${'SCMUSER'+c.cId}">1</th>
 			      
 			      <td >
-			      
-			      	<img src="" class="my_profile_picture" th:src="@{'/img/'+${c.image}}" alt="profile photo" />
-			      
+
+			      <!--	<img src="" class="my_profile_picture" th:src="@{'/img/'+${c.image}}" alt="profile photo" />-->
+
 			       <span th:text="${c.name}"></span></td>
-			      
+
 			      <td >
 			      
 			      <a href="#" th:href="@{'/user/'+${c.cId}+'/contact'}">
@@ -70,6 +70,8 @@
 			      </td>
 			      
 			      <td th:text="${c.phone}">@mdo</td>
+
+
 			      
 			      <td>
 			      

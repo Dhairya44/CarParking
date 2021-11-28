@@ -89,7 +89,7 @@ public class UserController {
 
 	// processing add contact form
 	@PostMapping("/process-contact")
-	public String processContact(@ModelAttribute Contact contact, @RequestParam("profileImage") MultipartFile file,
+	public String processContact(@ModelAttribute Contact contact,
 								 Principal principal, HttpSession session) {
 
 		try {
@@ -97,26 +97,26 @@ public class UserController {
 			String name = principal.getName();
 			User user = this.userRepository.getUserByUserName(name);
 
-			// processing and uploading file..
+//			// processing and uploading file..
+//
+//			if (file.isEmpty()) {
+//				// if the file is empty then try our message
+//				System.out.println("File is empty");
+//				contact.setImage("contact.png");
+//
+//			} else {
+//				// file the file to folder and update the name to contact
+//				contact.setImage(file.getOriginalFilename());
+//
+//				File saveFile = new ClassPathResource("static/img").getFile();
+//
+//				Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + file.getOriginalFilename());
+//
+//				Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+//
+//				System.out.println("Image is uploaded");
 
-			if (file.isEmpty()) {
-				// if the file is empty then try our message
-				System.out.println("File is empty");
-				contact.setImage("contact.png");
-
-			} else {
-				// file the file to folder and update the name to contact
-				contact.setImage(file.getOriginalFilename());
-
-				File saveFile = new ClassPathResource("static/img").getFile();
-
-				Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + file.getOriginalFilename());
-
-				Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-
-				System.out.println("Image is uploaded");
-
-			}
+		//	}
 
 			user.getContacts().add(contact);
 
@@ -228,7 +228,7 @@ public class UserController {
 
 	// update contact handler
 	@RequestMapping(value = "/process-update", method = RequestMethod.POST)
-	public String updateHandler(@ModelAttribute Contact contact, @RequestParam("profileImage") MultipartFile file,
+	public String updateHandler(@ModelAttribute Contact contact,
 								Model m, HttpSession session, Principal principal) {
 
 		try {
@@ -236,30 +236,30 @@ public class UserController {
 			// old contact details
 			Contact oldcontactDetail = this.contactRepository.findById(contact.getcId()).get();
 
-			// image..
-			if (!file.isEmpty()) {
-				// file work..
-				// rewrite
-
-//				delete old photo
-
-				File deleteFile = new ClassPathResource("static/img").getFile();
-				File file1 = new File(deleteFile, oldcontactDetail.getImage());
-				file1.delete();
-
-//				update new photo
-
-				File saveFile = new ClassPathResource("static/img").getFile();
-
-				Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + file.getOriginalFilename());
-
-				Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-
-				contact.setImage(file.getOriginalFilename());
-
-			} else {
-				contact.setImage(oldcontactDetail.getImage());
-			}
+//			// image..
+//			if (!file.isEmpty()) {
+//				// file work..
+//				// rewrite
+//
+////				delete old photo
+//
+//				File deleteFile = new ClassPathResource("static/img").getFile();
+//				File file1 = new File(deleteFile, oldcontactDetail.getImage());
+//				file1.delete();
+//
+////				update new photo
+//
+//				File saveFile = new ClassPathResource("static/img").getFile();
+//
+//				Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + file.getOriginalFilename());
+//
+//				Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+//
+//				contact.setImage(file.getOriginalFilename());
+//
+//			} else {
+//				contact.setImage(oldcontactDetail.getImage());
+//			}
 
 			User user = this.userRepository.getUserByUserName(principal.getName());
 
@@ -267,14 +267,14 @@ public class UserController {
 
 			this.contactRepository.save(contact);
 
-			session.setAttribute("message", new Message("Your contact is updated...", "success"));
+			session.setAttribute("message", new Message("Your worker is updated...", "success"));
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		System.out.println("CONTACT NAME " + contact.getName());
-		System.out.println("CONTACT ID " + contact.getcId());
+		System.out.println("WORKER NAME " + contact.getName());
+		System.out.println("WORKER ID " + contact.getcId());
 		return "redirect:/user/" + contact.getcId() + "/contact";
 	}
 

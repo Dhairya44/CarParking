@@ -7,6 +7,7 @@
   margin: auto;
 }
 .form {
+  background-color: #dd4b39;
   border-radius: 20px;
   position: relative;
   z-index: 1;
@@ -33,7 +34,7 @@
   font-family: "Roboto", sans-serif;
   text-transform: uppercase;
   outline: 0;
-  background: #D9B08C;
+  background: #DA0037;
   width: 100%;
   border: 0;
   padding: 15px;
@@ -44,7 +45,7 @@
   cursor: pointer;
 }
 .form button:hover,.form button:active,.form button:focus {
-  background: #FFCB9A;
+  background: #D83A56;
 }
 .form .message {
   margin: 15px 0 0;
@@ -92,7 +93,7 @@
   color: #EF3B3A;
 }
 body {
-  background: #2C3531;
+
   font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

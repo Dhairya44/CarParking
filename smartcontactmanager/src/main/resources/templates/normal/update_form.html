@@ -13,7 +13,7 @@
 		
 			<div class="card-body">
 			
-				<h1 class="text-center">Update your Contact</h1>
+				<h1 class="text-center">Update your Worker</h1>
 				
 				<div class="container-fluid mt-1">
 				
@@ -51,23 +51,7 @@
 						</div>
 						
 						
-						<!-- Second Name  -->
-						
-						<div class="input-group mt-3">
-						
-							<div class="input-group-prepend">
-							
-								<div class="input-group-text ">
-										
-										<i class="fas fa-user-alt"></i>
-									
-								</div>
-							
-							</div>
-						
-							<input th:value="${contact.secondName}" required type="text" id="secondName" name="secondName" placeholder="Enter Nick Name here" class="form-control" />
-						
-						</div>
+
 						<!-- Phone Field -->
 						<div class="input-group mt-3">
 						
@@ -123,26 +107,45 @@
 						
 						</div>
 						
-						<!-- Contact Description -->
-						
-						<div class="form-group mt-3">
-							
-							<textarea th:text="${contact.description}" id="mytextarea" placeholder="Enter contact description" name="description"  class="form-control"  rows="20"></textarea>
-						
-						</div>
-						
-						<!-- Contact Image  -->
-						
-						<div class="container text-center">
-							<img style="width: 250px;height: 250px;" class="img-fluid my_profile_picture" src="" th:src="@{'/img/'+${contact.image}}" alt="" />
-						</div>
-						
-						<p class="text-secondary">Choose new profile pic</p>
-						
-						<div class="custom-file">
-							<input type="file" name="profileImage" />
-						
-						</div>
+<!--						&lt;!&ndash; Contact Description &ndash;&gt;-->
+<!--						-->
+<!--						<div class="form-group mt-3">-->
+<!--							-->
+<!--							<textarea th:text="${contact.description}" id="mytextarea" placeholder="Enter contact description" name="description"  class="form-control"  rows="20"></textarea>-->
+<!--						-->
+<!--						</div>-->
+<!--						-->
+<!--						&lt;!&ndash; Contact Image  &ndash;&gt;-->
+<!--						-->
+<!--						<div class="container text-center">-->
+<!--							<img style="width: 250px;height: 250px;" class="img-fluid my_profile_picture" src="" th:src="@{'/img/'+${contact.image}}" alt="" />-->
+<!--						</div>-->
+<!--						-->
+<!--						<p class="text-secondary">Choose new profile pic</p>-->
+<!--						-->
+<!--						<div class="custom-file">-->
+<!--							<input type="file" name="profileImage" />-->
+<!--						-->
+<!--						</div>-->
+
+
+							<!-- Second Name  -->
+
+							<div class="input-group mt-3">
+
+								<div class="input-group-prepend">
+
+									<div class="input-group-text ">
+
+										<i class="fas fa-user-alt"></i>
+
+									</div>
+
+								</div>
+
+								<input th:value="${contact.secondName}" required type="text" id="secondName" name="secondName" placeholder="Enter Rating here" class="form-control" />
+
+							</div>
 						
 						<div class="container text-center">
 							

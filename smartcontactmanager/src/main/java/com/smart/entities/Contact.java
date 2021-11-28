@@ -11,7 +11,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name="CONTACT")
+@Table(name="WORKER")
 public class Contact {
 	
 	@Id
@@ -22,9 +22,9 @@ public class Contact {
 	private String work;
 	private String email;
 	private String phone;
-	private String image;
-	@Column(length = 5000)
-	private String description;
+	//private String image;
+	//@Column(length = 5000)
+	//private String description;
 	
 	@ManyToOne	
 	@JsonIgnore
@@ -66,18 +66,18 @@ public class Contact {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public String getImage() {
-		return image;
-	}
-	public void setImage(String image) {
-		this.image = image;
-	}
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
+//	public String getImage() {
+//		return image;
+//	}
+//	public void setImage(String image) {
+//		this.image = image;
+//	}
+//	public String getDescription() {
+//		return description;
+//	}
+//	public void setDescription(String description) {
+//		this.description = description;
+//	}
 	public User getUser() {
 		return user;
 	}
@@ -99,6 +99,5 @@ public class Contact {
 	
 	
 	
-	
-	
+
 }
