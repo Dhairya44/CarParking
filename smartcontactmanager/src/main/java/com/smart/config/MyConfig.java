@@ -58,5 +58,4 @@ public class MyConfig extends WebSecurityConfigurerAdapter {
 				.and().logout().permitAll()
 				.and().csrf().disable();
 	}
-
 }

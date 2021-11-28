@@ -1,5 +1,7 @@
 package com.smart.entities;
 
+import org.hibernate.jdbc.Work;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,7 +25,6 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	
 	@NotBlank(message = "Name field is required !!")
 	@Size(min = 2,max = 20,message = "min 2 and max 20 characters are allowed !!")
 	private String name;
@@ -31,8 +32,9 @@ public class User {
 	private String email;
 	private String password;
 	private String role;
+	private String phone;
 	private boolean enabled;
-	private String imageUrl;
+	private String username;
 	@Column(length = 500)
 	private String about;
 	@Column(name="one_time_password")
@@ -41,7 +43,7 @@ public class User {
 	private Date otpRequestedTime;
 	
 	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL,orphanRemoval = true)
-	private List<Contact> contacts=new ArrayList<>();
+	private List<Worker> worker=new ArrayList<>();
 	
 	public User() {
 		super();
@@ -96,6 +98,14 @@ public class User {
 		this.password = password;
 	}
 
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
 	public String getRole() {
 		return role;
 	}
@@ -112,12 +122,13 @@ public class User {
 		this.enabled = enabled;
 	}
 
-	public String getImageUrl() {
-		return imageUrl;
+
+	public String getUsername() {
+		return username;
 	}
 
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getAbout() {
@@ -128,18 +139,18 @@ public class User {
 		this.about = about;
 	}
 
-	public List<Contact> getContacts() {
-		return contacts;
+	public List<Worker> getWorker() {
+		return worker;
 	}
 
-	public void setContacts(List<Contact> contacts) {
-		this.contacts = contacts;
+	public void setWorker(List<Worker> worker) {
+		this.worker = worker;
 	}
 
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", role=" + role
-				+ ", enabled=" + enabled + ", imageUrl=" + imageUrl + ", about=" + about + ", contacts=" + contacts
+				+ ", enabled=" + enabled + ",  about=" + about + ", workers=" + worker
 				+ "]";
 	}
 	

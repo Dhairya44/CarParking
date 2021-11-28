@@ -63,7 +63,6 @@ public class HomeController {
 			if(userRepository.findByEmail(user.getEmail()).isEmpty()) {
 				user.setRole("ROLE_USER");
 				user.setEnabled(true);
-				user.setImageUrl("default.png");
 				user.setPassword(this.passwordEncoder.encode(user.getPassword()));
 				user.setOneTimePassword(OTP);
 				user.setOtpRequestedTime(new Date());

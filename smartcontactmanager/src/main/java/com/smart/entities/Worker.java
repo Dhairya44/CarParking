@@ -12,13 +12,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="WORKER")
-public class Contact {
+public class Worker {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int cId;
 	private String name;
-	private String secondName;
+	private String rating;
 	private String work;
 	private String email;
 	private String phone;
@@ -42,12 +42,6 @@ public class Contact {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getSecondName() {
-		return secondName;
-	}
-	public void setSecondName(String secondName) {
-		this.secondName = secondName;
-	}
 	public String getWork() {
 		return work;
 	}
@@ -66,18 +60,6 @@ public class Contact {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-//	public String getImage() {
-//		return image;
-//	}
-//	public void setImage(String image) {
-//		this.image = image;
-//	}
-//	public String getDescription() {
-//		return description;
-//	}
-//	public void setDescription(String description) {
-//		this.description = description;
-//	}
 	public User getUser() {
 		return user;
 	}
@@ -87,17 +69,14 @@ public class Contact {
 	@Override
 	public boolean equals(Object obj) {
 		// TODO Auto-generated method stub
-		return this.cId==((Contact)obj).getcId();
+		return this.cId==((Worker)obj).getcId();
 	}
-	
-	
-	
 
-	
-	
-	
-	
-	
-	
+	public String getRating() {
+		return rating;
+	}
 
+	public void setRating(String rating) {
+		this.rating = rating;
+	}
 }

@@ -27,7 +27,7 @@ const search = () => {
 
     //sending request to server
 
-    let url = `http://localhost:8282/search/${query}`;
+    let url = `http://localhost:8080/search/${query}`;
 
     fetch(url)
       .then((response) => {
@@ -39,8 +39,8 @@ const search = () => {
 
         let text = `<div class='list-group'>`;
 
-        data.forEach((contact) => {
-          text += `<a href='/user/${contact.cId}/contact' class='list-group-item list-group-item-action'> ${contact.name}  </a>`;
+        data.forEach((worker) => {
+          text += `<a href='/user/${worker.cId}/worker' class='list-group-item list-group-item-action'> ${worker.name}  </a>`;
         });
 
         text += `</div>`;
@@ -63,7 +63,7 @@ const paymentStart = () => {
     return;
   }
 
-  //code...
+  //coded...
   // we will use ajax to send request to server to create order- jquery
 
   $.ajax({
@@ -101,7 +101,7 @@ const paymentStart = () => {
           },
 
           notes: {
-            address: "LearnCodeWith Durgesh ",
+            address: "OOP project ",
           },
           theme: {
             color: "#3399cc",

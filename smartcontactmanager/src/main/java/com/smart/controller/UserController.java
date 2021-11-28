@@ -14,6 +14,8 @@ import java.util.Optional;
 import javax.servlet.http.HttpSession;
 import com.razorpay.*;
 
+import com.smart.dao.WorkerRepository;
+import com.smart.entities.Worker;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -38,9 +40,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.smart.dao.ContactRepository;
 import com.smart.dao.UserRepository;
-import com.smart.entities.Contact;
 import com.smart.entities.User;
 import com.smart.helper.Message;
 
@@ -55,7 +55,7 @@ public class UserController {
 	private UserRepository userRepository;
 
 	@Autowired
-	private ContactRepository contactRepository;
+	private WorkerRepository workerRepository;
 
 	// method for adding common data to response
 	@ModelAttribute
@@ -79,57 +79,29 @@ public class UserController {
 	}
 
 	// open add form handler
-	@GetMapping("/add-contact")
-	public String openAddContactForm(Model model) {
-		model.addAttribute("title", "Add Contact");
-		model.addAttribute("contact", new Contact());
-
-		return "normal/add_contact_form";
+	@GetMapping("/add-worker")
+	public String openAddWorkerForm(Model model) {
+		model.addAttribute("title", "Add Worker");
+		model.addAttribute("worker", new Worker());
+		return "normal/add_worker_form";
 	}
 
-	// processing add contact form
-	@PostMapping("/process-contact")
-	public String processContact(@ModelAttribute Contact contact,
+	@PostMapping("/process-worker")
+	public String processWorker(@ModelAttribute Worker worker,
 								 Principal principal, HttpSession session) {
 
 		try {
 
 			String name = principal.getName();
 			User user = this.userRepository.getUserByUserName(name);
-
-//			// processing and uploading file..
-//
-//			if (file.isEmpty()) {
-//				// if the file is empty then try our message
-//				System.out.println("File is empty");
-//				contact.setImage("contact.png");
-//
-//			} else {
-//				// file the file to folder and update the name to contact
-//				contact.setImage(file.getOriginalFilename());
-//
-//				File saveFile = new ClassPathResource("static/img").getFile();
-//
-//				Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + file.getOriginalFilename());
-//
-//				Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-//
-//				System.out.println("Image is uploaded");
-
-		//	}
-
-			user.getContacts().add(contact);
-
-			contact.setUser(user);
-
+			user.getWorker().add(worker);
+			worker.setUser(user);
 			this.userRepository.save(user);
-
-			System.out.println("DATA " + contact);
-
+			System.out.println("DATA " + worker);
 			System.out.println("Added to data base");
 
 			// message success.......
-			session.setAttribute("message", new Message("Your contact is added !! Add more..", "success"));
+			session.setAttribute("message", new Message("Worker is added !! Add more..", "success"));
 
 		} catch (Exception e) {
 			System.out.println("ERROR " + e.getMessage());
@@ -139,133 +111,121 @@ public class UserController {
 
 		}
 
-		return "normal/add_contact_form";
+		return "normal/add_worker_form";
 	}
 
-	// show contacts handler
 	// per page = 5[n]
 	// current page = 0 [page]
-	@GetMapping("/show-contacts/{page}")
-	public String showContacts(@PathVariable("page") Integer page, Model m, Principal principal) {
-		m.addAttribute("title", "Show User Contacts");
-		// contact ki list ko bhejni hai
+	@GetMapping("/show-worker/{page}")
+	public String showWorkers(@PathVariable("page") Integer page, Model m, Principal principal) {
+		m.addAttribute("title", "Show User Workers");
 
 		String userName = principal.getName();
 
 		User user = this.userRepository.getUserByUserName(userName);
 
 		// currentPage-page
-		// Contact Per page - 5
-		Pageable pageable = PageRequest.of(page, 8);
+		// Worker Per page - 5
+		Pageable pageable = PageRequest.of(page, 4);
 
-		Page<Contact> contacts = this.contactRepository.findContactsByUser(user.getId(), pageable);
-
-		m.addAttribute("contacts", contacts);
+		Page<Worker> worker = this.workerRepository.findWorkersByUser(user.getId(), pageable);
+		m.addAttribute("workers", worker);
 		m.addAttribute("currentPage", page);
-		m.addAttribute("totalPages", contacts.getTotalPages());
-
-		return "normal/show_contacts";
+		m.addAttribute("totalPages", worker.getTotalPages());
+		return "normal/show_worker";
 	}
 
-	// showing particular contact details.
+	@GetMapping("/show-user/{page}")
+	public String showUsers(@PathVariable("page") Integer page, Model m, Principal principal) {
+		m.addAttribute("title", "Show Users");
+		Pageable pageable = PageRequest.of(page, 4);
 
-	@RequestMapping("/{cId}/contact")
-	public String showContactDetail(@PathVariable("cId") Integer cId, Model model, Principal principal) {
+		//Page<Worker> worker = this.workerRepository.findWorkersByUser(user.getId(), pageable);
+		Page<User> users = this.userRepository.findAll(pageable);
+		m.addAttribute("users", users);
+		m.addAttribute("currentPage", page);
+		m.addAttribute("totalPages", users.getTotalPages());
+		return "normal/show_user";
+	}
+
+	@RequestMapping("/{cId}/worker")
+	public String showWorkerDetail(@PathVariable("cId") Integer cId, Model model, Principal principal) {
 		System.out.println("CID " + cId);
 
-		Optional<Contact> contactOptional = this.contactRepository.findById(cId);
-		Contact contact = contactOptional.get();
+		Optional<Worker> workerOptional = this.workerRepository.findById(cId);
+		Worker worker = workerOptional.get();
 
 		//
 		String userName = principal.getName();
 		User user = this.userRepository.getUserByUserName(userName);
 
-		if (user.getId() == contact.getUser().getId()) {
-			model.addAttribute("contact", contact);
-			model.addAttribute("title", contact.getName());
+		if (user.getId() == worker.getUser().getId()) {
+			model.addAttribute("worker", worker);
+			model.addAttribute("title", worker.getName());
 		}
 
-		return "normal/contact_detail";
+		return "normal/worker_detail";
 	}
 
-	// delete contact handler
+	@GetMapping("/deleteuser/{id}")
+	public String deleteUser(@PathVariable("id") Integer Id, HttpSession session,
+							   Principal principal) {
+
+		User user = this.userRepository.getOne(Id);
+
+		this.userRepository.delete(user);
+
+		session.setAttribute("message", new Message("User deleted succesfully...", "success"));
+
+		return "redirect:/user/show-user/0";
+	}
 
 	@GetMapping("/delete/{cid}")
 	@Transactional
-	public String deleteContact(@PathVariable("cid") Integer cId, Model model, HttpSession session,
+	public String deleteWorker(@PathVariable("cid") Integer cId, HttpSession session,
 								Principal principal) {
 		System.out.println("CID " + cId);
 
-		Contact contact = this.contactRepository.findById(cId).get();
-		// check...Assignment..image delete
-
-		// delete old photo
+		Worker worker = this.workerRepository.findById(cId).get();
 
 		User user = this.userRepository.getUserByUserName(principal.getName());
 
-		user.getContacts().remove(contact);
+		user.getWorker().remove(worker);
 
 		this.userRepository.save(user);
 
 		System.out.println("DELETED");
-		session.setAttribute("message", new Message("Contact deleted succesfully...", "success"));
+		session.setAttribute("message", new Message("Worker deleted succesfully...", "success"));
 
-		return "redirect:/user/show-contacts/0";
+		return "redirect:/user/show-worker/0";
 	}
 
 	// open update form handler
-	@PostMapping("/update-contact/{cid}")
+	@PostMapping("/update-worker/{cid}")
 	public String updateForm(@PathVariable("cid") Integer cid, Model m) {
 
-		m.addAttribute("title", "Update Contact");
+		m.addAttribute("title", "Update Worker");
 
-		Contact contact = this.contactRepository.findById(cid).get();
+		Worker worker = this.workerRepository.findById(cid).get();
 
-		m.addAttribute("contact", contact);
+		m.addAttribute("worker", worker);
 
 		return "normal/update_form";
 	}
 
-	// update contact handler
 	@RequestMapping(value = "/process-update", method = RequestMethod.POST)
-	public String updateHandler(@ModelAttribute Contact contact,
+	public String updateHandler(@ModelAttribute Worker worker,
 								Model m, HttpSession session, Principal principal) {
 
 		try {
 
-			// old contact details
-			Contact oldcontactDetail = this.contactRepository.findById(contact.getcId()).get();
-
-//			// image..
-//			if (!file.isEmpty()) {
-//				// file work..
-//				// rewrite
-//
-////				delete old photo
-//
-//				File deleteFile = new ClassPathResource("static/img").getFile();
-//				File file1 = new File(deleteFile, oldcontactDetail.getImage());
-//				file1.delete();
-//
-////				update new photo
-//
-//				File saveFile = new ClassPathResource("static/img").getFile();
-//
-//				Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + file.getOriginalFilename());
-//
-//				Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-//
-//				contact.setImage(file.getOriginalFilename());
-//
-//			} else {
-//				contact.setImage(oldcontactDetail.getImage());
-//			}
+			Worker oldworkerDetail = this.workerRepository.findById(worker.getcId()).get();
 
 			User user = this.userRepository.getUserByUserName(principal.getName());
 
-			contact.setUser(user);
+			worker.setUser(user);
 
-			this.contactRepository.save(contact);
+			this.workerRepository.save(worker);
 
 			session.setAttribute("message", new Message("Your worker is updated...", "success"));
 
@@ -273,9 +233,9 @@ public class UserController {
 			e.printStackTrace();
 		}
 
-		System.out.println("WORKER NAME " + contact.getName());
-		System.out.println("WORKER ID " + contact.getcId());
-		return "redirect:/user/" + contact.getcId() + "/contact";
+		System.out.println("WORKER NAME " + worker.getName());
+		System.out.println("WORKER ID " + worker.getcId());
+		return "redirect:/user/" + worker.getcId() + "/worker";
 	}
 
 	// your profile handler

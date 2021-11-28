@@ -22,10 +22,10 @@
 					<div class="col-md-8 offset-md-2">
 					
 						<form action="#" 
-							  th:object="${contact}"
+							  th:object="${worker}"
 							  enctype="multipart/form-data"
 							  method="POST"
-							  th:action="@{/user/process-contact}"
+							  th:action="@{/user/process-worker}"
 							  class="mt-2"
 						>
 						
@@ -85,9 +85,6 @@
 						
 						</div>
 						
-						
-						<!--  Work Field -->
-						
 						<div class="input-group mt-3">
 						
 							<div class="input-group-prepend">
@@ -103,25 +100,6 @@
 							<input required type="text" id="work" name="work" placeholder="Enter work" class="form-control" />
 						
 						</div>
-						
-<!--						&lt;!&ndash; Contact Description &ndash;&gt;-->
-<!--						-->
-<!--						<div class="form-group mt-3">-->
-<!--							-->
-<!--							<textarea id="mytextarea" placeholder="Enter contact description" name="description"  class="form-control"  rows="10"></textarea>-->
-<!--						-->
-<!--						</div>-->
-<!--						-->
-<!--						&lt;!&ndash; Contact Image  &ndash;&gt;-->
-<!--						-->
-<!--						<div class="custom-file">-->
-<!--							<input type="file" name="profileImage" />-->
-<!--						-->
-<!--						</div>-->
-
-
-
-							<!-- Rating  -->
 
 							<div class="input-group mt-3">
 
@@ -135,11 +113,10 @@
 
 								</div>
 
-								<input required type="text" id="secondName" name="secondName" placeholder="Enter Rating" class="form-control" />
+								<input required type="text" id="rating" name="rating" placeholder="Enter Rating" class="form-control" />
 
 							</div>
 							<div class="container text-center">
-
 							<button class="btn btn-outline-primary" style="padding:5px; margin-bottom: 10px;">Save Worker</button>
 						
 						</div>
