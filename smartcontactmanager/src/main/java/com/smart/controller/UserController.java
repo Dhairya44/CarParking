@@ -74,8 +74,8 @@ public class UserController {
 	// dashboard home
 	@RequestMapping("/index")
 	public String dashboard(Model model, Principal principal) {
-		model.addAttribute("title", "User Dashboard");
-		return "normal/user_dashboard";
+		model.addAttribute("title", "profile");
+		return "normal/profile";
 	}
 
 	// open add form handler
