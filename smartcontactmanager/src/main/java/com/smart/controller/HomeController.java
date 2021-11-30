@@ -10,11 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import com.smart.dao.UserRepository;
 import com.smart.entities.User;
@@ -33,16 +29,17 @@ public class HomeController {
 	private UserRepository userRepository;
 
 	@RequestMapping("/")
-	public String home(Model model) {
-		model.addAttribute("title", "Home - Car Parking");
-		return "home";
+	public String home(Model model)
+	{
+		model.addAttribute("title","Login Page");
+		return "login";
 	}
 
-	@RequestMapping("/about")
-	public String about(Model model) {
-		model.addAttribute("title", "About - Car Parking");
-		return "about";
-	}
+//	@RequestMapping("/about")
+//	public String about(Model model) {
+//		model.addAttribute("title", "About - Car Parking");
+//		return "about";
+//	}
 
 	@RequestMapping("/signup")
 	public String signup(Model model) {
