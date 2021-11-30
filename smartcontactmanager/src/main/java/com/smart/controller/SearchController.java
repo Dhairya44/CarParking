@@ -25,10 +25,9 @@ public class SearchController {
 	@GetMapping("/search/{query}")
 	public ResponseEntity<?> search(@PathVariable("query") String query,Principal principal)
 	{
-		System.out.println(query);		
-		User user=this.userRepository.getUserByUserName(principal.getName());		
-		List<Worker> workers = this.workerRepository.findByNameContainingAndUser(query, user);
+		System.out.println(query);
+		//User user=this.userRepository.getUserByUserName(principal.getName());
+		List<Worker> workers = this.workerRepository.findWorkerByName(query);
 		return ResponseEntity.ok(workers);
 	}
-	
 }

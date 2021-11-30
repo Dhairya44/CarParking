@@ -42,12 +42,8 @@ public class User {
 	@Column(name="otp_requested_time")
 	private Date otpRequestedTime;
 	
-	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL,orphanRemoval = true)
-	private List<Worker> worker=new ArrayList<>();
-	
 	public User() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public String getOneTimePassword() {
@@ -139,19 +135,10 @@ public class User {
 		this.about = about;
 	}
 
-	public List<Worker> getWorker() {
-		return worker;
-	}
-
-	public void setWorker(List<Worker> worker) {
-		this.worker = worker;
-	}
-
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", role=" + role
-				+ ", enabled=" + enabled + ",  about=" + about + ", workers=" + worker
-				+ "]";
+				+ ", enabled=" + enabled + ",  about=" + about + "]";
 	}
 	
 }

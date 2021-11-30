@@ -67,7 +67,7 @@ const paymentStart = () => {
   // we will use ajax to send request to server to create order- jquery
 
   $.ajax({
-    url: "/user/create_order",
+    url: "/admin/create_order",
     data: JSON.stringify({ amount: amount, info: "order_request" }),
     contentType: "application/json",
     type: "POST",
@@ -81,8 +81,8 @@ const paymentStart = () => {
           key: "rzp_test_haDRsJIQo9vFPJ",
           amount: response.amount,
           currency: "INR",
-          name: "Smart Contact Manager",
-          description: "Donation",
+          name: "Car Parking",
+          description: "Payment",
           image:
             "https://yt3.ggpht.com/-4BGUu55s_ko/AAAAAAAAAAI/AAAAAAAAAAA/3Cfl_C4o8Uo/s108-c-k-c0x00ffffff-no-rj-mo/photo.jpg",
           order_id: response.id,

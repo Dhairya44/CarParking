@@ -14,7 +14,9 @@ import java.util.Optional;
 import javax.servlet.http.HttpSession;
 import com.razorpay.*;
 
+import com.smart.dao.ParkingSlotRepository;
 import com.smart.dao.WorkerRepository;
+import com.smart.entities.ParkingSlot;
 import com.smart.entities.Worker;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,28 +59,25 @@ public class UserController {
 	@Autowired
 	private WorkerRepository workerRepository;
 
-	// method for adding common data to response
+	@Autowired
+	private ParkingSlotRepository parkingSlotRepository;
+
 	@ModelAttribute
 	public void addCommonData(Model model, Principal principal) {
 		String userName = principal.getName();
-		System.out.println("USERNAME " + userName);
 
 		// get the user using usernamne(Email)
 
 		User user = userRepository.getUserByUserName(userName);
-		System.out.println("USER " + user);
 		model.addAttribute("user", user);
-
 	}
 
-	// dashboard home
 	@RequestMapping("/index")
 	public String dashboard(Model model, Principal principal) {
 		model.addAttribute("title", "profile");
 		return "normal/profile";
 	}
 
-	// open add form handler
 	@GetMapping("/add-worker")
 	public String openAddWorkerForm(Model model) {
 		model.addAttribute("title", "Add Worker");
@@ -86,25 +85,24 @@ public class UserController {
 		return "normal/add_worker_form";
 	}
 
+	@GetMapping("/add-slot")
+	public String openAddSlotForm(Model model) {
+		model.addAttribute("title", "Add Parking Slots");
+		model.addAttribute("slot", new ParkingSlot());
+		return "normal/add_slot_form";
+	}
+
 	@PostMapping("/process-worker")
 	public String processWorker(@ModelAttribute Worker worker,
 								 Principal principal, HttpSession session) {
 
 		try {
-
-			String name = principal.getName();
-			User user = this.userRepository.getUserByUserName(name);
-			user.getWorker().add(worker);
-			worker.setUser(user);
-			this.userRepository.save(user);
-			System.out.println("DATA " + worker);
-			System.out.println("Added to data base");
+			workerRepository.save(worker);
 
 			// message success.......
 			session.setAttribute("message", new Message("Worker is added !! Add more..", "success"));
 
 		} catch (Exception e) {
-			System.out.println("ERROR " + e.getMessage());
 			e.printStackTrace();
 			// message error
 			session.setAttribute("message", new Message("Some went wrong !! Try again..", "danger"));
@@ -114,21 +112,32 @@ public class UserController {
 		return "normal/add_worker_form";
 	}
 
-	// per page = 5[n]
-	// current page = 0 [page]
+	@PostMapping("/process-slot")
+	public String processParking(@ModelAttribute ParkingSlot parkingSlot,
+								Principal principal, HttpSession session) {
+
+		try {
+			parkingSlotRepository.save(parkingSlot);
+			session.setAttribute("message", new Message("Parking Slot is added !! Add more..", "success"));
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.setAttribute("message", new Message("Some went wrong !! Try again..", "danger"));
+
+		}
+
+		return "normal/add_slot_form";
+	}
+
 	@GetMapping("/show-worker/{page}")
 	public String showWorkers(@PathVariable("page") Integer page, Model m, Principal principal) {
 		m.addAttribute("title", "Show User Workers");
-
-		String userName = principal.getName();
-
-		User user = this.userRepository.getUserByUserName(userName);
 
 		// currentPage-page
 		// Worker Per page - 5
 		Pageable pageable = PageRequest.of(page, 4);
 
-		Page<Worker> worker = this.workerRepository.findWorkersByUser(user.getId(), pageable);
+		Page<Worker> worker = this.workerRepository.findAll(pageable);
 		m.addAttribute("workers", worker);
 		m.addAttribute("currentPage", page);
 		m.addAttribute("totalPages", worker.getTotalPages());
@@ -148,9 +157,20 @@ public class UserController {
 		return "normal/show_user";
 	}
 
+	@GetMapping("/show-slots/{page}")
+	public String showSlots(@PathVariable("page") Integer page, Model m, Principal principal) {
+		m.addAttribute("title", "Show Parkings");
+
+		Pageable pageable = PageRequest.of(page, 4);
+		Page<ParkingSlot> slots = this.parkingSlotRepository.findAll(pageable);
+		m.addAttribute("slots", slots);
+		m.addAttribute("currentPage", page);
+		m.addAttribute("totalPages", slots.getTotalPages());
+		return "normal/show_slot";
+	}
+
 	@RequestMapping("/{cId}/worker")
 	public String showWorkerDetail(@PathVariable("cId") Integer cId, Model model, Principal principal) {
-		System.out.println("CID " + cId);
 
 		Optional<Worker> workerOptional = this.workerRepository.findById(cId);
 		Worker worker = workerOptional.get();
@@ -180,21 +200,25 @@ public class UserController {
 		return "redirect:/user/show-user/0";
 	}
 
+	@GetMapping("/deleteslot/{id}")
+	public String deleteSlots(@PathVariable("id") Integer Id, HttpSession session,
+							 Principal principal) {
+
+		ParkingSlot parkingSlot = this.parkingSlotRepository.getOne(Id);
+
+		this.parkingSlotRepository.delete(parkingSlot);
+
+		session.setAttribute("message", new Message("Parking Slot deleted succesfully...", "success"));
+
+		return "redirect:/user/show-slots/0";
+	}
+
 	@GetMapping("/delete/{cid}")
 	@Transactional
 	public String deleteWorker(@PathVariable("cid") Integer cId, HttpSession session,
 								Principal principal) {
-		System.out.println("CID " + cId);
-
 		Worker worker = this.workerRepository.findById(cId).get();
-
-		User user = this.userRepository.getUserByUserName(principal.getName());
-
-		user.getWorker().remove(worker);
-
-		this.userRepository.save(user);
-
-		System.out.println("DELETED");
+		workerRepository.delete(worker);
 		session.setAttribute("message", new Message("Worker deleted succesfully...", "success"));
 
 		return "redirect:/user/show-worker/0";
@@ -213,17 +237,23 @@ public class UserController {
 		return "normal/update_form";
 	}
 
+	@PostMapping("/update-slot/{id}")
+	public String updateParking(@PathVariable("id") Integer Id, Model m) {
+
+		m.addAttribute("title", "Update Parking Slot");
+
+		ParkingSlot parkingSlot = this.parkingSlotRepository.getOne(Id);
+
+		m.addAttribute("slot", parkingSlot);
+
+		return "normal/update_slot";
+	}
+
 	@RequestMapping(value = "/process-update", method = RequestMethod.POST)
 	public String updateHandler(@ModelAttribute Worker worker,
 								Model m, HttpSession session, Principal principal) {
 
 		try {
-
-			Worker oldworkerDetail = this.workerRepository.findById(worker.getcId()).get();
-
-			User user = this.userRepository.getUserByUserName(principal.getName());
-
-			worker.setUser(user);
 
 			this.workerRepository.save(worker);
 
@@ -233,34 +263,38 @@ public class UserController {
 			e.printStackTrace();
 		}
 
-		System.out.println("WORKER NAME " + worker.getName());
-		System.out.println("WORKER ID " + worker.getcId());
 		return "redirect:/user/" + worker.getcId() + "/worker";
 	}
 
-	// your profile handler
+	@RequestMapping(value = "/process-updatedslot", method = RequestMethod.POST)
+	public String updateSlotHandler(@ModelAttribute ParkingSlot parkingSlot,
+								Model m, HttpSession session, Principal principal) {
+		try {
+			this.parkingSlotRepository.save(parkingSlot);
+			session.setAttribute("message", new Message("Your Slot is updated...", "success"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/user/show-slots/0";
+	}
+
 	@GetMapping("/profile")
 	public String yourProfile(Model model) {
 		model.addAttribute("title", "Profile Page");
 		return "normal/profile";
 	}
 
-	// open settings handler
 	@GetMapping("/settings")
 	public String openSettings() {
 		return "normal/settings";
 	}
 
-	// change password..handler
 	@PostMapping("/change-password")
 	public String changePassword(@RequestParam("oldPassword") String oldPassword,
 								 @RequestParam("newPassword") String newPassword, Principal principal, HttpSession session) {
-		System.out.println("OLD PASSWORD " + oldPassword);
-		System.out.println("NEW PASSWORD " + newPassword);
 
 		String userName = principal.getName();
 		User currentUser = this.userRepository.getUserByUserName(userName);
-		System.out.println(currentUser.getPassword());
 
 		if (this.bCryptPasswordEncoder.matches(oldPassword, currentUser.getPassword())) {
 			// change the password
@@ -276,34 +310,6 @@ public class UserController {
 		}
 
 		return "redirect:/user/index";
-	}
-
-
-	//creating order for payment
-
-	@PostMapping("/create_order")
-	@ResponseBody
-	public String createOrder(@RequestBody Map<String, Object> data) throws Exception
-	{
-		//System.out.println("Hey order function ex.");
-		System.out.println(data);
-
-		int amt=Integer.parseInt(data.get("amount").toString());
-
-		var client=new RazorpayClient("rzp_test_haDRsJIQo9vFPJ", "owKJJes2fwE6YD6DToishFuH");
-
-		JSONObject ob=new JSONObject();
-		ob.put("amount", amt*100);
-		ob.put("currency", "INR");
-		ob.put("receipt", "txn_235425");
-
-		//creating new order
-
-		Order order = client.Orders.create(ob);
-		System.out.println(order);
-
-		//if you want you can save this to your data..
-		return order.toString();
 	}
 
 }

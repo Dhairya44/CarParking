@@ -93,6 +93,4 @@ public class HomeController {
 		model.addAttribute("title","Login Page");
 		return "login";
 	}
-
-
 }
