@@ -3,7 +3,7 @@
 .login-page {
 
   width: 360px;
-  padding: 8% 0 0;
+  padding: 3em 0 0;
   margin: auto;
 }
 .form {
@@ -11,7 +11,7 @@
   border-radius: 20px;
   position: relative;
   z-index: 1;
-  background: #FFFFFF;
+  background: #1f242b;
   max-width: 360px;
   margin: 0 auto 100px;
   padding: 45px;
@@ -21,23 +21,29 @@
 .form input {
   font-family: "Roboto", sans-serif;
   outline: 0;
-  background: #f2f2f2;
+  background: #535f6f;
   width: 100%;
   border: 0;
-  margin: 0 0 15px;
-  padding: 15px;
+  margin: 0 0 20px;
+  padding: 7px;
   box-sizing: border-box;
   font-size: 14px;
+  border-radius: 1.1em;
 }
+
+.form input::placeholder{
+  color: #c8cdd9;
+}
+
 .form .submit {
-  border-radius: 25px;
+  border-radius: 40px;
   font-family: "Roboto", sans-serif;
   text-transform: uppercase;
   outline: 0;
   background: #DA0037;
   width: 100%;
   border: 0;
-  padding: 15px;
+  padding: 8px;
   color: #FFFFFF;
   font-size: 14px;
   -webkit-transition: all 0.3 ease;
