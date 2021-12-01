@@ -2,13 +2,17 @@ body {
 	background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)),
 	url(../img/banner.jpg);
 	opacity: 2;
+	/*background-color: #1d405f;*/
 !important;
 }
 
 .bg-primary {
-	background: #023047 !important;
+	background: #171b21 !important;
 }
 
+.navbar-brand{
+	font-size: 1.5em;
+}
 .banner {
 	width: 100%;
 	height: 93vh;
@@ -59,7 +63,7 @@ body {
 
 .sidebar {
 	width: 18%;
-	background: white;
+	background: #202229;
 	height: 100%;
 	position: fixed;
 	padding-top: 45px;
@@ -75,7 +79,7 @@ body {
 }
 
 .sidebar a:hover {
-	background: #e2e2e2;
+	background: #034b71;
 }
 
 .sidebar .divider {
@@ -122,4 +126,33 @@ body {
 .active{
 	background:#023047 !important;
 	color:white!important;
+}
+
+.card {
+	/*background-color: #dd4b39;*/
+	color: #bfbecb;
+	border-radius: 20px;
+	position: relative;
+	z-index: 1;
+	background: #1f242b;
+	/*max-width: 360px;*/
+	width: 60%;
+	margin: 0 auto 100px;
+	padding: 1em;
+	text-align: center;
+	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.table {
+	width: 100%;
+	margin-bottom: 1rem;
+	color: #bfbecb;
+	margin-top: 1.5rem;
+}
+
+.card-body {
+	-ms-flex: 1 1 auto;
+	flex: 1 1 auto;
+	min-height: 1px;
+	padding: 0em;
 }
