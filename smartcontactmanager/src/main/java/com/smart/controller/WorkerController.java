@@ -2,13 +2,18 @@ package com.smart.controller;
 
 import com.razorpay.Order;
 import com.razorpay.RazorpayClient;
+import com.smart.dao.ParkingSlotRepository;
 import com.smart.dao.UserRepository;
 import com.smart.dao.WorkerRepository;
+import com.smart.entities.ParkingSlot;
 import com.smart.entities.User;
 import com.smart.entities.Worker;
 import com.smart.helper.Message;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +33,9 @@ public class WorkerController {
 
     @Autowired
     WorkerRepository workerRepository;
+
+    @Autowired
+    private ParkingSlotRepository parkingSlotRepository;
 
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -75,6 +83,17 @@ public class WorkerController {
             return "redirect:/worker/settings";
         }
         return "redirect:/worker/index";
+    }
+    @GetMapping("/show-slots/{page}")
+    public String showSlots(@PathVariable("page") Integer page, Model m, Principal principal) {
+        m.addAttribute("title", "Show Parkings");
+
+        Pageable pageable = PageRequest.of(page, 4);
+        Page<ParkingSlot> slots = this.parkingSlotRepository.findAll(pageable);
+        m.addAttribute("slots", slots);
+        m.addAttribute("currentPage", page);
+        m.addAttribute("totalPages", slots.getTotalPages());
+        return "worker/show_slot";
     }
 
 }
