@@ -95,5 +95,4 @@ public class WorkerController {
         m.addAttribute("totalPages", slots.getTotalPages());
         return "worker/show_slot";
     }
-
 }
