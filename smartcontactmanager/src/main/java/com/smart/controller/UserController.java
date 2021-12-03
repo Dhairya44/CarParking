@@ -72,6 +72,12 @@ public class UserController {
 		model.addAttribute("user", user);
 	}
 
+	@RequestMapping("/index")
+	public String dashboard(Model model, Principal principal) {
+		model.addAttribute("title", "profile");
+		return "normal/profile";
+	}
+
 	@GetMapping("/add-worker")
 	public String openAddWorkerForm(Model model) {
 		model.addAttribute("title", "Add Worker");
@@ -127,6 +133,8 @@ public class UserController {
 	public String showWorkers(@PathVariable("page") Integer page, Model m, Principal principal) {
 		m.addAttribute("title", "Show User Workers");
 
+		// currentPage-page
+		// Worker Per page - 5
 		Pageable pageable = PageRequest.of(page, 4);
 
 		Page<Worker> worker = this.workerRepository.findAll(pageable);

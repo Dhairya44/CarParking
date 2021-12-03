@@ -3,6 +3,7 @@ package com.smart.controller;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import com.smart.entities.Worker;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
@@ -13,7 +14,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import com.smart.dao.UserRepository;
+import com.smart.dao.WorkerRepository;
 import com.smart.entities.User;
+import com.smart.entities.Worker;
 import com.smart.helper.Message;
 
 import java.security.Principal;
@@ -92,5 +95,20 @@ public class HomeController {
 	{
 		model.addAttribute("title","Login Page");
 		return "login";
+	}
+	//
+	///
+	////worker
+	@GetMapping("/wlogin")
+	public String openAddWorkerForm(Model model) {
+		model.addAttribute("title", "Add worker");
+		model.addAttribute("worker", new Worker());
+		return "worker_login";
+	}
+	@PostMapping("/wdash")
+	public String openWorkerDashboard(Model model) {
+		model.addAttribute("title", "Add worker");
+		model.addAttribute("worker", new Worker());
+		return "worker/profile";
 	}
 }

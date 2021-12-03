@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="worker_base::layout(~{::section})">
+<head>
+    <meta charset="UTF-8" />
+    <title>Worker Login</title>
+</head>
+<body>
+<section>
+    <div id = "login" class="login-page">
+        <div class="form">
+            <form id="login-form" novalidate class="loign-form" th:action="@{/wdash}" action="#" method="post"
+            th:object="${email}">
+
+                <input type="text" name="name" id="name" class="form-control" placeholder="Email">
+                <button type="submit" name="submit" class="submit">Login</button>
+            </form>
+        </div>
+    </div>
+    </div>
+</section>
+</body>
+</html>
