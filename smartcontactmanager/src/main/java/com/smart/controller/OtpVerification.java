@@ -79,5 +79,6 @@ public class OtpVerification {
 		return;
 	}
 
-	@Autowired JavaMailSender javaMailSender;
+	@Autowired
+	JavaMailSender javaMailSender;
 }

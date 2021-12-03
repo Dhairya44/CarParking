@@ -78,20 +78,17 @@ const paymentStart = () => {
       if (response.status == "created") {
         //open payment form
         let options = {
-          key: "rzp_test_haDRsJIQo9vFPJ",
+          key: "rzp_test_3fGEPJTbBw4c9f",
           amount: response.amount,
           currency: "INR",
           name: "Car Parking",
           description: "Payment",
-          image:
-            "https://yt3.ggpht.com/-4BGUu55s_ko/AAAAAAAAAAI/AAAAAAAAAAA/3Cfl_C4o8Uo/s108-c-k-c0x00ffffff-no-rj-mo/photo.jpg",
           order_id: response.id,
           handler: function (response) {
             console.log(response.razorpay_payment_id);
             console.log(response.razorpay_order_id);
             console.log(response.razorpay_signature);
             console.log("payment successful !!");
-            // alert("congrates !! Payment successful !!");
             swal("Good job!", "congrates !! Payment successful !!", "success");
           },
           prefill: {
@@ -104,7 +101,7 @@ const paymentStart = () => {
             address: "OOP project ",
           },
           theme: {
-            color: "#3399cc",
+            color: "#DA0037",
           },
         };
 

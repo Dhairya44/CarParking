@@ -2,11 +2,16 @@ package com.smart.controller;
 
 import com.razorpay.Order;
 import com.razorpay.RazorpayClient;
+import com.smart.dao.ParkingSlotRepository;
 import com.smart.dao.UserRepository;
+import com.smart.entities.ParkingSlot;
 import com.smart.entities.User;
 import com.smart.helper.Message;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,19 +25,16 @@ import java.util.Map;
 @RequestMapping("/admin")
 public class AdminController {
 
+    private int flag=0;
+
     @Autowired
     UserRepository userRepository;
 
     @Autowired
-    BCryptPasswordEncoder bCryptPasswordEncoder;
+    ParkingSlotRepository parkingSlotRepository;
 
-    @RequestMapping("/index")
-    public String dashboard(Model model, Principal principal) {
-        model.addAttribute("title", "User Dashboard");
-        User admin = userRepository.getUserByUserName(principal.getName());
-        model.addAttribute("admin", admin);
-        return "admin/admin_dashboard";
-    }
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @GetMapping("/profile")
     public String yourProfile(Model model, Principal principal) {
@@ -83,7 +85,7 @@ public class AdminController {
     {
         int amt=Integer.parseInt(data.get("amount").toString());
 
-        var client=new RazorpayClient("rzp_test_haDRsJIQo9vFPJ", "owKJJes2fwE6YD6DToishFuH");
+        var client=new RazorpayClient("rzp_test_3fGEPJTbBw4c9f", "ntnofRbVEbYf5xQ7q962WQZE");
 
         JSONObject ob=new JSONObject();
         ob.put("amount", amt*100);
@@ -91,7 +93,39 @@ public class AdminController {
         ob.put("receipt", "txn_235425");
 
         Order order = client.Orders.create(ob);
+
         return order.toString();
     }
 
+    @GetMapping("/show-slots/{page}")
+    public String showSlots(@PathVariable("page") Integer page, Model m, Principal principal) {
+        m.addAttribute("title", "Show Parkings");
+        User admin = userRepository.getUserByUserName(principal.getName());
+        m.addAttribute("admin", admin);
+        Pageable pageable = PageRequest.of(page, 4);
+        Page<ParkingSlot> slots = this.parkingSlotRepository.findAll(pageable);
+        boolean error = flag == 1;
+        flag = 0;
+        m.addAttribute("error", error);
+        m.addAttribute("slots", slots);
+        m.addAttribute("currentPage", page);
+        m.addAttribute("totalPages", slots.getTotalPages());
+        return "admin/show_slot";
+    }
+
+    @PostMapping("/book-slot/{id}")
+    public String bookSlots(@PathVariable("id") Integer id, Model m, Principal principal) {
+        m.addAttribute("title", "Book Parking");
+        ParkingSlot parkingSlot = this.parkingSlotRepository.findById(id).get();
+        User admin = userRepository.getUserByUserName(principal.getName());
+        m.addAttribute("admin", admin);
+        parkingSlot.setAvailable(parkingSlot.getAvailable() - 1);
+        if(!(parkingSlot.getNameOfUsers()==null)){
+            flag = 1;
+            return "redirect:/admin/show-slots/0";
+        }
+        parkingSlot.setNameOfUsers(admin.getName());
+        parkingSlotRepository.save(parkingSlot);
+        return "redirect:/admin/payment";
+    }
 }
