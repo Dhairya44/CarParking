@@ -65,11 +65,11 @@
 
 		<nav aria-label="Page navigation example">
 		
-		  <ul class="pagination">
+		  <ul>
 		  
 		    <li th:if="${currentPage != 0}" class="page-item"><a th:href="@{'/user/show-worker/'+${currentPage-1}}" class="page-link" href="#">Previous</a></li>
 		   
-		    <li th:classappend="${currentPage==i-1?'active':''}" th:each="i : ${#numbers.sequence(1,totalPages)}" class="page-item"><a th:href="@{'/user/show-worker/'+${i-1}}" class="page-link" href="#"><span th:text="${i}"></span></a></li>
+		    <li th:classappend="${currentPage==i-1?'active':''}" th:each="i : ${#numbers.sequence(1,totalPages)}" class="page-item"><a th:href="@{'/user/show-worker/'+${i-1}}" class="page-link" href="#" style="margin-left: 30px;"><span th:text="${i}"></span></a></li>
 		
 		    <li th:if="${currentPage+1 != totalPages}" class="page-item"><a th:href="@{'/user/show-worker/'+${currentPage+1}}" class="page-link" href="#">Next</a></li>
 		  </ul>

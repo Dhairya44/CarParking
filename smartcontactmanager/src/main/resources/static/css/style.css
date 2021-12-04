@@ -20,6 +20,10 @@ body {
 	background: #009dae !important;
 }
 
+.pagination
+{
+	color: #dc3545;
+}
 .navbar-nav{
 	display: flex;
 	flex-direction: row;
@@ -289,4 +293,11 @@ li.nav-item {
 }
 .fas1:hover{
 	color: white;
+}
+
+.page-item.active .page-link {
+	z-index: 3;
+	color: #fff;
+	background-color: red;
+	border-color: #007bff;
 }
