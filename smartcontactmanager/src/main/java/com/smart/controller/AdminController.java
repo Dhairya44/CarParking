@@ -191,7 +191,8 @@ public class AdminController {
         String master = parkingSlot.getNameOfUsers();
         String target = admin.getUsername();
         String processed = master.replace(target, "\n");
-        System.out.println(target + "$" +  master + "$" + processed);
+        admin.setCarRegis(null);
+        admin.setCarModel(null);
         parkingSlot.setNameOfUsers(processed);
         parkingSlotRepository.save(parkingSlot);
         return "redirect:/admin/show-bookings/0/";
