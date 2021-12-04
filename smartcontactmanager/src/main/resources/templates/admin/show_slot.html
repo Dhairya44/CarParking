@@ -28,6 +28,7 @@
                         <th scope="col">InTime</th>
                         <th scope="col">OutTime</th>
                         <th scope="col">Service</th>
+                        <th scope="col">Price</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -40,6 +41,7 @@
                         <td><span th:text="${c.inTime}"></span></td>
                         <td><span th:text="${c.outTime}"></span></td>
                         <td><span th:text="${c.service}"></span></td>
+                        <td><span th:text="${c.price}"></span></td>
                         <td>
                             <form method="post" th:action="@{'/admin/book-slot/'+${c.id}}" class="mt-2">
                                 <button type="submit" class="btn btn-primary btn-sm">Book</button>

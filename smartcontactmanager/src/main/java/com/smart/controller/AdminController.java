@@ -19,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.Date;
 import java.util.List;
@@ -149,6 +150,15 @@ public class AdminController {
             parkingSlot.setNameOfUsers(admin.getUsername()  + " " + parkingSlot.getNameOfUsers());
 
         parkingSlotRepository.save(parkingSlot);
+        return "admin/add_registration";
+    }
+
+    @PostMapping("/process-regis")
+    public String processRegis(@Valid @ModelAttribute("carModel") String carModel, @Valid @ModelAttribute("carRegis") String carRegis, Model model, Principal principal){
+        User admin = userRepository.getUserByUserName(principal.getName());
+        admin.setCarModel(carModel);
+        admin.setCarRegis(carRegis);
+        userRepository.save(admin);
         return "redirect:/admin/payment";
     }
 

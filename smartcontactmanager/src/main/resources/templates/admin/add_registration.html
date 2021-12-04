@@ -2,11 +2,11 @@
 <html
         lang="en"
         xmlns:th="http://www.thymeleaf.org"
-        th:replace="worker/base::layout(~{::section})"
+        th:replace="admin/base::layout(~{::section})"
 >
 <head>
     <meta charset="UTF-8" />
-    <title>Worker Login</title>
+    <title>Settings</title>
 </head>
 <body>
 <section>
@@ -20,19 +20,25 @@
 
                     <div class="card-body">
 
-                        <h3 th:text="${slot}"></h3>
+                        <h3 class="mb-3">Change password</h3>
 
-                        <form  th:action="@{'/worker/add-services/'+${slot}+'/'+${worker.name}}" method="post">
+                        <form  th:action="@{/admin/process-regis}" method="post">
 
                             <div class="form-group">
 
-                                <input name="service" type="service" class="form-control" placeholder="Enter Service" />
+                                <input name="carModel" type="text" class="form-control" placeholder="Car Model" />
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <input name="carRegis" type="text" class="form-control" placeholder="Enter Car Registration Number" />
 
                             </div>
 
                             <div class="conainer text-center">
 
-                                <button type="submit" class="btn btn-success">Add</button>
+                                <button type="submit" class="btn btn-success">Continue</button>
 
                             </div>
 
