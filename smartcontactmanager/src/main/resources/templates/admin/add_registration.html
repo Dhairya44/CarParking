@@ -24,11 +24,19 @@
 
                         <form  th:action="@{/admin/process-regis}" method="post">
 
-                            <div class="form-group">
-
-                                <input name="carModel" type="text" class="form-control" placeholder="Car Model" />
-
+                            <div class="dropdown">
+                                <select name="carModel" id="cars">
+                                    <option value="SUV">SUV</option>
+                                    <option value="Sedan">Sedan</option>
+                                    <option value="HatchBack">HatchBack</option>
+                                </select>
                             </div>
+
+<!--                            <div class="form-group">-->
+
+<!--                                <input name="carModel" type="text" class="form-control" placeholder="Car Model" />-->
+
+<!--                            </div>-->
 
                             <div class="form-group">
 
