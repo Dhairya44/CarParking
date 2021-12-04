@@ -92,7 +92,12 @@ body {
 }
 
 .content {
-	margin-left: 20%;
+
+}
+
+
+.container{
+	padding-top: 2em;
 }
 
 .sidebar .crossBtn{
@@ -159,3 +164,49 @@ body {
 	min-height: 1px;
 	padding: 0em;
 }
+
+.top1{
+	color: #8695a3;
+	background-color: #25303b;
+	border-color: #25303b;
+}
+
+
+.dropbtn {
+	background-color: #04AA6D;
+	color: #171b21;
+	padding: 16px;
+	font-size: 16px;
+	border: none;
+}
+
+.dropdown {
+	position: relative;
+	display: inline-block;
+	margin: 0.4em;
+	bottom: 1px;
+
+
+}
+
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #f1f1f1;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px #171b21;
+	z-index: 1;
+}
+
+.dropdown-content a {
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+}
+
+.dropdown-content a:hover {background-color: #171b21;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
