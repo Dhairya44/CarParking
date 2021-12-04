@@ -54,8 +54,8 @@
 
         <ul class="navbar-nav ml-auto text-uppercase">
 
-<!--            <li class="nav-item"><a class="nav-link " th:href="@{/worker/profile}"-->
-<!--                                    tabindex="-1" aria-disabled="false"><span th:text="${worker.name}"></span></a></li>-->
+            <li class="nav-item"><a class="nav-link " th:href="@{/worker/profile}"
+                                    tabindex="-1" aria-disabled="false"><span th:text="${worker.name}"></span></a></li>
             <li class="nav-item"><a class="nav-link " th:href="@{/logout}" href="#"
                                     tabindex="-1" aria-disabled="true">Logout</a></li>
 
@@ -76,8 +76,9 @@ END navbar -->
     <span onclick="toggleSidebar()" class="crossBtn">&times;</span>
 
     <!--		<a id="home-link" href="#" th:href="@{/user/index}" class="item active"> <i class="fas fa-home"></i> Home</a>-->
-    <a id="profile-link" href="#" th:href="@{/worker/profile}" class="item"><i class="fas fa-user-tie"></i> Your Profile </a>
-    <a id="slots-link" href="#" th:href="@{/worker/show-slots/0}" class="item"><i class="fas fa-location-arrow"></i> View Parkings</a>
+    <a id="profile-link" href="#" th:href="@{'/worker/profile/'+${worker.name}}" class="item"><i class="fas fa-user-tie"></i> Your Profile </a>
+    <a id="slots-link" href="#" th:href="@{'/worker/show-slots/0/'+${worker.name}}" class="item"><i class="fas fa-location-arrow"></i> View Parkings</a>
+    <a id="services-link" href="#" th:href="@{'/worker/show-services/0/'+${worker.name}}" class="item"><i class="fas fa-location-arrow"></i> My Services</a>
     <div class="divider"></div>
 
 </div>

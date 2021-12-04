@@ -7,6 +7,7 @@ import com.smart.dao.UserRepository;
 import com.smart.entities.ParkingSlot;
 import com.smart.entities.User;
 import com.smart.helper.Message;
+import com.smart.sms.SmsSender;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -26,6 +29,9 @@ import java.util.Map;
 public class AdminController {
 
     private int flag=0;
+
+    @Autowired
+    SmsSender smsSender;
 
     @Autowired
     UserRepository userRepository;
@@ -119,13 +125,58 @@ public class AdminController {
         ParkingSlot parkingSlot = this.parkingSlotRepository.findById(id).get();
         User admin = userRepository.getUserByUserName(principal.getName());
         m.addAttribute("admin", admin);
-        parkingSlot.setAvailable(parkingSlot.getAvailable() - 1);
-        if(!(parkingSlot.getNameOfUsers()==null)){
+        if(parkingSlot.getAvailable()>0) {
+            parkingSlot.setAvailable(parkingSlot.getAvailable() - 1);
+        }
+        else{
+            parkingSlot.setWaiting(parkingSlot.getWaiting()+1);
+        }
+
+        if(!(parkingSlot.getNameOfUsers()==null) && parkingSlot.getNameOfUsers().contains(admin.getUsername())){
             flag = 1;
             return "redirect:/admin/show-slots/0";
         }
-        parkingSlot.setNameOfUsers(admin.getName());
+        parkingSlot.setDate(new Date());
+
+//        String to = admin.getPhone();
+//        String message = "Your Parking Slot at Location "+parkingSlot.getLocation()+" with In Time: " + parkingSlot.getInTime()+" is booked!";
+//        smsSender.sendSms(message, to);
+
+        if(parkingSlot.getNameOfUsers()==null)
+            parkingSlot.setNameOfUsers(admin.getUsername());
+        else
+            parkingSlot.setNameOfUsers(admin.getUsername()  + " " + parkingSlot.getNameOfUsers());
+
         parkingSlotRepository.save(parkingSlot);
         return "redirect:/admin/payment";
     }
+
+    @GetMapping("/show-bookings/{page}")
+    public String showBookings(@PathVariable("page") Integer page, Model m, Principal principal) {
+        m.addAttribute("title", "Show Bookings");
+        User admin = userRepository.getUserByUserName(principal.getName());
+        m.addAttribute("admin", admin);
+        Pageable pageable = PageRequest.of(page, 4);
+
+        Page<ParkingSlot> slots = this.parkingSlotRepository.findAll(pageable);
+        List<ParkingSlot> bookings = this.parkingSlotRepository.findParkingSlotByNameOfUsersContaining(admin.getUsername());
+        m.addAttribute("book", bookings);
+        m.addAttribute("currentPage", page);
+        m.addAttribute("totalPages", slots.getTotalPages());
+        return "admin/my-booking";
+    }
+
+    @PostMapping("/cancel-slot/{id}")
+    public String updateParking(@PathVariable("id") Integer Id, Model m, Principal principal) {
+        ParkingSlot parkingSlot = this.parkingSlotRepository.getOne(Id);
+        User admin = this.userRepository.getUserByUserName(principal.getName());
+        String master = parkingSlot.getNameOfUsers();
+        String target = admin.getUsername();
+        String processed = master.replace(target, "\n");
+        System.out.println(target + "$" +  master + "$" + processed);
+        parkingSlot.setNameOfUsers(processed);
+        parkingSlotRepository.save(parkingSlot);
+        return "redirect:/admin/show-bookings/0/";
+    }
+
 }

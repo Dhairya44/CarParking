@@ -9,10 +9,12 @@
 <section>
     <div id = "login" class="login-page">
         <div class="form">
+            <div th:if="${error}" class="alert alert-danger">
+                Invalid username and password
+            </div>
             <form id="login-form" novalidate class="loign-form" th:action="@{/wdash}" action="#" method="post"
             th:object="${email}">
-
-                <input type="text" name="name" id="name" class="form-control" placeholder="Email">
+                <input type="text" name="email" id="name" class="form-control" placeholder="Email">
                 <button type="submit" name="submit" class="submit">Login</button>
             </form>
         </div>

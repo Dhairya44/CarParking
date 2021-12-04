@@ -20,7 +20,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.security.Principal;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -40,6 +42,8 @@ public class WorkerController {
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    int flag = 0;
+
     @RequestMapping("/index")
     public String dashboard(Model model, Principal principal) {
         model.addAttribute("title", "User Dashboard");
@@ -49,50 +53,81 @@ public class WorkerController {
         return "worker/profile";
     }
 
-    @GetMapping("/profile")
-    public String yourProfile(Model model, Principal principal) {
+    @GetMapping("/profile/{name}")
+    public String yourProfile(@PathVariable("name")String name ,Model model, Principal principal) {
         model.addAttribute("title", "Profile Page");
-        List<Worker> worker1 = workerRepository.findWorkerByName(principal.getName());
+        List<Worker> worker1 = workerRepository.findWorkerByName(name);
         Worker worker = worker1.get(0);
         model.addAttribute("worker", worker);
         return "worker/profile";
     }
 
-    @GetMapping("/settings")
-    public String openSettings(Model model, Principal principal) {
-        User worker = userRepository.getUserByUserName(principal.getName());
-        model.addAttribute("worker", worker);
-        return "worker/settings";
-    }
-
-    @PostMapping("/change-password")
-    public String changePassword(@RequestParam("oldPassword") String oldPassword,Model model,
-                                 @RequestParam("newPassword") String newPassword, Principal principal, HttpSession session) {
-
-        String userName = principal.getName();
-        User currentUser = this.userRepository.getUserByUserName(userName);
-        if (this.bCryptPasswordEncoder.matches(oldPassword, currentUser.getPassword())) {
-
-            currentUser.setPassword(this.bCryptPasswordEncoder.encode(newPassword));
-            this.userRepository.save(currentUser);
-            session.setAttribute("message", new Message("Your password is successfully changed..", "success"));
-
-        } else {
-
-            session.setAttribute("message", new Message("Please Enter correct old password !!", "danger"));
-            return "redirect:/worker/settings";
-        }
-        return "redirect:/worker/index";
-    }
-    @GetMapping("/show-slots/{page}")
-    public String showSlots(@PathVariable("page") Integer page, Model m, Principal principal) {
+    @GetMapping("/show-slots/{page}/{name}")
+    public String showSlots(@PathVariable("name") String name, @PathVariable("page") Integer page, Model m, Principal principal) {
         m.addAttribute("title", "Show Parkings");
-
+        List<Worker> worker1 = workerRepository.findWorkerByName(name);
+        Worker worker = worker1.get(0);
+        m.addAttribute("worker", worker);
+        if(flag==1)
+            m.addAttribute("error" , true);
+        flag  = 0;
         Pageable pageable = PageRequest.of(page, 4);
         Page<ParkingSlot> slots = this.parkingSlotRepository.findAll(pageable);
         m.addAttribute("slots", slots);
         m.addAttribute("currentPage", page);
         m.addAttribute("totalPages", slots.getTotalPages());
         return "worker/show_slot";
+    }
+
+    @PostMapping("/update-service/{id}/{name}")
+    public String bookSlots(@PathVariable("name") String name, @PathVariable("id") Integer id, Model m, Principal principal) {
+        m.addAttribute("title", "Add Services");
+        ParkingSlot parkingSlot = this.parkingSlotRepository.getOne(id);
+        List<Worker> worker1 = workerRepository.findWorkerByName(name);
+        Worker worker = worker1.get(0);
+        if(parkingSlot.getService()==null){
+            m.addAttribute("worker", worker);
+            m.addAttribute("slot", parkingSlot.getId());
+            return "worker/add_service";
+        }
+        else{
+            flag = 1;
+            return "redirect:/worker/show-slots/0/"+worker.getName();
+        }
+    }
+
+    @PostMapping("/add-services/{id}/{name}")
+    public String addSlots(@Valid @ModelAttribute("service") String service, @PathVariable("name") String name, @PathVariable("id") Integer id, Model m, Principal principal) {
+        ParkingSlot parkingSlot = this.parkingSlotRepository.findById(id).get();
+        List<Worker> worker1 = workerRepository.findWorkerByName(name);
+        Worker worker = worker1.get(0);
+        parkingSlot.setService(service+"("+worker.getName()+")");
+        parkingSlotRepository.save(parkingSlot);
+        return "redirect:/worker/show-slots/0/"+worker.getName();
+    }
+
+    @GetMapping("/show-services/{page}/{name}")
+    public String showServices(@PathVariable("name") String name, @PathVariable("page") Integer page, Model m, Principal principal) {
+        m.addAttribute("title", "Show Services");
+        List<Worker> worker1 = workerRepository.findWorkerByName(name);
+        Worker worker = worker1.get(0);
+        m.addAttribute("worker", worker);
+        Pageable pageable = PageRequest.of(page, 4);
+        Page<ParkingSlot> slots = this.parkingSlotRepository.findAll(pageable);
+        List<ParkingSlot> slot = this.parkingSlotRepository.findParkingSlotByServiceContaining(name);
+        m.addAttribute("slots", slot);
+        m.addAttribute("currentPage", page);
+        m.addAttribute("totalPages", slots.getTotalPages());
+        return "worker/show_services";
+    }
+
+    @PostMapping("/cancel-service/{id}/{name}")
+    public String updateParking(@PathVariable("name")String name, @PathVariable("id") Integer Id, Model m, Principal principal) {
+        ParkingSlot parkingSlot = this.parkingSlotRepository.getOne(Id);
+        List<Worker> worker1 = workerRepository.findWorkerByName(name);
+        Worker worker = worker1.get(0);
+        parkingSlot.setService(null);
+        parkingSlotRepository.save(parkingSlot);
+        return "redirect:/worker/show-services/0/"+worker.getName();
     }
 }

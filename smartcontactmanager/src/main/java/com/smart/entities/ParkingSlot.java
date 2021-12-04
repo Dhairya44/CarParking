@@ -1,6 +1,7 @@
 package com.smart.entities;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "PARKING")
@@ -8,14 +9,17 @@ public class ParkingSlot {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @Column(unique = true)
     private String location;
     private int available;
+    private int waiting;
     private String nameOfUsers;
     private String inTime;
     private String outTime;
+    private String service;
+    private Date date;
     public ParkingSlot() {
         super();
+        waiting = 0;
     }
 
     public int getId() {
@@ -64,6 +68,30 @@ public class ParkingSlot {
 
     public void setOutTime(String outTime) {
         this.outTime = outTime;
+    }
+
+    public int getWaiting() {
+        return waiting;
+    }
+
+    public void setWaiting(int waiting) {
+        this.waiting = waiting;
+    }
+
+    public String getService() {
+        return service;
+    }
+
+    public void setService(String service) {
+        this.service = service;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }
 

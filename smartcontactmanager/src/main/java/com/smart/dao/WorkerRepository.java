@@ -15,5 +15,7 @@ import com.smart.entities.User;
 
 public interface WorkerRepository extends JpaRepository<Worker, Integer> {
     public List<Worker> findWorkerByName(@Param("name")String name);
-   // public static Worker getWorkerByUserName(@Param("email") String email);
+    public List<Worker> findWorkerByEmail(@Param("email")String email);
+    @Query("select u from Worker u where u.email = :email")
+    public Worker getWorkerByUserName(@Param("email") String email);
 }

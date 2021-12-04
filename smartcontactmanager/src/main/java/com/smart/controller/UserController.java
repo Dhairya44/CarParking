@@ -119,11 +119,9 @@ public class UserController {
 		try {
 			parkingSlotRepository.save(parkingSlot);
 			session.setAttribute("message", new Message("Parking Slot is added !! Add more..", "success"));
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.setAttribute("message", new Message("Some went wrong !! Try again..", "danger"));
-
 		}
 
 		return "normal/add_slot_form";
@@ -133,8 +131,6 @@ public class UserController {
 	public String showWorkers(@PathVariable("page") Integer page, Model m, Principal principal) {
 		m.addAttribute("title", "Show User Workers");
 
-		// currentPage-page
-		// Worker Per page - 5
 		Pageable pageable = PageRequest.of(page, 4);
 
 		Page<Worker> worker = this.workerRepository.findAll(pageable);

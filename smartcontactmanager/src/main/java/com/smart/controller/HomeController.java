@@ -31,6 +31,9 @@ public class HomeController {
 	@Autowired
 	private UserRepository userRepository;
 
+	@Autowired
+	private WorkerRepository workerRepository;
+
 	@RequestMapping("/")
 	public String home(Model model)
 	{
@@ -96,19 +99,26 @@ public class HomeController {
 		model.addAttribute("title","Login Page");
 		return "login";
 	}
-	//
-	///
-	////worker
+
 	@GetMapping("/wlogin")
 	public String openAddWorkerForm(Model model) {
 		model.addAttribute("title", "Add worker");
+		model.addAttribute("error", false);
 		model.addAttribute("worker", new Worker());
 		return "worker_login";
 	}
+
 	@PostMapping("/wdash")
-	public String openWorkerDashboard(Model model) {
+	public String openWorkerDashboard(@Valid @ModelAttribute("email")String email, Model model) {
+		Worker worker = workerRepository.getWorkerByUserName(email);
 		model.addAttribute("title", "Add worker");
-		model.addAttribute("worker", new Worker());
-		return "worker/profile";
+		if(workerRepository.findWorkerByEmail(email).isEmpty()) {
+			model.addAttribute("error", true);
+			return "worker_login";
+		}
+		else {
+			model.addAttribute("worker", worker);
+			return "worker/profile";
+		}
 	}
 }

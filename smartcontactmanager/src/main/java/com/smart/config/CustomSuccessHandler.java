@@ -23,12 +23,9 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
         System.out.println(role);
         if(role.contains("ADMIN")) {
             redirectUrl = "/user/profile";
-        } else if(role.contains("USER")) {
+        } else if(role.contains("USER"))
             redirectUrl = "/admin/profile";
-        }
-        else if(role.contains("WORKER")){
-            redirectUrl = "/worker/index";
-        }
+
         System.out.println("redirectUrl " + redirectUrl);
         if (redirectUrl == null) {
             throw new IllegalStateException();

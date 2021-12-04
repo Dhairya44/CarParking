@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="worker/base::layout(~{::section})">
+<head>
+    <meta charset="UTF-8" />
+    <title>Worker Login</title>
+</head>
+<body>
+<section>
+    <div id = "login" class="login-page">
+        <div class="form">
+            <div>
+                <h1 th:text="${slot}"></h1>
+            </div>
+            <form id="login-form" novalidate class="loign-form" th:action="@{'/worker/add-services/'+${slot}+'/'+${worker.name}}" action="#" method="post"
+                  th:object="${service}">
+                <input type="text" name="service" id="service" class="form-control" placeholder="Service">
+                <button type="submit" name="submit" class="submit">Add</button>
+            </form>
+        </div>
+    </div>
+    </div>
+</section>
+</body>
+</html>

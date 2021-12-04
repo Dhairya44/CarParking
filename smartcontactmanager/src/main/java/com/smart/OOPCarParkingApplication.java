@@ -14,7 +14,6 @@ public class OOPCarParkingApplication implements CommandLineRunner  {
 	
 	public static void main(String[] args) {
 		SpringApplication.run(OOPCarParkingApplication.class, args);
-
 	}
 
 	@Override
