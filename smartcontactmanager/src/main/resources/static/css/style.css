@@ -175,10 +175,11 @@ body {
 .dropbtn {
 	background-color: #04AA6D;
 	color: #171b21;
-	padding: 16px;
-	font-size: 16px;
+	padding: 1em;
+	font-size: 1em;
 	border: none;
 }
+
 
 .dropdown {
 	position: relative;
