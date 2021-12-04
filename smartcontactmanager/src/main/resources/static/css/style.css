@@ -4,11 +4,13 @@ body {
 	background-size: 1000px 750px;
 	opacity: 1.5;
 	background-color: #FFFFFF;
+	background-repeat: no-repeat;
+	margin: auto;
 !important;
 }
 
 .bg-primary {
-	background: #e4554d !important;
+	background: #009ade !important;
 }
 
 .navbar-brand{
