@@ -1,16 +1,23 @@
+
 body {
 	background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)),
 	url(../img/banner.jpg);
-	background-size: 1000px 750px;
-	opacity: 1.5;
-	background-color: #FFFFFF;
+	background-repeat: no-repeat;
+	background-size: 100vw 100vh;
+	/* This is for the background image, so that the image is filled into the entire background. */
+
+	width: 100%;
+	height: 100vh;
+	/* This is for the height and width of gamecontainer; used to fill screen. */
+
+	overflow: hidden;
 	background-repeat: no-repeat;
 	margin: auto;
 !important;
 }
 
 .bg-primary {
-	background: #009ade !important;
+	background: #009dae !important;
 }
 
 .navbar-brand{
@@ -99,7 +106,7 @@ body {
 
 
 .container{
-	padding-top: 2em;
+	padding-top: 4em;
 }
 
 .sidebar .crossBtn{
@@ -143,11 +150,11 @@ body {
 	border-radius: 20px;
 	position: relative;
 	z-index: 1;
-	background: #1f242b;
+	background: #20313be6;
 	/*max-width: 360px;*/
 	width: 60%;
 	margin: 0 auto 100px;
-	padding: 1em;
+	padding: 0em;
 	text-align: center;
 	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
@@ -193,11 +200,21 @@ body {
 
 
 }
+.icon1{
+	color: #FFFFFF;
+	margin-top: auto;
+	padding: 0 5%;
+}
 .crossBtn{
-	color: #898b8e;
-	background-color: #171b21;
+	color: #dee4ee;
+	background-color: #009dae;
 	border: none;
 	font-size: 1em;
+}
+
+#users-link{
+	color: #dee4ee;
+	text-decoration: none;
 }
 
 .dropdown-content {
@@ -216,6 +233,22 @@ body {
 	text-decoration: none;
 	display: block;
 	font-size: 1em;
+}
+
+li.nav-item {
+	vertical-align: middle;
+}
+
+.nav-center{
+	margin: auto auto;
+	display: flex;
+	flex-direction: row;
+
+}
+.nav-end{
+	display: flex;
+	flex-direction: row;
+
 }
 
 .dropdown-content a:hover {background-color: #171b21;}
