@@ -66,7 +66,7 @@ body {
 .sidebar {
 	width: 18%;
 	background: #202229;
-	height: 100%;
+	height: 39%;
 	position: fixed;
 	padding-top: 45px;
 	z-index: 999999999999999999999999999;
@@ -145,6 +145,7 @@ body {
 	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 
+/*text in your profile*/
 .table {
 	width: 100%;
 	margin-bottom: 1rem;
