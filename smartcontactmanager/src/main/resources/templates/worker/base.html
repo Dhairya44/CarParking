@@ -45,15 +45,64 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
 
-        <ul class="navbar-nav ml-auto text-uppercase">
+<!--        <ul class="navbar-nav ml-auto text-uppercase">-->
+        <div class="nav-center">
+        <li class="nav-item nav-center">
+            <div class="dropdown">
+                <button class="crossBtn">Profile</button>
+                <div class="dropdown-content">
 
-            <li class="nav-item"><a class="nav-link " th:href="@{'/worker/profile/'+${worker.name}}"
-                                    tabindex="-1" aria-disabled="false"><span th:text="${worker.name}"></span></a></li>
-            <li class="nav-item"><a class="nav-link " th:href="@{/logout}" href="#"
-                                    tabindex="-1" aria-disabled="true">Logout</a></li>
+                    <a id="home-link" href="#" th:href="@{/user/index}" class="item active"> <i class="fas fa-home"></i> Home</a>
+<!--                    <a id="slots-link" href="#" th:href="@{/user/show-slots/0}" class="item"><i class="fas fa-parking"></i> View Parkings</a>-->
+<!--                    <a id="addslot-link" href="#" th:href="@{/user/add-slot}" class="item"><i class="fas fa-pencil-alt"></i> Add Parkings</a>-->
+                    <a id="profile-link" href="#" th:href="@{'/worker/profile/'+${worker.name}}" class="item"><i class="fas fa-user-tie"></i> Your Profile </a>
+                </div>
+            </div>
+        </li>
+
+        <li class="nav-item nav-center">
+            <div class="dropdown">
+                <button class="crossBtn">Parkings</button>
+                <div class="dropdown-content">
+                    <a id="slots-link" href="#" th:href="@{'/worker/show-slots/0/'+${worker.name}}" class="item"><i class="fas fa-location-arrow"></i> View Parkings</a>
+<!--                    <a id="users-link" href="#" th:href="@{/user/show-user/0}" class="item">View Users</a>-->
 
 
-        </ul>
+                </div>
+            </div>
+        <li class="nav-item  nav-center">
+            <div class="dropdown">
+                <button class="crossBtn">Worker</button>
+                <div class="dropdown-content">
+
+                    <a id="services-link" href="#" th:href="@{'/worker/show-services/0/'+${worker.name}}" class="item"><i class="fas fa-hand-sparkles"></i> My Services</a>
+<!--                    <a id="workers-link" href="#" th:href="@{/user/show-worker/0}" class="item"><i class="fas fa-user-cog"></i> View Workers</a>-->
+<!--                    <a id="add-link" href="#" th:href="@{/user/add-worker}" class="item"><i class="fas fa-people-arrows"></i> Add Workers</a>-->
+                </div>
+            </div>
+        </li>
+        </div>
+    </div>
+
+    <div class="nav-end">
+
+<!--        <li class="nav-item nav-end">-->
+<!--            <a id="settings-link" href="#" th:href="@{/user/settings}" class="item adm-left"> <i class="fas fa-cog fa-1x icon1"></i></a>-->
+<!--        </li>-->
+
+<!--        <li class="nav-item nav-end"><a class=" adm-left" th:href="@{/user/profile}"-->
+
+<!--                                        tabindex="-1" aria-disabled="false"><i class="fas1 fas fa-user-tie fa-lg"></i><span th:text="${user.username}"></span></a></li>-->
+
+
+
+<!--        <li class="nav-item nav-end" ><a class="adm-left" th:href="@{/logout}" href="#"-->
+<!--                                         tabindex="-1" aria-disabled="true"><i class="fas fa-sign-out-alt"></i></a></li>-->
+            <li class="nav-item"><a class="nav-link " th:href="@{'/worker/profile/'+${worker.name}}" tabindex="-1" aria-disabled="false"><i class="fas1 fas fa-user-tie fa-lg"></i><span th:text="${worker.name}"></span></a></li>
+            <li class="nav-item nav-end" ><a class="adm-left" th:href="@{/logout}" href="#" tabindex="-1" aria-disabled="true"><i class="fas fa-sign-out-alt"></i></a></li>
+
+
+<!--        </ul>-->
 
     </div>
 </nav>
@@ -62,17 +111,17 @@ END navbar -->
 
 
 <!-- sidebar  -->
-<div class="sidebar mt-2">
+<!--<div class="sidebar mt-2">-->
 
-    <span onclick="toggleSidebar()" class="crossBtn">&times;</span>
+<!--    <span onclick="toggleSidebar()" class="crossBtn">&times;</span>-->
 
     <!--		<a id="home-link" href="#" th:href="@{/user/index}" class="item active"> <i class="fas fa-home"></i> Home</a>-->
-    <a id="profile-link" href="#" th:href="@{'/worker/profile/'+${worker.name}}" class="item"><i class="fas fa-user-tie"></i> Your Profile </a>
-    <a id="slots-link" href="#" th:href="@{'/worker/show-slots/0/'+${worker.name}}" class="item"><i class="fas fa-location-arrow"></i> View Parkings</a>
-    <a id="services-link" href="#" th:href="@{'/worker/show-services/0/'+${worker.name}}" class="item"><i class="fas fa-hand-sparkles"></i> My Services</a>
-    <div class="divider"></div>
+<!--    <a id="profile-link" href="#" th:href="@{'/worker/profile/'+${worker.name}}" class="item"><i class="fas fa-user-tie"></i> Your Profile </a>-->
+<!--    <a id="slots-link" href="#" th:href="@{'/worker/show-slots/0/'+${worker.name}}" class="item"><i class="fas fa-location-arrow"></i> View Parkings</a>-->
+<!--    <a id="services-link" href="#" th:href="@{'/worker/show-services/0/'+${worker.name}}" class="item"><i class="fas fa-hand-sparkles"></i> My Services</a>-->
+<!--    <div class="divider"></div>-->
 
-</div>
+<!--</div>-->
 
 <!-- END sidebar -->
 
@@ -80,7 +129,7 @@ END navbar -->
 
 <div class="content mt-5">
 
-    <i onclick="toggleSidebar()" class="fas fa-bars m-3"></i>
+<!--    <i onclick="toggleSidebar()" class="fas fa-bars m-3"></i>-->
 
 
     <!-- message box  -->
