@@ -259,7 +259,7 @@ public class UserController {
 			e.printStackTrace();
 		}
 
-		return "redirect:/user/" + worker.getcId() + "/worker";
+		return "redirect:/user/show-worker/0";
 	}
 
 	@RequestMapping(value = "/process-updatedslot", method = RequestMethod.POST)

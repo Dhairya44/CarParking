@@ -47,7 +47,7 @@
 
         <ul class="navbar-nav ml-auto text-uppercase">
 
-            <li class="nav-item"><a class="nav-link " th:href="@{/worker/profile}"
+            <li class="nav-item"><a class="nav-link " th:href="@{'/worker/profile/'+${worker.name}}"
                                     tabindex="-1" aria-disabled="false"><span th:text="${worker.name}"></span></a></li>
             <li class="nav-item"><a class="nav-link " th:href="@{/logout}" href="#"
                                     tabindex="-1" aria-disabled="true">Logout</a></li>

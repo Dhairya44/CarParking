@@ -41,7 +41,25 @@ public class User {
 	private String oneTimePassword;
 	@Column(name="otp_requested_time")
 	private Date otpRequestedTime;
-	
+	String carModel;
+	String carRegis;
+
+	public String getCarModel() {
+		return carModel;
+	}
+
+	public void setCarModel(String carModel) {
+		this.carModel = carModel;
+	}
+
+	public String getCarRegis() {
+		return carRegis;
+	}
+
+	public void setCarRegis(String carRegis) {
+		this.carRegis = carRegis;
+	}
+
 	public User() {
 		super();
 	}

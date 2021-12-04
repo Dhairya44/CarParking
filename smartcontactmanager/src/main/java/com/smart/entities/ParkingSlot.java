@@ -1,6 +1,10 @@
 package com.smart.entities;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import java.time.MonthDay;
+import java.util.Calendar;
 import java.util.Date;
 
 @Entity
@@ -13,10 +17,39 @@ public class ParkingSlot {
     private int available;
     private int waiting;
     private String nameOfUsers;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private String day;
     private String inTime;
     private String outTime;
     private String service;
     private Date date;
+    private int price;
+    private String regisNumber;
+
+    public int getPrice() {
+        return price;
+    }
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public String getRegisNumber() {
+        return regisNumber;
+    }
+
+    public void setRegisNumber(String regisNumber) {
+        this.regisNumber = regisNumber;
+    }
+
     public ParkingSlot() {
         super();
         waiting = 0;

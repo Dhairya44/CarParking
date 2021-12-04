@@ -136,6 +136,7 @@ public class AdminController {
             flag = 1;
             return "redirect:/admin/show-slots/0";
         }
+
         parkingSlot.setDate(new Date());
 
 //        String to = admin.getPhone();
@@ -157,9 +158,16 @@ public class AdminController {
         User admin = userRepository.getUserByUserName(principal.getName());
         m.addAttribute("admin", admin);
         Pageable pageable = PageRequest.of(page, 4);
-
+        int cost = 0;
         Page<ParkingSlot> slots = this.parkingSlotRepository.findAll(pageable);
         List<ParkingSlot> bookings = this.parkingSlotRepository.findParkingSlotByNameOfUsersContaining(admin.getUsername());
+        if(!bookings.isEmpty()) {
+            cost = 100;
+            for (ParkingSlot book : bookings) {
+                cost += book.getPrice();
+            }
+        }
+        m.addAttribute("cost", cost);
         m.addAttribute("book", bookings);
         m.addAttribute("currentPage", page);
         m.addAttribute("totalPages", slots.getTotalPages());

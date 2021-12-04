@@ -18,14 +18,14 @@ public class Worker {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int cId;
 	private String name;
-	private String rating;
+	private int rating;
 	private String work;
 	private String email;
 	private String phone;
 	//private String image;
 	//@Column(length = 5000)
 	//private String description;
-	
+
 	@ManyToOne	
 	@JsonIgnore
 	private User user;
@@ -72,11 +72,16 @@ public class Worker {
 		return this.cId==((Worker)obj).getcId();
 	}
 
-	public String getRating() {
+	public int getRating() {
 		return rating;
 	}
 
-	public void setRating(String rating) {
+	public void setRating(int rating) {
 		this.rating = rating;
+	}
+
+	public Worker() {
+		super();
+		rating = 0;
 	}
 }
