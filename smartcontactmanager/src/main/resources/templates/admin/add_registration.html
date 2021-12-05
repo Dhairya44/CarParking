@@ -22,7 +22,7 @@
 
                         <h3 class="mb-3">Change password</h3>
 
-                        <form  th:action="@{/admin/process-regis}" method="post">
+                        <form  th:action="@{'/admin/process-regis/' + ${id}}" method="post">
 
                             <div class="dropdown">
                                 <select name="carModel" id="cars">

@@ -62,7 +62,6 @@ const paymentStart = () => {
     swal("Failed !!", "amount is required !!", "error");
     return;
   }
-
   //coded...
   // we will use ajax to send request to server to create order- jquery
 
@@ -85,10 +84,6 @@ const paymentStart = () => {
           description: "Payment",
           order_id: response.id,
           handler: function (response) {
-            console.log(response.razorpay_payment_id);
-            console.log(response.razorpay_order_id);
-            console.log(response.razorpay_signature);
-            console.log("payment successful !!");
             swal("Good job!", "congrates !! Payment successful !!", "success");
           },
           prefill: {
@@ -108,14 +103,6 @@ const paymentStart = () => {
         let rzp = new Razorpay(options);
 
         rzp.on("payment.failed", function (response) {
-          console.log(response.error.code);
-          console.log(response.error.description);
-          console.log(response.error.source);
-          console.log(response.error.step);
-          console.log(response.error.reason);
-          console.log(response.error.metadata.order_id);
-          console.log(response.error.metadata.payment_id);
-          //alert("Oops payment failed !!");
           swal("Failed !!", "Oops payment failed !!", "error");
         });
 
@@ -123,8 +110,62 @@ const paymentStart = () => {
       }
     },
     error: function (error) {
-      //invoked when error
-      console.log(error);
+      alert("something went wrong !!");
+    },
+  });
+};
+
+const paymentAdd = () => {
+  var amount = $("#payment_field").val();
+  if (amount == "" || amount == null) {
+    swal("Failed !!", "amount is required !!", "error");
+    return;
+  }
+  $.ajax({
+    url: "/admin/add_money",
+    data: JSON.stringify({ amount: amount, info: "order_request" }),
+    contentType: "application/json",
+    type: "POST",
+    dataType: "json",
+    success: function (response) {
+      //invoked when success
+      console.log(response);
+      if (response.status == "created") {
+        //open payment form
+        let options = {
+          key: "rzp_test_3fGEPJTbBw4c9f",
+          amount: response.amount,
+          currency: "INR",
+          name: "Car Parking",
+          description: "Payment",
+          order_id: response.id,
+          handler: function (response) {
+            swal("Good job!", "congrates !! Payment successful !!", "success");
+          },
+          prefill: {
+            name: "",
+            email: "",
+            contact: "",
+          },
+
+          notes: {
+            address: "OOP project ",
+          },
+          theme: {
+            color: "#DA0037",
+          },
+        };
+
+        let rzp = new Razorpay(options);
+
+        rzp.on("payment.failed", function (response) {
+          swal("Failed !!", "Oops payment failed !!", "error");
+        });
+
+        rzp.open();
+      }
+    },
+    error: function (error) {
       alert("something went wrong !!");
     },
   });
