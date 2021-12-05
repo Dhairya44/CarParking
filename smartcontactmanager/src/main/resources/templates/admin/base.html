@@ -42,34 +42,83 @@
 
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-			<ul class="navbar-nav ml-auto text-uppercase">
-			
-				<li class="nav-item"><a class="nav-link " th:href="@{/admin/profile}"
-					tabindex="-1" aria-disabled="true"><span th:text="${admin.username}"></span></a></li>
-					
-				<li class="nav-item"><a class="nav-link " th:href="@{/logout}" href="#"
-					tabindex="-1" aria-disabled="true">Logout</a></li>
-			</ul>
+<!--			<ul class="navbar-nav ml-auto text-uppercase">-->
+
+			<div class="nav-center">
+				<li class="nav-item nav-center">
+					<div class="dropdown">
+						<button class="crossBtn">Book</button>
+						<div class="dropdown-content">
+									<a id="slots-link" href="#" th:href="@{/admin/show-slots/0}" class="item"><i class="fas fa-id-card-alt"></i>BookSlot</a>
+
+						</div>
+					</div>
+				</li>
+
+				<li class="nav-item nav-center">
+					<div class="dropdown">
+						<button class="crossBtn">Transactions</button>
+						<div class="dropdown-content">
+							<a id="money-link" href="#" th:href="@{/admin/add-money}" class="item"><i class="fas fa-id-card-alt"></i>Add Money</a>
+									<a id="payment-link" href="#" th:href="@{/admin/payment}" class="item"><i class="fas fa-id-card-alt"></i>Payment</a>
+
+
+						</div>
+					</div>
+				<li class="nav-item  nav-center">
+					<div class="dropdown">
+						<button class="crossBtn">History</button>
+						<div class="dropdown-content">
+
+									<a id="booking-link" href="#" th:href="@{/admin/show-bookings/0}" class="item"><i class="fas fa-id-card-alt"></i>My-Bookings</a>
+
+
+<!--							<a id="workers-link" href="#" th:href="@{/user/show-worker/0}" class="item"><i class="fas fa-user-cog"></i> View Workers</a>-->
+<!--							<a id="add-link" href="#" th:href="@{/user/add-worker}" class="item"><i class="fas fa-people-arrows"></i> Add Workers</a>-->
+						</div>
+					</div>
+				</li>
+
+			</div>
+
+			<div class="nav-end">
+
+				<li class="nav-item nav-end">
+					<a id="settings-link" href="#" th:href="@{/admin/settings}" class="item adm-left"> <i class="fas fa-cog fa-1x icon1"></i></a>
+				</li>
+
+				<li class="nav-item"><a class="nav-link " th:href="@{/admin/profile}" tabindex="-1" aria-disabled="true"><span th:text="${admin.username}"></span></a></li>
+
+
+
+				<li class="nav-item nav-end" ><a class="adm-left" th:href="@{/logout}" href="#" tabindex="-1" aria-disabled="true"><i class="fas fa-sign-out-alt"></i></a></li>
+			</div>
+
+<!--				<li class="nav-item"><a class="nav-link " th:href="@{/admin/profile}" tabindex="-1" aria-disabled="true"><span th:text="${admin.username}"></span></a></li>-->
+<!--					-->
+<!--				<li class="nav-item"><a class="nav-link " th:href="@{/logout}" href="#"-->
+<!--					tabindex="-1" aria-disabled="true">Logout</a></li>-->
+<!--			</ul>-->
 		</div>
 	</nav>
-	<div class="sidebar mt-2">
+<!--	<div class="sidebar mt-2">-->
 	
-		<span onclick="toggleSidebar()" class="crossBtn">&times;</span>
+<!--		<span onclick="toggleSidebar()" class="crossBtn">&times;</span>-->
 
-		<a id="profile-link" href="#" th:href="@{/admin/profile}" class="item"><i class="fas fa-user-circle"></i> Your Profile </a>
-		<a id="slots-link" href="#" th:href="@{/admin/show-slots/0}" class="item"><i class="fas fa-id-card-alt"></i>BookSlot</a>
-		<a id="payment-link" href="#" th:href="@{/admin/payment}" class="item"><i class="fas fa-id-card-alt"></i>Payment</a>
-		<a id="booking-link" href="#" th:href="@{/admin/show-bookings/0}" class="item"><i class="fas fa-id-card-alt"></i>My-Bookings</a>
-		<a id="money-link" href="#" th:href="@{/admin/add-money}" class="item"><i class="fas fa-id-card-alt"></i>Add Money</a>
-		<a id="settings-link" href="#" th:href="@{/admin/settings}" class="item"> <i class="fas fa-cogs"></i> Settings</a>
+<!--		<a id="profile-link" href="#" th:href="@{/admin/profile}" class="item"><i class="fas fa-user-circle"></i> Your Profile </a>-->
+<!--		<a id="slots-link" href="#" th:href="@{/admin/show-slots/0}" class="item"><i class="fas fa-id-card-alt"></i>BookSlot</a>-->
+<!--		<a id="payment-link" href="#" th:href="@{/admin/payment}" class="item"><i class="fas fa-id-card-alt"></i>Payment</a>-->
+<!--		<a id="booking-link" href="#" th:href="@{/admin/show-bookings/0}" class="item"><i class="fas fa-id-card-alt"></i>My-Bookings</a>-->
+<!--		<a id="money-link" href="#" th:href="@{/admin/add-money}" class="item"><i class="fas fa-id-card-alt"></i>Add Money</a>-->
+<!--		<a id="settings-link" href="#" th:href="@{/admin/settings}" class="item"> <i class="fas fa-cogs"></i> Settings</a>-->
 
-		<div class="divider"></div>
-		
-	</div>
+<!--		<div class="divider"></div>-->
+<!--		-->
+<!--	</div>-->
 	
 	<div class="content mt-5">
 	
-		<i onclick="toggleSidebar()" class="fas fa-bars m-3"></i>
+<!--		<i onclick="toggleSidebar()" class="fas fa-bars m-3"></i>-->
 		
 		
 		   <!-- message box  -->
