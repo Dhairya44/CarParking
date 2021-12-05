@@ -61,8 +61,8 @@
             <div class="dropdown">
                 <button class="crossBtn">Parkings</button>
                 <div class="dropdown-content">
-                    <a id="slots-link" href="#" th:href="@{'/worker/show-slots/0/'+${worker.name}}" class="item"><i class="fas fa-location-arrow"></i> View Parkings</a>
-<!--                    <a id="users-link" href="#" th:href="@{/user/show-user/0}" class="item">View Users</a>-->
+                    <a id="slots-link" href="#" th:href="@{'/worker/show-slots/'+${worker.name}}" class="item"><i class="fas fa-location-arrow"></i> View Parkings</a>
+<!--                    <a id="users-link" href="#" th:href="@{/user/show-user}" class="item">View Users</a>-->
 
 
                 </div>
@@ -72,8 +72,8 @@
                 <button class="crossBtn">Worker</button>
                 <div class="dropdown-content">
 
-                    <a id="services-link" href="#" th:href="@{'/worker/show-services/0/'+${worker.name}}" class="item"><i class="fas fa-hand-sparkles"></i> My Services</a>
-<!--                    <a id="workers-link" href="#" th:href="@{/user/show-worker/0}" class="item"><i class="fas fa-user-cog"></i> View Workers</a>-->
+                    <a id="services-link" href="#" th:href="@{'/worker/show-services/'+${worker.name}}" class="item"><i class="fas fa-hand-sparkles"></i> My Services</a>
+<!--                    <a id="workers-link" href="#" th:href="@{/user/show-worker}" class="item"><i class="fas fa-user-cog"></i> View Workers</a>-->
 <!--                    <a id="add-link" href="#" th:href="@{/user/add-worker}" class="item"><i class="fas fa-people-arrows"></i> Add Workers</a>-->
                 </div>
             </div>
@@ -114,8 +114,8 @@ END navbar -->
 
     <!--		<a id="home-link" href="#" th:href="@{/user/index}" class="item active"> <i class="fas fa-home"></i> Home</a>-->
 <!--    <a id="profile-link" href="#" th:href="@{'/worker/profile/'+${worker.name}}" class="item"><i class="fas fa-user-tie"></i> Your Profile </a>-->
-<!--    <a id="slots-link" href="#" th:href="@{'/worker/show-slots/0/'+${worker.name}}" class="item"><i class="fas fa-location-arrow"></i> View Parkings</a>-->
-<!--    <a id="services-link" href="#" th:href="@{'/worker/show-services/0/'+${worker.name}}" class="item"><i class="fas fa-hand-sparkles"></i> My Services</a>-->
+<!--    <a id="slots-link" href="#" th:href="@{'/worker/show-slots/'+${worker.name}}" class="item"><i class="fas fa-location-arrow"></i> View Parkings</a>-->
+<!--    <a id="services-link" href="#" th:href="@{'/worker/show-services/'+${worker.name}}" class="item"><i class="fas fa-hand-sparkles"></i> My Services</a>-->
 <!--    <div class="divider"></div>-->
 
 <!--</div>-->
@@ -148,10 +148,6 @@ END navbar -->
 
 </div>
 
-<!-- END Content area  -->
-<!-- Optional JavaScript -->
-
-
 <script
         src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
         integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
@@ -163,9 +159,6 @@ END navbar -->
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-<!--<script>-->
-
-<!--</script>-->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script th:src="@{/js/script.js}"></script>

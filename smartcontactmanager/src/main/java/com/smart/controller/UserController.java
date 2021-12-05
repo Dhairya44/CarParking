@@ -1,17 +1,14 @@
 package com.smart.controller;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
-
 import javax.servlet.http.HttpSession;
 import com.smart.dao.ParkingSlotRepository;
 import com.smart.dao.WorkerRepository;
 import com.smart.entities.ParkingSlot;
 import com.smart.entities.Worker;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -98,39 +95,27 @@ public class UserController {
 		return "normal/add_slot_form";
 	}
 
-	@GetMapping("/show-worker/{page}")
-	public String showWorkers(@PathVariable("page") Integer page, Model m, Principal principal) {
+	@GetMapping("/show-worker")
+	public String showWorkers(Model m, Principal principal) {
 		m.addAttribute("title", "Show User Workers");
-
-		Pageable pageable = PageRequest.of(page, 4);
-
-		Page<Worker> worker = this.workerRepository.findAll(pageable);
+		List<Worker> worker = this.workerRepository.findAll();
 		m.addAttribute("workers", worker);
-		m.addAttribute("currentPage", page);
-		m.addAttribute("totalPages", worker.getTotalPages());
 		return "normal/show_worker";
 	}
 
-	@GetMapping("/show-user/{page}")
-	public String showUsers(@PathVariable("page") Integer page, Model m, Principal principal) {
+	@GetMapping("/show-user")
+	public String showUsers(Model m, Principal principal) {
 		m.addAttribute("title", "Show Users");
-		Pageable pageable = PageRequest.of(page, 4);
-		Page<User> users = this.userRepository.findAll(pageable);
+		List<User> users = this.userRepository.findAll();
 		m.addAttribute("users", users);
-		m.addAttribute("currentPage", page);
-		m.addAttribute("totalPages", users.getTotalPages());
 		return "normal/show_user";
 	}
 
-	@GetMapping("/show-slots/{page}")
-	public String showSlots(@PathVariable("page") Integer page, Model m, Principal principal) {
+	@GetMapping("/show-slots")
+	public String showSlots(Model m, Principal principal) {
 		m.addAttribute("title", "Show Parkings");
-
-		Pageable pageable = PageRequest.of(page, 4);
-		Page<ParkingSlot> slots = this.parkingSlotRepository.findAll(pageable);
+		List<ParkingSlot> slots = this.parkingSlotRepository.findAll();
 		m.addAttribute("slots", slots);
-		m.addAttribute("currentPage", page);
-		m.addAttribute("totalPages", slots.getTotalPages());
 		return "normal/show_slot";
 	}
 
@@ -157,7 +142,7 @@ public class UserController {
 		User user = this.userRepository.getOne(Id);
 		this.userRepository.delete(user);
 		session.setAttribute("message", new Message("User deleted succesfully...", "success"));
-		return "redirect:/user/show-user/0";
+		return "redirect:/user/show-user";
 	}
 
 	@GetMapping("/deleteslot/{id}")
@@ -167,7 +152,7 @@ public class UserController {
 		ParkingSlot parkingSlot = this.parkingSlotRepository.getOne(Id);
 		this.parkingSlotRepository.delete(parkingSlot);
 		session.setAttribute("message", new Message("Parking Slot deleted succesfully...", "success"));
-		return "redirect:/user/show-slots/0";
+		return "redirect:/user/show-slots";
 	}
 
 	@GetMapping("/delete/{cid}")
@@ -177,7 +162,7 @@ public class UserController {
 		Worker worker = this.workerRepository.findById(cId).get();
 		workerRepository.delete(worker);
 		session.setAttribute("message", new Message("Worker deleted succesfully...", "success"));
-		return "redirect:/user/show-worker/0";
+		return "redirect:/user/show-worker";
 	}
 
 	@PostMapping("/update-worker/{cid}")
@@ -209,7 +194,7 @@ public class UserController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:/user/show-worker/0";
+		return "redirect:/user/show-worker";
 	}
 
 	@RequestMapping(value = "/process-updatedslot", method = RequestMethod.POST)
@@ -221,7 +206,7 @@ public class UserController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:/user/show-slots/0";
+		return "redirect:/user/show-slots";
 	}
 
 	@GetMapping("/profile")

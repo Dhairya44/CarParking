@@ -7,11 +7,8 @@
 </head>
 <body>
 <section style="margin-top: 150px;">
-
     <div class="card">
-
         <div class="card-body">
-
             <h1 class="text-center" style="margin-bottom: 0px;margin-top: 15px;" >Parking Slots</h1>
             <div class="table-responsive">
                 <table class="table  ">
@@ -22,6 +19,7 @@
                         <th scope="col">InTime</th>
                         <th scope="col">OutTime</th>
                         <th scope="col">Booking Date</th>
+                        <th scope="col">Modify</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -39,15 +37,10 @@
                     </tr>
                     </tbody>
                 </table>
-                <h1>Total Cost: </h1><h1 th:text="${cost}"></h1>
+                <h1>
+                    Total Cost: <p th:text="${cost}"></p>
+                </h1>
             </div>
-            <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                    <li th:if="${currentPage != 0}" class="page-item"><a th:href="@{'/user/show-slots/'+${currentPage-1}}" class="page-link" href="#">Previous</a></li>
-                    <li th:classappend="${currentPage==i-1?'active':''}" th:each="i : ${#numbers.sequence(1,totalPages)}" class="page-item"><a th:href="@{'/user/show-slots/'+${i-1}}" class="page-link" href="#"><span th:text="${i}"></span></a></li>
-                    <li th:if="${currentPage+1 != totalPages}" class="page-item"><a th:href="@{'/user/show-slots/'+${currentPage+1}}" class="page-link" href="#">Next</a></li>
-                </ul>
-            </nav>
         </div>
     </div>
     <script>
