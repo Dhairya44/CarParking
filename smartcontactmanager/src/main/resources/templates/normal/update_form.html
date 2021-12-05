@@ -1,123 +1,58 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-	th:replace="normal/base::layout(~{::section})">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="normal/base::layout(~{::section})">
 <head>
 <meta charset="UTF-8" />
 <title>this is home page</title>
 </head>
 <body>
 	<section style="margin-top: 100px; padding-top: 50px;">
-		
-		
 		<div class="card">
-		
 			<div class="card-body" style="padding-top: 15px;">
-			
 				<h1 class="text-center">Update your Worker</h1>
-				
 				<div class="container-fluid mt-1">
-				
 				<div class="row">
-					
 					<div class="col-md-8 offset-md-2">
-					
-						<form action="#" 
-							  th:object="${worker}"
-							  enctype="multipart/form-data"
-							  method="POST"
-							  th:action="@{/user/process-update}"
-							  class="mt-2"
-						>
-						
+						<form action="#" th:object="${worker}" enctype="multipart/form-data" method="POST" th:action="@{/user/process-update}" class="mt-2">
 						<input type="hidden" th:value="${worker.cId}" name="cId" />
-						
-						
-
 						<div class="input-group">
-						
 							<div class="input-group-prepend">
-							
 								<div class="input-group-text ">
-
 										<i class="fa fa-pen-nib" style="color: #10dade"></i>
-									
 								</div>
-							
 							</div>
-						
 							<input th:value="${worker.name}" required type="text" id="firstName" name="name" placeholder="Enter Name here" class="form-control" />
-						
 						</div>
-						
-						
-
 						<div class="input-group mt-3">
-						
 							<div class="input-group-prepend">
-							
 								<div class="input-group-text ">
-
 									<i class="fa fa-mobile-alt" style="color: #db7923"></i>
-									
 								</div>
-							
 							</div>
-						
 							<input th:value="${worker.phone}" required min="10"  type="number" id="phone" name="phone" placeholder="Enter Phone Number  here" class="form-control" />
-						
 						</div>
-						
-						
-
 						<div class="input-group mt-3">
-						
 							<div class="input-group-prepend">
-							
 								<div class="input-group-text ">
-
 									<i class="fa fa-inbox" style="color: #12c785"></i>
-									
 								</div>
-							
 							</div>
-						
 							<input th:value="${worker.email}" required type="email" id="email" name="email" placeholder="Enter email here" class="form-control" />
-						
 						</div>
-						
 						<div class="container text-center" style="padding-top: 15px;padding-bottom: 15px;">
-							
 						 <button class="btn btn-danger">Save Worker</button>
-						
 						</div>
-						
-						
-						
-						
 						</form>
-					
-					
 					</div>
-				
-				
 				</div>
-				
 				</div>
-			
-			
 			</div>
-		
 		</div>
-		
 		<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-		
 		<script>
       tinymce.init({
         selector: '#mytextarea'
       });
     </script>
-		
-		
 	</section>
 </body>
 </html>

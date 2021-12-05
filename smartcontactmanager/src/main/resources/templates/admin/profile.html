@@ -7,59 +7,37 @@
 </head>
 <body>
 	<section>
-		
 		<div class="container">
-		
 			<div class="card">
-				
 				<div class="card-body">
-
 				<div class="container text-center" style="padding-top: 15px;">
 					<h1 class="text-center mt-3" th:text="${admin.name}"></h1>
 				</div>
-				
 				<table class="table text-center">
 					  <thead>
 					    <tr>
 					      <th scope="col">User <I></I>ID</th>
 					      <th scope="col"><span th:text="${admin.id}"></span></th>
-
 					    </tr>
 					  </thead>
 					  <tbody>
 					    <tr>
 					      <th scope="row">Email</th>
 					      <td><span th:text="${admin.email}"></span></td>
-					     
 					    </tr>
-
 						<tr>
 							<th scope="row">Phone Number</th>
 							<td><span th:text="${admin.phone}"></span></td>
-
 						</tr>
-
-
 					      <tr>
 					      <th scope="row">Acccount Balance: </th>
 					      <td><span th:text="${admin.money}"></span></td>
-					     
 					    </tr>
-					    
 					  </tbody>
-					  
-					  
-				
-					  
-					  
 					</table>
-				
 				</div>
-				
 			</div>
-		
 		</div>
-		
 		  <script>
         $(document).ready(() => {
           $(".item").removeClass("active");

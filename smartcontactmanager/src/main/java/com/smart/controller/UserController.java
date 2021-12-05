@@ -1,32 +1,17 @@
 package com.smart.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.security.Principal;
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
-import com.razorpay.*;
-
 import com.smart.dao.ParkingSlotRepository;
 import com.smart.dao.WorkerRepository;
 import com.smart.entities.ParkingSlot;
 import com.smart.entities.Worker;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.util.Streamable;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,13 +20,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-
 import com.smart.dao.UserRepository;
 import com.smart.entities.User;
 import com.smart.helper.Message;
@@ -92,27 +73,21 @@ public class UserController {
 	@PostMapping("/process-worker")
 	public String processWorker(@ModelAttribute Worker worker,
 								 Principal principal, HttpSession session) {
-
 		try {
 			workerRepository.save(worker);
-
-			// message success.......
 			session.setAttribute("message", new Message("Worker is added !! Add more..", "success"));
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			// message error
 			session.setAttribute("message", new Message("Some went wrong !! Try again..", "danger"));
 
 		}
-
 		return "normal/add_worker_form";
 	}
 
 	@PostMapping("/process-slot")
 	public String processParking(@ModelAttribute ParkingSlot parkingSlot,
 								Principal principal, HttpSession session) {
-
 		try {
 			parkingSlotRepository.save(parkingSlot);
 			session.setAttribute("message", new Message("Parking Slot is added !! Add more..", "success"));
@@ -120,7 +95,6 @@ public class UserController {
 			e.printStackTrace();
 			session.setAttribute("message", new Message("Some went wrong !! Try again..", "danger"));
 		}
-
 		return "normal/add_slot_form";
 	}
 
@@ -141,8 +115,6 @@ public class UserController {
 	public String showUsers(@PathVariable("page") Integer page, Model m, Principal principal) {
 		m.addAttribute("title", "Show Users");
 		Pageable pageable = PageRequest.of(page, 4);
-
-		//Page<Worker> worker = this.workerRepository.findWorkersByUser(user.getId(), pageable);
 		Page<User> users = this.userRepository.findAll(pageable);
 		m.addAttribute("users", users);
 		m.addAttribute("currentPage", page);
@@ -167,8 +139,6 @@ public class UserController {
 
 		Optional<Worker> workerOptional = this.workerRepository.findById(cId);
 		Worker worker = workerOptional.get();
-
-		//
 		String userName = principal.getName();
 		User user = this.userRepository.getUserByUserName(userName);
 
@@ -185,11 +155,8 @@ public class UserController {
 							   Principal principal) {
 
 		User user = this.userRepository.getOne(Id);
-
 		this.userRepository.delete(user);
-
 		session.setAttribute("message", new Message("User deleted succesfully...", "success"));
-
 		return "redirect:/user/show-user/0";
 	}
 
@@ -198,11 +165,8 @@ public class UserController {
 							 Principal principal) {
 
 		ParkingSlot parkingSlot = this.parkingSlotRepository.getOne(Id);
-
 		this.parkingSlotRepository.delete(parkingSlot);
-
 		session.setAttribute("message", new Message("Parking Slot deleted succesfully...", "success"));
-
 		return "redirect:/user/show-slots/0";
 	}
 
@@ -213,20 +177,15 @@ public class UserController {
 		Worker worker = this.workerRepository.findById(cId).get();
 		workerRepository.delete(worker);
 		session.setAttribute("message", new Message("Worker deleted succesfully...", "success"));
-
 		return "redirect:/user/show-worker/0";
 	}
 
-	// open update form handler
 	@PostMapping("/update-worker/{cid}")
 	public String updateForm(@PathVariable("cid") Integer cid, Model m) {
 
 		m.addAttribute("title", "Update Worker");
-
 		Worker worker = this.workerRepository.findById(cid).get();
-
 		m.addAttribute("worker", worker);
-
 		return "normal/update_form";
 	}
 
@@ -234,11 +193,8 @@ public class UserController {
 	public String updateParking(@PathVariable("id") Integer Id, Model m) {
 
 		m.addAttribute("title", "Update Parking Slot");
-
 		ParkingSlot parkingSlot = this.parkingSlotRepository.getOne(Id);
-
 		m.addAttribute("slot", parkingSlot);
-
 		return "normal/update_slot";
 	}
 
@@ -247,15 +203,12 @@ public class UserController {
 								Model m, HttpSession session, Principal principal) {
 
 		try {
-
 			this.workerRepository.save(worker);
-
 			session.setAttribute("message", new Message("Your worker is updated...", "success"));
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		return "redirect:/user/show-worker/0";
 	}
 
@@ -290,18 +243,14 @@ public class UserController {
 		User currentUser = this.userRepository.getUserByUserName(userName);
 
 		if (this.bCryptPasswordEncoder.matches(oldPassword, currentUser.getPassword())) {
-			// change the password
-
 			currentUser.setPassword(this.bCryptPasswordEncoder.encode(newPassword));
 			this.userRepository.save(currentUser);
 			session.setAttribute("message", new Message("Your password is successfully changed..", "success"));
 
 		} else {
-			// error...
 			session.setAttribute("message", new Message("Please Enter correct old password !!", "danger"));
 			return "redirect:/user/settings";
 		}
-
 		return "redirect:/user/index";
 	}
 

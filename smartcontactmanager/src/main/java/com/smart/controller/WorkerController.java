@@ -1,15 +1,10 @@
 package com.smart.controller;
 
-import com.razorpay.Order;
-import com.razorpay.RazorpayClient;
 import com.smart.dao.ParkingSlotRepository;
 import com.smart.dao.UserRepository;
 import com.smart.dao.WorkerRepository;
 import com.smart.entities.ParkingSlot;
-import com.smart.entities.User;
 import com.smart.entities.Worker;
-import com.smart.helper.Message;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,13 +13,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.Principal;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/worker")

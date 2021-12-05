@@ -1,164 +1,85 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-	th:replace="normal/base::layout(~{::section})">
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="normal/base::layout(~{::section})">
 <head>
 <meta charset="UTF-8" />
 <title>this is home page</title>
 </head>
-
 <body>
 	<section style="margin-top: 100px; padding-top: 50px;">
-		
 		<div class="card">
-		
 			<div class="card-body" style="padding-top: 15px;">
-
 				<h1 class="text-center">Add Parking Slots</h1>
-				
 				<div class="container-fluid mt-1">
-				
 				<div class="row">
 					<div class="col-md-8 offset-md-2">
-					
-						<form action="#" 
-							  th:object="${slot}"
-							  enctype="multipart/form-data"
-							  method="POST"
-							  th:action="@{/user/process-slot}"
-							  class="mt-2"
-						>
-						
-						
-
+						<form action="#" th:object="${slot}" enctype="multipart/form-data" method="POST" th:action="@{/user/process-slot}" class="mt-2">
 						<div class="input-group">
-						
 							<div class="input-group-prepend">
-							
 								<div class="input-group-text ">
-										
 										<i class="fa fa-map-marked-alt" style="color: #ccc616"></i>
-									
 								</div>
-							
 							</div>
-						
 							<input required type="text" id="location" name="location" placeholder="Enter Location" class="form-control" />
-
 							<div class="input-group mt-3">
-
 								<div class="input-group-prepend">
-
 									<div class="input-group-text ">
-
 										<i class="fa fa-mobile-alt" style="color: #db7923"></i>
-
 									</div>
-
 								</div>
-
 								<input type="integer" id="available" name="available" placeholder="Enter Available Slots" class="form-control" />
-
 							</div>
-
-
 							<div class="input-group mt-3">
-
 								<div class="input-group-prepend">
-
 									<div class="input-group-text ">
-
 										<i class="fa fa-hourglass-start" style="color: saddlebrown;"></i>
-
 									</div>
-
 								</div>
-
 								<input required type="date" id="day" name="day" placeholder="Enter In Time" class="form-control" />
-
 							</div>
-						<!-- Slot Field  -->
-						
 						<div class="input-group mt-3">
-						
 							<div class="input-group-prepend">
-							
 								<div class="input-group-text ">
-										
 									<i class="fa fa-hourglass-start" style="color: saddlebrown;"></i>
-									
 								</div>
-							
 							</div>
-						
 							<input required type="time" id="inTime" name="inTime" placeholder="Enter In Time" class="form-control" />
-						
 						</div>
-						
 						<div class="input-group mt-3">
-						
 							<div class="input-group-prepend">
-							
 								<div class="input-group-text ">
-										
 										<i class="fa fa-hourglass-end" style="color: saddlebrown"></i>
-									
 								</div>
-							
 							</div>
-						
 							<input required type="time" id="outTime" name="outTime" placeholder="Enter outTime" class="form-control" />
-
 							<div class="input-group mt-3">
-
 								<div class="input-group-prepend">
-
 									<div class="input-group-text ">
-
 										<i class="fa fa-hourglass-end" style="color: saddlebrown"></i>
-
 									</div>
-
 								</div>
-
 								<input required type="integer" id="price" name="price" placeholder="Enter Price" class="form-control" />
-
 						</div>
-
 							</div>
 							<div class="container text-center" style="padding-top: 20px;padding-bottom: 20px;">
 								<button class="btn btn-danger">Save Parking</button>
-						
-						</div>
+							</div>
 						</form>
-					
-					
 					</div>
-				
-				
 				</div>
-				
 				</div>
-			
-			
 			</div>
-		
 		</div>
-		
 		<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-		
 		<script>
       tinymce.init({
         selector: '#mytextarea'
       });
     </script>
-    
       <script>
         $(document).ready(() => {
           $(".item").removeClass("active");
         });
       </script>
-
 	</section>
 </body>
 </html>

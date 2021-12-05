@@ -1,7 +1,6 @@
 package com.smart.helper;
 
 public class Message {
-
 	private String content;
 	private String type;	
 	
@@ -22,7 +21,4 @@ public class Message {
 	public void setType(String type) {
 		this.type = type;
 	}
-	
-	
-	
 }

@@ -1,17 +1,13 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      th:replace="admin/base::layout(~{::section})">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="admin/base::layout(~{::section})">
 <head>
     <meta charset="UTF-8" />
     <title>this is home page</title>
 </head>
 <body>
 <section>
-
     <div class="card">
-
         <div class="card-body">
-
             <h1 class="text-center" style="margin-bottom: 0px;margin-top: 15px;">Parking Slots</h1>
             <div class="table-responsive">
                 <div th:if="${error}" class="alert alert-danger">
@@ -65,7 +61,6 @@
             $(".item").removeClass("active");
         });
     </script>
-
 </section>
 </body>
 </html>

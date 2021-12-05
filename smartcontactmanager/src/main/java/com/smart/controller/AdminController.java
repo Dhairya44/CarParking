@@ -21,9 +21,11 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.Principal;
+import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 @Controller
 @RequestMapping("/admin")
@@ -124,16 +126,15 @@ public class AdminController {
         parkingSlotRepository.save(parkingSlot);
         var client=new RazorpayClient("rzp_test_3fGEPJTbBw4c9f", "ntnofRbVEbYf5xQ7q962WQZE");
 
-        String to = user.getPhone();
-        String message = "Your Parking Slot at Location "+parkingSlot.getLocation()+" on " + parkingSlot.getDay() +" with In Time: " + parkingSlot.getInTime()+" and Out Time: " + parkingSlot.getOutTime() +" is booked!";
-        smsSender.sendSms(message, to);
-
         JSONObject ob=new JSONObject();
         ob.put("amount",  amt*100);
         ob.put("currency", "INR");
         ob.put("receipt", "txn_235425");
-
         Order order = client.Orders.create(ob);
+
+        String to = user.getPhone();
+        String message = "Your Parking Slot at Location "+parkingSlot.getLocation()+" on " + parkingSlot.getDay() +" with In Time: " + parkingSlot.getInTime()+" and Out Time: " + parkingSlot.getOutTime() +" is booked!";
+        smsSender.sendSms(message, to);
 
         return order.toString();
     }
@@ -251,9 +252,11 @@ public class AdminController {
         parkingSlot.setNameOfUsers(processed);
         parkingSlot.setRegisNumber(processed2);
         parkingSlotRepository.save(parkingSlot);
+
+        String to = admin.getPhone();
+        String message = "Your Booking Parking Slot is Cancelled!!";
+        smsSender.sendSms(message, to);
+
         return "redirect:/admin/show-bookings/0/";
     }
-
-
-
 }

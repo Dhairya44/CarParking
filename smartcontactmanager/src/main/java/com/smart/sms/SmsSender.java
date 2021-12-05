@@ -1,10 +1,7 @@
 package com.smart.sms;
 
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
-
 import javax.net.ssl.HttpsURLConnection;
-import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLEncoder;
 
@@ -24,7 +21,6 @@ public class SmsSender {
             con.setRequestMethod("GET");
             con.setRequestProperty("User-Agent", "Mozilla/5.0");
             con.setRequestProperty("cache-control", "no-cache");
-
             con.getResponseCode();
 
         } catch (Exception e) {

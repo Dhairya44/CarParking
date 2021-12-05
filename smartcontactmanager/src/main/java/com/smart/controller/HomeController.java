@@ -6,20 +6,14 @@ import javax.validation.Valid;
 import com.smart.entities.Worker;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import com.smart.dao.UserRepository;
 import com.smart.dao.WorkerRepository;
 import com.smart.entities.User;
-import com.smart.entities.Worker;
-import com.smart.helper.Message;
-
-import java.security.Principal;
 import java.util.Date;
 
 @Controller
