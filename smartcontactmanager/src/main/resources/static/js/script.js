@@ -59,11 +59,9 @@ const paymentStart = () => {
   console.log(amount);
   if (amount == "" || amount == null) {
     // alert("amount is required !!");
-    swal("Failed !!", "amount is required !!", "error");
+    swal("Failed ", "amount is required ", "error");
     return;
   }
-  //coded...
-  // we will use ajax to send request to server to create order- jquery
 
   $.ajax({
     url: "/admin/create_order",
@@ -84,7 +82,7 @@ const paymentStart = () => {
           description: "Payment",
           order_id: response.id,
           handler: function (response) {
-            swal("Good job!", "congrates !! Payment successful !!", "success");
+            swal("Payment successful ");
           },
           prefill: {
             name: "",
@@ -103,14 +101,14 @@ const paymentStart = () => {
         let rzp = new Razorpay(options);
 
         rzp.on("payment.failed", function (response) {
-          swal("Failed !!", "Oops payment failed !!", "error");
+          swal("Failed ", "Oops payment failed ", "error");
         });
 
         rzp.open();
       }
     },
     error: function (error) {
-      alert("something went wrong !!");
+      alert("Something went wrong ");
     },
   });
 };
@@ -118,7 +116,7 @@ const paymentStart = () => {
 const paymentAdd = () => {
   var amount = $("#payment_field").val();
   if (amount == "" || amount == null) {
-    swal("Failed !!", "amount is required !!", "error");
+    swal("Failed ", "Amount is required ", "error");
     return;
   }
   $.ajax({
@@ -140,7 +138,7 @@ const paymentAdd = () => {
           description: "Payment",
           order_id: response.id,
           handler: function (response) {
-            swal("Good job!", "congrates !! Payment successful !!", "success");
+            swal("Congrats Payment successful ");
           },
           prefill: {
             name: "",
@@ -159,14 +157,14 @@ const paymentAdd = () => {
         let rzp = new Razorpay(options);
 
         rzp.on("payment.failed", function (response) {
-          swal("Failed !!", "Oops payment failed !!", "error");
+          swal("Failed", "Oops payment failed ", "error");
         });
 
         rzp.open();
       }
     },
     error: function (error) {
-      alert("something went wrong !!");
+      alert("Something went wrong ");
     },
   });
 };

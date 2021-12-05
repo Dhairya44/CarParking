@@ -49,7 +49,7 @@
 					<div class="dropdown">
 						<button class="crossBtn">Book</button>
 						<div class="dropdown-content">
-									<a id="slots-link" href="#" th:href="@{/admin/show-slots/0}" class="item"><i class="fas fa-id-card-alt"></i>BookSlot</a>
+									<a id="slots-link" href="#" th:href="@{/admin/show-slots/0}" class="item"><i class="fas fa-location-arrow"></i>Book Slot</a>
 
 						</div>
 					</div>
@@ -59,8 +59,8 @@
 					<div class="dropdown">
 						<button class="crossBtn">Transactions</button>
 						<div class="dropdown-content">
-							<a id="money-link" href="#" th:href="@{/admin/add-money}" class="item"><i class="fas fa-id-card-alt"></i>Add Money</a>
-									<a id="payment-link" href="#" th:href="@{/admin/payment}" class="item"><i class="fas fa-id-card-alt"></i>Payment</a>
+							<a id="money-link" href="#" th:href="@{/admin/add-money}" class="item"><i class="fas fa-wallet"></i>Add Money</a>
+									<a id="payment-link" href="#" th:href="@{/admin/payment}" class="item"><i class="fas fa-credit-card"></i>Payment</a>
 
 
 						</div>
@@ -69,12 +69,7 @@
 					<div class="dropdown">
 						<button class="crossBtn">History</button>
 						<div class="dropdown-content">
-
-									<a id="booking-link" href="#" th:href="@{/admin/show-bookings/0}" class="item"><i class="fas fa-id-card-alt"></i>My-Bookings</a>
-
-
-<!--							<a id="workers-link" href="#" th:href="@{/user/show-worker/0}" class="item"><i class="fas fa-user-cog"></i> View Workers</a>-->
-<!--							<a id="add-link" href="#" th:href="@{/user/add-worker}" class="item"><i class="fas fa-people-arrows"></i> Add Workers</a>-->
+									<a id="booking-link" href="#" th:href="@{/admin/show-bookings/0}" class="item"><i class="fas fa-history"></i>My Bookings</a>
 						</div>
 					</div>
 				</li>
@@ -88,40 +83,13 @@
 				</li>
 
 				<li class="nav-item"><a class="nav-link " th:href="@{/admin/profile}" tabindex="-1" aria-disabled="true"><span th:text="${admin.username}"></span></a></li>
-
-
-
 				<li class="nav-item nav-end" ><a class="adm-left" th:href="@{/logout}" href="#" tabindex="-1" aria-disabled="true"><i class="fas fa-sign-out-alt"></i></a></li>
 			</div>
 
-<!--				<li class="nav-item"><a class="nav-link " th:href="@{/admin/profile}" tabindex="-1" aria-disabled="true"><span th:text="${admin.username}"></span></a></li>-->
-<!--					-->
-<!--				<li class="nav-item"><a class="nav-link " th:href="@{/logout}" href="#"-->
-<!--					tabindex="-1" aria-disabled="true">Logout</a></li>-->
-<!--			</ul>-->
 		</div>
 	</nav>
-<!--	<div class="sidebar mt-2">-->
-	
-<!--		<span onclick="toggleSidebar()" class="crossBtn">&times;</span>-->
-
-<!--		<a id="profile-link" href="#" th:href="@{/admin/profile}" class="item"><i class="fas fa-user-circle"></i> Your Profile </a>-->
-<!--		<a id="slots-link" href="#" th:href="@{/admin/show-slots/0}" class="item"><i class="fas fa-id-card-alt"></i>BookSlot</a>-->
-<!--		<a id="payment-link" href="#" th:href="@{/admin/payment}" class="item"><i class="fas fa-id-card-alt"></i>Payment</a>-->
-<!--		<a id="booking-link" href="#" th:href="@{/admin/show-bookings/0}" class="item"><i class="fas fa-id-card-alt"></i>My-Bookings</a>-->
-<!--		<a id="money-link" href="#" th:href="@{/admin/add-money}" class="item"><i class="fas fa-id-card-alt"></i>Add Money</a>-->
-<!--		<a id="settings-link" href="#" th:href="@{/admin/settings}" class="item"> <i class="fas fa-cogs"></i> Settings</a>-->
-
-<!--		<div class="divider"></div>-->
-<!--		-->
-<!--	</div>-->
-	
 	<div class="content mt-5">
 	
-<!--		<i onclick="toggleSidebar()" class="fas fa-bars m-3"></i>-->
-		
-		
-		   <!-- message box  -->
 		   <div th:if="${session.message}" class="container">
 		   
 		   	  <div th:classappend="${'alert-'+session.message.type}" class="alert  text-center" role="alert">
@@ -133,7 +101,6 @@
 			<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 			
 		   </div>
-
 
 			<div th:replace="${content}"></div>
 
