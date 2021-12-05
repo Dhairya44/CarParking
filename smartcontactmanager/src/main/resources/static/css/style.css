@@ -321,3 +321,14 @@ li.nav-item {
 	/*vertical-align: bottom;*/
 	 border-bottom: none;
 }
+
+.del-icon{
+	display: flex;
+	flex-direction: row;
+}
+
+.table .thead-light th {
+	color: #2b3442;
+	background-color: #199ea5db;
+	border-color: #dee2e61f;
+}

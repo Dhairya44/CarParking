@@ -34,9 +34,9 @@
 					<td>
 						<span th:text="${c.rating}"></span>
 					</td>
-			      <td>
+			      <td class="del-icon">
 					  <a href="#" th:onclick="|deleteWorker(${c.cId})|" class="btn btn-danger-shadow-none"><i class="fas fa-trash" style="color:darkred"></i></a>
-			      <form method="post" th:action="@{'/user/update-worker/'+${c.cId}}" class="mt-2">
+					  <form method="post" th:action="@{'/user/update-worker/'+${c.cId}}" class="mt-2">
 			     		 <button type="submit"  class="btn btn-danger-shadow-none"><i class="fas fa-user-edit" style="color:forestgreen"></i></button>
 			       </form>
 			      </td>

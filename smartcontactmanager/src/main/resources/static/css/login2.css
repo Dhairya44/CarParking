@@ -17,11 +17,12 @@
   top: 50%;
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
-  background: #0e3737e3;
+  /*background: #0e3737e3;*/
   max-width: 360px;
   margin: 0 auto 100px;
   padding: 45px;
   text-align: center;
+  background: linear-gradient( 70deg, #072e77e0, #e43ca0c7);
   box-shadow: 0 0 20px 0 rgb(0 0 0 / 20%), 0 5px 5px 0 rgb(0 0 0 / 24%);
 }
 
