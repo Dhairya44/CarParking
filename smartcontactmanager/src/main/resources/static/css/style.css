@@ -311,8 +311,13 @@ li.nav-item {
 }
 
 
-.table td{
+.table td, .table th{
 	padding: 0.75rem;
 	vertical-align: top;
 	border-top: 1px solid #dee2e600;
+}
+
+.table thead th {
+	/*vertical-align: bottom;*/
+	 border-bottom: none;
 }
