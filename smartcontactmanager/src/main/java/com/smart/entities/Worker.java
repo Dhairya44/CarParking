@@ -22,9 +22,6 @@ public class Worker {
 	private String work;
 	private String email;
 	private String phone;
-	//private String image;
-	//@Column(length = 5000)
-	//private String description;
 
 	@ManyToOne	
 	@JsonIgnore

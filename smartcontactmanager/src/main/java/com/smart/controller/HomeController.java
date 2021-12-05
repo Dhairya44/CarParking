@@ -41,58 +41,49 @@ public class HomeController {
 		return "login";
 	}
 
-//	@RequestMapping("/about")
-//	public String about(Model model) {
-//		model.addAttribute("title", "About - Car Parking");
-//		return "about";
-//	}
-
 	@RequestMapping("/signup")
 	public String signup(Model model) {
 		model.addAttribute("title", "Register - Car Parking");
 		model.addAttribute("user", new User());
 		return "signup";
 	}
-
-	// handler for registering user
 	@RequestMapping(value = "/do_register", method = RequestMethod.POST)
 	public String registerUser(@Valid @ModelAttribute("user") User user,
 							   @RequestParam(value = "otp", defaultValue = "") String otp,
-			@RequestParam(value = "agreement",  defaultValue = "false") boolean agreement, Model model,
-			HttpSession session) {
+							   @RequestParam(value = "agreement",  defaultValue = "false") boolean agreement, Model model,
+							   HttpSession session) {
 
-			String OTP = RandomString.make(8);
-			String email = user.getEmail();
-			if(userRepository.findByEmail(user.getEmail()).isEmpty()) {
-				user.setRole("ROLE_USER");
-				user.setEnabled(true);
-				user.setPassword(this.passwordEncoder.encode(user.getPassword()));
-				user.setOneTimePassword(OTP);
-				user.setOtpRequestedTime(new Date());
-				this.userRepository.save(user);
-				try {
-					OtpVerification otpVerification = new OtpVerification();
-					otpVerification.generateOneTimePassword(user, OTP);
-				} catch (Exception e) {
-					System.out.println(e);
-				}
-				model.addAttribute("user", user);
-				model.addAttribute("otpbool", true);
-				return "signup";
+		String OTP = RandomString.make(8);
+		String email = user.getEmail();
+		if(userRepository.findByEmail(user.getEmail()).isEmpty()) {
+			user.setRole("ROLE_USER");
+			user.setEnabled(true);
+			user.setPassword(this.passwordEncoder.encode(user.getPassword()));
+			user.setOneTimePassword(OTP);
+			user.setOtpRequestedTime(new Date());
+			this.userRepository.save(user);
+			try {
+				OtpVerification otpVerification = new OtpVerification();
+				otpVerification.generateOneTimePassword(user, OTP);
+			} catch (Exception e) {
+				System.out.println(e);
 			}
-			User users2 = userRepository.findByEmail(email).get(0);
-			System.out.println(otp + " " + users2.getOneTimePassword());
-			if(users2.getOneTimePassword().compareTo(otp)==0)
-				return "login";
-			else {
-				model.addAttribute("user", user);
-				model.addAttribute("otpbool", true);
-				return "signup";
-			}
+			model.addAttribute("user", user);
+			model.addAttribute("otpbool", true);
+			return "signup";
+		}
+		User users2 = userRepository.findByEmail(email).get(0);
+		System.out.println(otp + " " + users2.getOneTimePassword());
+		if(users2.getOneTimePassword().compareTo(otp)==0)
+			return "login";
+		else {
+			model.addAttribute("user", user);
+			model.addAttribute("otpbool", true);
+			return "signup";
+		}
 
 	}
 
-	//handler for custom login
 	@GetMapping("/signin")
 	public String customLogin(Model model)
 	{

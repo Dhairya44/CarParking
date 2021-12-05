@@ -65,9 +65,6 @@ public class UserController {
 	@ModelAttribute
 	public void addCommonData(Model model, Principal principal) {
 		String userName = principal.getName();
-
-		// get the user using usernamne(Email)
-
 		User user = userRepository.getUserByUserName(userName);
 		model.addAttribute("user", user);
 	}
@@ -163,6 +160,24 @@ public class UserController {
 		m.addAttribute("currentPage", page);
 		m.addAttribute("totalPages", slots.getTotalPages());
 		return "normal/show_slot";
+	}
+
+	@RequestMapping("/{cId}/worker")
+	public String showWorkerDetail(@PathVariable("cId") Integer cId, Model model, Principal principal) {
+
+		Optional<Worker> workerOptional = this.workerRepository.findById(cId);
+		Worker worker = workerOptional.get();
+
+		//
+		String userName = principal.getName();
+		User user = this.userRepository.getUserByUserName(userName);
+
+		if (user.getId() == worker.getUser().getId()) {
+			model.addAttribute("worker", worker);
+			model.addAttribute("title", worker.getName());
+		}
+
+		return "normal/worker_detail";
 	}
 
 	@GetMapping("/deleteuser/{id}")
