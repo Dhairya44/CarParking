@@ -10,7 +10,8 @@ body {
 	height: 100vh;
 	/* This is for the height and width of gamecontainer; used to fill screen. */
 
-	overflow: hidden;
+	/*overflow: hidden;*/
+	background-color: #905581;
 	background-repeat: no-repeat;
 	margin: auto;
 !important;
