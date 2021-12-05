@@ -126,7 +126,7 @@ public class AdminController {
     {
         int amt=Integer.parseInt(data.get("amount").toString());
         User user = userRepository.getUserByUserName(principal.getName());
-        user.setMoney(amt);
+        user.setMoney(user.getMoney() + amt);
         userRepository.save(user);
         var client=new RazorpayClient("rzp_test_3fGEPJTbBw4c9f", "ntnofRbVEbYf5xQ7q962WQZE");
 
