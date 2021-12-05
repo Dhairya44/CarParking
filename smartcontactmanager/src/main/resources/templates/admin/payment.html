@@ -10,13 +10,15 @@
     <div class="container">
         <div class="card">
             <div class="card-body my-5">
-                <h3 class="my-3">Payment Amount</h3>
-                <p id="xyz" th:value="${100}">100</p>
-                <input id="payment_field" type="text" class="form-control my-2" th:placeholder="${cost}" />
 
-                <div class="container text-center mt-3">
+
+                <h3 class="my-3" style="margin-top: 10px; padding-bottom: 20px;">Payment Amount</h3>
+                <input id="payment_field" type="text" class="form-control my-2" placeholder="Amount" />
+
+                <div class="container text-center mt-3" style="padding-top: 30px;padding-right: 100px;padding-left: 100px;">
                     <button onclick="paymentStart()" class="btn btn-success btn-block">Checkout</button>
                 </div>
+
             </div>
         </div>
     </div>

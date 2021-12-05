@@ -12,7 +12,7 @@
 
         <div class="card-body">
 
-            <h1 class="text-center">Parking Slots</h1>
+            <h1 class="text-center" style="margin-bottom: 0px;margin-top: 15px;">Parking Slots</h1>
             <div class="table-responsive">
                 <div th:if="${error}" class="alert alert-danger">
                     Slot Already Booked
@@ -44,7 +44,7 @@
                         <td><span th:text="${c.price}"></span></td>
                         <td>
                             <form method="post" th:action="@{'/admin/book-slot/'+${c.id}}" class="mt-2">
-                                <button type="submit" class="btn btn-primary btn-sm">Book</button>
+                                <button type="submit" class="btn btn-danger btn-sm">Book</button>
                             </form>
                         </td>
                     </tr>

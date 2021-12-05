@@ -12,7 +12,7 @@
 
         <div class="card-body">
 
-            <h1 class="text-center">Parking Slots</h1>
+            <h1 class="text-center" style="padding-top: 20px;">Parking Slots</h1>
             <div th:if="${error}" class="alert alert-danger">
                 Slot already has a service provided
             </div>
@@ -38,7 +38,7 @@
                         <td><span th:text="${c.service}"></span></td>
                         <td>
                             <form method="post" th:action="@{'/worker/update-service/'+${c.id} + '/' + ${worker.name}}" class="mt-2">
-                                <button type="submit" class="btn btn-primary btn-sm">Add Service</button>
+                                <button type="submit" class="btn btn-danger  btn-sm">Add Service</button>
                             </form>
                         </td>
                     </tr>

@@ -12,7 +12,7 @@
 
         <div class="card-body">
 
-            <h1 class="text-center">My Services</h1>
+            <h1 class="text-center" style="margin-bottom: 0px;margin-top: 20px;">My Services</h1>
             <div class="table-responsive">
                 <table class="table table-hover ">
                     <thead class="thead-light ">
@@ -29,13 +29,13 @@
                     <tr th:each="c : ${slots}">
                         <td><span th:text="${c.id}"></span></td>
                         <td><span th:text="${c.location}"></span></td>
-                        <td><span th:text="${c.available}"></span></td>x`
+                        <td><span th:text="${c.available}"></span></td>
                         <td><span th:text="${c.inTime}"></span></td>
                         <td><span th:text="${c.outTime}"></span></td>
                         <td><span th:text="${c.service}"></span></td>
                         <td>
                             <form method="post" th:action="@{'/worker/cancel-service/'+${c.id}+'/'+${worker.name}}" class="mt-2">
-                                <button type="submit" class="btn btn-primary btn-sm">Cancel Service</button>
+                                <button type="submit" class="btn btn-danger btn-sm">Cancel Service</button>
                             </form>
                         </td>
                     </tr>
