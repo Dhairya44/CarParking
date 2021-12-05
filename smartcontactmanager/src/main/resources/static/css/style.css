@@ -17,7 +17,7 @@ body {
 }
 
 .bg-primary {
-	background: #0f2235fa !important;
+	background: #0f223561 !important;
 }
 
 .navbar-nav{
@@ -52,7 +52,7 @@ body {
 	margin-top: 120px;
 	max-width: 600px;
 	height: 420px;
-	border: 1px solid #9C9C9C;
+	/*border: 1px solid #9C9C9C;*/
 	background-color: white;
 }
 
@@ -118,6 +118,7 @@ body {
 }
 
 .sidebar .crossBtn{
+	background-color: #0f2235;
 	position: absolute;
 	top: 0;
 	right: 35px;
@@ -143,7 +144,7 @@ body {
 	background:white;
 	width: 100%;
 	padding:10px;
-	border: 1px solid gray;
+	/*border: 1px solid gray;*/
 	display: none;
 }
 
@@ -215,7 +216,9 @@ body {
 }
 .crossBtn{
 	color: #dee4ee;
-	background-color: #009dae;
+	font-weight: bold;
+	font-family: system-ui;
+	background-color: #009dae00;
 	border: none;
 	font-size: 1em;
 }
@@ -305,3 +308,9 @@ li.nav-item {
 	color: white;
 }
 
+
+.table td{
+	padding: 0.75rem;
+	vertical-align: top;
+	border-top: 1px solid #dee2e600;
+}
