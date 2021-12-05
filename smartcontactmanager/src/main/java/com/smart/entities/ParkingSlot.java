@@ -25,9 +25,17 @@ public class ParkingSlot {
     private Date date;
     private int price;
     private String regisNumber;
-
+    private int workerRating;
     public int getPrice() {
         return price;
+    }
+
+    public int getWorkerRating() {
+        return workerRating;
+    }
+
+    public void setWorkerRating(int workerRating) {
+        this.workerRating = workerRating;
     }
 
     public String getDay() {

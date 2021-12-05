@@ -43,6 +43,8 @@ public class User {
 	private Date otpRequestedTime;
 	String carModel;
 	String carRegis;
+	private double money;
+
 
 	public String getCarModel() {
 		return carModel;
@@ -50,6 +52,14 @@ public class User {
 
 	public void setCarModel(String carModel) {
 		this.carModel = carModel;
+	}
+
+	public double getMoney() {
+		return money;
+	}
+
+	public void setMoney(double money) {
+		this.money = money;
 	}
 
 	public String getCarRegis() {
@@ -62,6 +72,7 @@ public class User {
 
 	public User() {
 		super();
+		money = 0;
 	}
 
 	public String getOneTimePassword() {

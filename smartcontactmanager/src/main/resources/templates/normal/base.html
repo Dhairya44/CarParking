@@ -123,7 +123,7 @@
 
 				<li class="nav-item nav-end"><a class=" adm-left" th:href="@{/user/profile}"
 
-												tabindex="-1" aria-disabled="false"><i class="fas1 fas fa-user-tie fa-lg"></i><span th:text="${user.username}"></span></a></li>
+												tabindex="-1" aria-disabled="false"><i class="fas fa-user-circle fa-lg"></i><span th:text="${user.username}"></span></a></li>
 
 
 
@@ -174,20 +174,12 @@
   				
 			</div>
 			
-			<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 			
 		   </div>
 	
-	
 			<div th:replace="${content}"></div>
-	
-	
 	</div>
-	
-	<!-- END Content area  -->
-	<!-- Optional JavaScript -->
-
-
 	<script
 		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
 		integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"

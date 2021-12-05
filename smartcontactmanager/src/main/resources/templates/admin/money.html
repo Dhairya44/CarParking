@@ -12,10 +12,10 @@
             <div class="card-body my-5">
                 <h3 class="my-3">Payment Amount</h3>
                 <p id="xyz" th:value="${100}">100</p>
-                <input id="payment_field" type="text" class="form-control my-2" th:placeholder="${cost}" />
+                <input id="payment_field" type="text" class="form-control my-2" placeholder="Enter Amount" />
 
                 <div class="container text-center mt-3">
-                    <button onclick="paymentStart()" class="btn btn-success btn-block">Checkout</button>
+                    <button onclick="paymentAdd()" class="btn btn-success btn-block">Checkout</button>
                 </div>
             </div>
         </div>
@@ -24,7 +24,7 @@
     <script>
         $(document).ready(() => {
             $(".item").removeClass("active");
-            $("#payment-link").addClass("active");
+            $("#money-link").addClass("active");
         });
     </script>
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
