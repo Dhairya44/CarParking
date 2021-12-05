@@ -44,10 +44,10 @@
                         <td><span th:text="${c.price}"></span></td>
                         <td><span th:text="${c.regisNumber}"></span></td>
                         <td>
-                            <a th:href="@{'/user/deleteslot/' + ${c.id}}" class="btn btn-danger-shadow-none"><i class="fas fa-trash" style="color:darkred"></i></a>
+                            <a th:href="@{'/user/deleteslot/' + ${c.id}}" class="btn btn-danger-shadow-none"><i class="fas fa-trash" style="color:darkred"></i>
                             <form method="post" th:action="@{'/user/update-slot/'+${c.id}}" class="mt-2">
                                 <button type="submit" class="btn btn-danger-shadow-none"><i class="fas fa-exchange-alt" style="color:forestgreen"></i></button>
-                            </form>
+                            </form></a>
                         </td>
                     </tr>
                     </tbody>
@@ -65,7 +65,6 @@
     <script>
         $(document).ready(() => {
             $(".item").removeClass("active");
-            $("#slots-link").addClass("active");
         });
     </script>
 

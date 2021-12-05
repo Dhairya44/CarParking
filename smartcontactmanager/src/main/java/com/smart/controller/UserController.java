@@ -165,24 +165,6 @@ public class UserController {
 		return "normal/show_slot";
 	}
 
-	@RequestMapping("/{cId}/worker")
-	public String showWorkerDetail(@PathVariable("cId") Integer cId, Model model, Principal principal) {
-
-		Optional<Worker> workerOptional = this.workerRepository.findById(cId);
-		Worker worker = workerOptional.get();
-
-		//
-		String userName = principal.getName();
-		User user = this.userRepository.getUserByUserName(userName);
-
-		if (user.getId() == worker.getUser().getId()) {
-			model.addAttribute("worker", worker);
-			model.addAttribute("title", worker.getName());
-		}
-
-		return "normal/worker_detail";
-	}
-
 	@GetMapping("/deleteuser/{id}")
 	public String deleteUser(@PathVariable("id") Integer Id, HttpSession session,
 							   Principal principal) {

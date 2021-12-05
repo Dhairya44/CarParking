@@ -31,6 +31,7 @@ public class AdminController {
 
     private int flag=0;
     private int cost = 0;
+    private int ParkingID = 0;
 
     @Autowired
     SmsSender smsSender;
@@ -102,16 +103,33 @@ public class AdminController {
     public String createOrder(@RequestBody Map<String, Object> data, Principal principal) throws Exception
     {
         int amt=Integer.parseInt(data.get("amount").toString());
+        ParkingSlot parkingSlot = parkingSlotRepository.getOne(ParkingID);
         User user = userRepository.getUserByUserName(principal.getName());
+
         if(user.getMoney()<amt)
             return "redirect:/admin/payment";
 
+        parkingSlot.setDate(new Date());
+        if(parkingSlot.getNameOfUsers()==null)
+            parkingSlot.setNameOfUsers(user.getUsername());
+        else
+            parkingSlot.setNameOfUsers(user.getUsername()  + " " + parkingSlot.getNameOfUsers());
+        if(parkingSlot.getRegisNumber()==null)
+            parkingSlot.setRegisNumber(user.getCarRegis());
+        else
+            parkingSlot.setRegisNumber(user.getCarRegis()+" "+parkingSlot.getRegisNumber());
+
         user.setMoney(user.getMoney()-amt);
         userRepository.save(user);
+        parkingSlotRepository.save(parkingSlot);
         var client=new RazorpayClient("rzp_test_3fGEPJTbBw4c9f", "ntnofRbVEbYf5xQ7q962WQZE");
 
+        String to = user.getPhone();
+        String message = "Your Parking Slot at Location "+parkingSlot.getLocation()+" on " + parkingSlot.getDay() +" with In Time: " + parkingSlot.getInTime()+" and Out Time: " + parkingSlot.getOutTime() +" is booked!";
+        smsSender.sendSms(message, to);
+
         JSONObject ob=new JSONObject();
-        ob.put("amount", amt*100);
+        ob.put("amount",  amt*100);
         ob.put("currency", "INR");
         ob.put("receipt", "txn_235425");
 
@@ -163,7 +181,6 @@ public class AdminController {
         m.addAttribute("title", "Book Parking");
         User admin = userRepository.getUserByUserName(principal.getName());
         m.addAttribute("admin", admin);
-
         m.addAttribute("id", id);
         return "admin/add_registration";
     }
@@ -172,6 +189,12 @@ public class AdminController {
     public String processRegis(@PathVariable("id")Integer id, @Valid @ModelAttribute("carModel") String carModel, @Valid @ModelAttribute("carRegis") String carRegis, Model model, Principal principal){
         ParkingSlot parkingSlot = parkingSlotRepository.getOne(id);
         User admin = userRepository.getUserByUserName(principal.getName());
+
+        if(!(parkingSlot.getNameOfUsers()==null) && parkingSlot.getNameOfUsers().contains(admin.getUsername())){
+            flag = 1;
+            return "redirect:/admin/show-slots/0";
+        }
+
         if(parkingSlot.getAvailable()>0) {
             parkingSlot.setAvailable(parkingSlot.getAvailable() - 1);
         }
@@ -179,29 +202,13 @@ public class AdminController {
             parkingSlot.setWaiting(parkingSlot.getWaiting()+1);
         }
 
-        if(!(parkingSlot.getNameOfUsers()==null) && parkingSlot.getNameOfUsers().contains(admin.getUsername())){
-            flag = 1;
-            return "redirect:/admin/show-slots/0";
-        }
         admin.setCarModel(carModel);
         admin.setCarRegis(carRegis);
-        parkingSlot.setDate(new Date());
-        if(parkingSlot.getNameOfUsers()==null)
-            parkingSlot.setNameOfUsers(admin.getUsername());
-        else
-            parkingSlot.setNameOfUsers(admin.getUsername()  + " " + parkingSlot.getNameOfUsers());
-        if(parkingSlot.getRegisNumber()==null)
-            parkingSlot.setRegisNumber(admin.getCarRegis());
-        else
-            parkingSlot.setRegisNumber(admin.getCarRegis()+" "+parkingSlot.getRegisNumber());
-
-//        String to = admin.getPhone();
-//        String message = "Your Parking Slot at Location "+parkingSlot.getLocation()+" with In Time: " + parkingSlot.getInTime()+" is booked!";
-//        smsSender.sendSms(message, to);
+        userRepository.save(admin);
+        ParkingID = id;
         cost = parkingSlot.getPrice();
         parkingSlotRepository.save(parkingSlot);
-        userRepository.save(admin);
-
+        model.addAttribute("cost", cost);
         return "redirect:/admin/payment";
     }
 
@@ -233,11 +240,16 @@ public class AdminController {
         String master = parkingSlot.getNameOfUsers();
         String target = admin.getUsername();
         String processed = master.replace(target, "\n");
+        String master2 = parkingSlot.getRegisNumber();
+        String target2 = admin.getCarRegis();
+        String processed2 = master2.replace(target2, "\n");
+
         admin.setCarRegis(null);
         admin.setCarModel(null);
         admin.setMoney(admin.getMoney()+parkingSlot.getPrice());
         userRepository.save(admin);
         parkingSlot.setNameOfUsers(processed);
+        parkingSlot.setRegisNumber(processed2);
         parkingSlotRepository.save(parkingSlot);
         return "redirect:/admin/show-bookings/0/";
     }
