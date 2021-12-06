@@ -170,6 +170,11 @@ body {
 	text-align: center;
 	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 	background: radial-gradient(at 147% 25%, #4d636fe6 10px, #20313be6 90%);
+	transition: transform 0.2s;
+}
+
+.card:hover{
+	transform: scale(1.07);
 }
 
 /*text in your profile*/

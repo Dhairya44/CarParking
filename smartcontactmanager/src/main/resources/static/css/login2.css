@@ -9,7 +9,7 @@
 .form {
   /*background-color: #20313be6;*/
   border-radius: 20px;
-  position: relative;
+  /*position: relative;*/
   width: 25.5%;
   z-index: 1;
   margin: 0;
@@ -21,10 +21,50 @@
   max-width: 360px;
   margin: 0 auto 100px;
   padding: 45px;
+  /*transition: transform 0.2s;*/
   text-align: center;
   background: linear-gradient( 70deg, #072e77e0, #c930b0d9);
   box-shadow: 0 0 20px 0 rgb(0 0 0 / 20%), 0 5px 5px 0 rgb(0 0 0 / 24%);
+  animation-name: form-ani;
+  animation-duration: 1.8s;
 }
+
+/*.form-anim{*/
+/*  animation: form 3s linear;*/
+/*}*/
+
+@keyframes form-ani{
+  0%{
+    margin: 0 100em 100px;
+    /*left: 1000em;*/
+  }
+  50%{
+    margin: 0 1em 100px;
+  }
+  100%{
+    margin: 0 auto 100px;
+    /*-ms-transform: translateY(-50%);*/
+    /*transform: translateY(-50%);*/
+  }
+}
+/*.login-hover:hover{*/
+/*  transform: scale(1.1);*/
+/*  top: 25%;*/
+/*  text-align: center;*/
+/*}.*/
+
+/* .su-hover:hover{*/
+/*  transform: scale(1.05);*/
+/*  top: 0%;*/
+/*  text-align: center;*/
+/*}*/
+/*.worker-hover:hover{*/
+/*  transform: scale(1.1);*/
+/*  top: 37.5%;*/
+/*  text-align: center;*/
+/*  */
+/*}*/
+
 
 .form input {
   font-family: "Roboto", sans-serif;
