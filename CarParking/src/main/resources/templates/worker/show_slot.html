@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="worker/base::layout(~{::section})">
+<head>
+    <meta charset="UTF-8" />
+    <title>this is home page</title>
+</head>
+<body>
+<section style="padding-top: 100px;">
+
+    <div class="card">
+
+        <div class="card-body">
+
+            <h1 class="text-center" style="padding-top: 20px;">Parking Slots</h1>
+            <div th:if="${error}" class="alert alert-danger">
+                Slot already has a service provided
+            </div>
+            <div class="table-responsive">
+                <table class="table ">
+                    <thead class="thead-light ">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Available</th>
+                        <th scope="col">InTime</th>
+                        <th scope="col">OutTime</th>
+                        <th scope="col">Service</th>
+                        <th scope="col">Modify</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="c : ${slots}">
+                        <td><span th:text="${c.id}"></span></td>
+                        <td><span th:text="${c.location}"></span></td>
+                        <td><span th:text="${c.available}"></span></td>
+                        <td><span th:text="${c.inTime}"></span></td>
+                        <td><span th:text="${c.outTime}"></span></td>
+                        <td><span th:text="${c.service}"></span></td>
+                        <td>
+                            <form method="post" th:action="@{'/worker/update-service/'+${c.id} + '/' + ${worker.name}}" class="mt-2">
+                                <button type="submit" class="btn btn-danger  btn-sm">Add Service</button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(() => {
+            $(".item").removeClass("active");
+        });
+    </script>
+
+</section>
+</body>
+</html>

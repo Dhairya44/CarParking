@@ -6,9 +6,6 @@ import com.smart.dao.WorkerRepository;
 import com.smart.entities.ParkingSlot;
 import com.smart.entities.Worker;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -53,8 +50,8 @@ public class WorkerController {
         return "worker/profile";
     }
 
-    @GetMapping("/show-slots/{page}/{name}")
-    public String showSlots(@PathVariable("name") String name, @PathVariable("page") Integer page, Model m, Principal principal) {
+    @GetMapping("/show-slots/{name}")
+    public String showSlots(@PathVariable("name") String name, Model m, Principal principal) {
         m.addAttribute("title", "Show Parkings");
         List<Worker> worker1 = workerRepository.findWorkerByName(name);
         Worker worker = worker1.get(0);
@@ -62,11 +59,8 @@ public class WorkerController {
         if(flag==1)
             m.addAttribute("error" , true);
         flag  = 0;
-        Pageable pageable = PageRequest.of(page, 4);
-        Page<ParkingSlot> slots = this.parkingSlotRepository.findAll(pageable);
+        List<ParkingSlot> slots = this.parkingSlotRepository.findAll();
         m.addAttribute("slots", slots);
-        m.addAttribute("currentPage", page);
-        m.addAttribute("totalPages", slots.getTotalPages());
         return "worker/show_slot";
     }
 
@@ -83,7 +77,7 @@ public class WorkerController {
         }
         else{
             flag = 1;
-            return "redirect:/worker/show-slots/0/"+worker.getName();
+            return "redirect:/worker/show-slots/"+worker.getName();
         }
     }
 
@@ -94,21 +88,17 @@ public class WorkerController {
         Worker worker = worker1.get(0);
         parkingSlot.setService(service+"("+worker.getName()+")");
         parkingSlotRepository.save(parkingSlot);
-        return "redirect:/worker/show-slots/0/"+worker.getName();
+        return "redirect:/worker/show-slots/"+worker.getName();
     }
 
-    @GetMapping("/show-services/{page}/{name}")
-    public String showServices(@PathVariable("name") String name, @PathVariable("page") Integer page, Model m, Principal principal) {
+    @GetMapping("/show-services/{name}")
+    public String showServices(@PathVariable("name") String name, Model m, Principal principal) {
         m.addAttribute("title", "Show Services");
         List<Worker> worker1 = workerRepository.findWorkerByName(name);
         Worker worker = worker1.get(0);
         m.addAttribute("worker", worker);
-        Pageable pageable = PageRequest.of(page, 4);
-        Page<ParkingSlot> slots = this.parkingSlotRepository.findAll(pageable);
         List<ParkingSlot> slot = this.parkingSlotRepository.findParkingSlotByServiceContaining(name);
         m.addAttribute("slots", slot);
-        m.addAttribute("currentPage", page);
-        m.addAttribute("totalPages", slots.getTotalPages());
         return "worker/show_services";
     }
 
@@ -119,6 +109,6 @@ public class WorkerController {
         Worker worker = worker1.get(0);
         parkingSlot.setService(null);
         parkingSlotRepository.save(parkingSlot);
-        return "redirect:/worker/show-services/0/"+worker.getName();
+        return "redirect:/worker/show-services/"+worker.getName();
     }
 }

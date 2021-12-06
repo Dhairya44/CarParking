@@ -10,9 +10,6 @@ import com.smart.helper.Message;
 import com.smart.sms.SmsSender;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -84,7 +81,7 @@ public class AdminController {
 
     @GetMapping("/payment")
     public String payment(Model model, Principal principal) {
-        model.addAttribute("title", "Profile Page");
+        model.addAttribute("title", "Payment");
         User admin = userRepository.getUserByUserName(principal.getName());
         model.addAttribute("cost", cost);
         model.addAttribute("admin", admin);
@@ -93,7 +90,7 @@ public class AdminController {
 
     @GetMapping("/add-money")
     public String addMoney(Model model, Principal principal) {
-        model.addAttribute("title", "Profile Page");
+        model.addAttribute("title", "Add Money");
         User admin = userRepository.getUserByUserName(principal.getName());
         model.addAttribute("cost", cost);
         model.addAttribute("admin", admin);
@@ -159,21 +156,17 @@ public class AdminController {
         return order.toString();
     }
 
-    @GetMapping("/show-slots/{page}")
-    public String showSlots(@PathVariable("page") Integer page, Model m, Principal principal) {
+    @GetMapping("/show-slots")
+    public String showSlots(Model m, Principal principal) {
         m.addAttribute("title", "Show Parkings");
         User admin = userRepository.getUserByUserName(principal.getName());
         m.addAttribute("admin", admin);
-        Pageable pageable = PageRequest.of(page, 4);
-        Page<ParkingSlot> slots = this.parkingSlotRepository.findAll(pageable);
-
+        List<ParkingSlot> slots = this.parkingSlotRepository.findAll();
 
         boolean error = flag == 1;
         flag = 0;
         m.addAttribute("error", error);
         m.addAttribute("slots", slots);
-        m.addAttribute("currentPage", page);
-        m.addAttribute("totalPages", slots.getTotalPages());
         return "admin/show_slot";
     }
 
@@ -193,7 +186,7 @@ public class AdminController {
 
         if(!(parkingSlot.getNameOfUsers()==null) && parkingSlot.getNameOfUsers().contains(admin.getUsername())){
             flag = 1;
-            return "redirect:/admin/show-slots/0";
+            return "redirect:/admin/show-slots";
         }
 
         if(parkingSlot.getAvailable()>0) {
@@ -213,14 +206,12 @@ public class AdminController {
         return "redirect:/admin/payment";
     }
 
-    @GetMapping("/show-bookings/{page}")
-    public String showBookings(@PathVariable("page") Integer page, Model m, Principal principal) {
+    @GetMapping("/show-bookings")
+    public String showBookings(Model m, Principal principal) {
         m.addAttribute("title", "Show Bookings");
         User admin = userRepository.getUserByUserName(principal.getName());
         m.addAttribute("admin", admin);
-        Pageable pageable = PageRequest.of(page, 4);
         int cost = 0;
-        Page<ParkingSlot> slots = this.parkingSlotRepository.findAll(pageable);
         List<ParkingSlot> bookings = this.parkingSlotRepository.findParkingSlotByNameOfUsersContaining(admin.getUsername());
         if(!bookings.isEmpty()) {
             for (ParkingSlot book : bookings) {
@@ -229,8 +220,6 @@ public class AdminController {
         }
         m.addAttribute("cost", cost);
         m.addAttribute("book", bookings);
-        m.addAttribute("currentPage", page);
-        m.addAttribute("totalPages", slots.getTotalPages());
         return "admin/my-booking";
     }
 
@@ -257,6 +246,6 @@ public class AdminController {
         String message = "Your Booking Parking Slot is Cancelled!!";
         smsSender.sendSms(message, to);
 
-        return "redirect:/admin/show-bookings/0/";
+        return "redirect:/admin/show-bookings/";
     }
 }
