@@ -29,9 +29,6 @@
   animation-duration: 1.8s;
 }
 
-/*.form-anim{*/
-/*  animation: form 3s linear;*/
-/*}*/
 
 @keyframes form-ani{
   0%{
@@ -47,24 +44,6 @@
     /*transform: translateY(-50%);*/
   }
 }
-/*.login-hover:hover{*/
-/*  transform: scale(1.1);*/
-/*  top: 25%;*/
-/*  text-align: center;*/
-/*}.*/
-
-/* .su-hover:hover{*/
-/*  transform: scale(1.05);*/
-/*  top: 0%;*/
-/*  text-align: center;*/
-/*}*/
-/*.worker-hover:hover{*/
-/*  transform: scale(1.1);*/
-/*  top: 37.5%;*/
-/*  text-align: center;*/
-/*  */
-/*}*/
-
 
 .form input {
   font-family: "Roboto", sans-serif;
